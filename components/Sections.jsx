@@ -398,7 +398,7 @@ const Retreat = () => (
 
       <div className="gallery">
         <h3 className="gallery__h3">What a retreat actually looks like.</h3>
-        <p className="gallery__sub">Preview from the last cohort — Smoky Mountains, October 2025.</p>
+        <p className="gallery__sub">Preview from the last retreat — Broken Bow, February 2026.</p>
         <div className="gallery__grid">
           <div className="gallery__cell gallery__cell--tall" style={{backgroundImage: `url(${IMG.g1})`}} />
           <div className="gallery__cell" style={{backgroundImage: `url(${IMG.g2})`}} />
