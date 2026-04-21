@@ -1,0 +1,7 @@
+{
+  "name": "masterman-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Masterman marketing site — static HTML + React via CDN.",
+  "scripts": {}
+}
