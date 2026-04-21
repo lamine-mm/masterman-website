@@ -107,7 +107,7 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
           <a href="about.html" className="nav__link">About</a>
           <a href="retreats.html" className="nav__link">Retreats</a>
         </div>
-        <a href="#apply" className="nav__cta">Free Assessment</a>
+        <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="nav__cta">Free Assessment</a>
       </div>
     </nav>
   );
@@ -147,7 +147,7 @@ const Hero = ({ variant = 'A' }) => {
             motivation loop. Identity work, honest brotherhood, and retreats that leave a mark.
           </p>
           <div className="hero__cta-row">
-            <a href="#apply" className="btn btn--primary">
+            <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--primary">
               Take Free Assessment
               <span className="btn__arrow">→</span>
             </a>
@@ -298,6 +298,8 @@ const PROGRAMS = [
     entry: 'Join free.',
     cta: 'Join Community',
     ctaKind: 'ghost',
+    href: 'https://www.skool.com/mastermannation',
+    external: true,
   },
   {
     rung: 'Rung II',
@@ -310,6 +312,8 @@ const PROGRAMS = [
     cta: 'Take Free Assessment',
     ctaKind: 'primary',
     featured: true,
+    href: 'https://assessment.mastermangroup.com/',
+    external: true,
   },
   {
     rung: 'Rung III',
@@ -321,6 +325,8 @@ const PROGRAMS = [
     entry: 'Application for the next retreat.',
     cta: 'See Retreat Options',
     ctaKind: 'ghost',
+    href: 'retreats.html',
+    external: false,
   },
 ];
 
@@ -369,7 +375,9 @@ const Programs = () => (
               </div>
             </div>
             <p className="program__entry"><strong>Entry.</strong> {p.entry}</p>
-            <a href="#apply" className={`btn btn--${p.ctaKind} program__cta`}>
+            <a href={p.href}
+              {...(p.external ? {target: '_blank', rel: 'noopener'} : {})}
+              className={`btn btn--${p.ctaKind} program__cta`}>
               {p.cta}
               <span className="btn__arrow">→</span>
             </a>
@@ -415,7 +423,7 @@ const Retreat = () => (
           <p className="retreat__up-desc">Small-group immersion. Identity, discipline, and brotherhood in a high-accountability setting.</p>
           <div className="retreat__up-capacity">Limited capacity · 14 seats</div>
         </div>
-        <a href="#apply" className="btn btn--primary">Apply for the Next Retreat<span className="btn__arrow">→</span></a>
+        <a href="https://apply.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--primary">Apply for the Next Retreat<span className="btn__arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -561,9 +569,9 @@ const FinalCTA = () => (
           <p>If that's not you, the free community is the right door. No offense taken. No pressure to move up.</p>
         </div>
         <div className="finalcta__ctas">
-          <a href="#apply" className="btn btn--primary">Take Free Assessment<span className="btn__arrow">→</span></a>
-          <a href="#call" className="btn btn--ghost">Book a Discovery Call</a>
-          <a href="#nation" className="btn btn--link">Join Nation — Free →</a>
+          <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--primary">Take Free Assessment<span className="btn__arrow">→</span></a>
+          <a href="https://apply.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--ghost">Book a Discovery Call</a>
+          <a href="https://www.skool.com/mastermannation" target="_blank" rel="noopener" className="btn btn--link">Join Nation — Free →</a>
         </div>
       </div>
     </div>
@@ -588,8 +596,8 @@ const Footer = ({ logoPath = 'assets/logo-mark.png' }) => (
           <a className="footer__link" href="programs.html">Programs</a>
           <a className="footer__link" href="about.html">About</a>
           <a className="footer__link" href="retreats.html">Retreats</a>
-          <a className="footer__link" href="#apply">Apply</a>
-          <a className="footer__link" href="#contact">Contact</a>
+          <a className="footer__link" href="https://apply.mastermangroup.com/" target="_blank" rel="noopener">Apply</a>
+          <a className="footer__link" href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener">Assessment</a>
         </div>
         <div className="footer__copy">© 2026 Masterman. All rights reserved.</div>
       </div>
