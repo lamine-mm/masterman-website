@@ -85,6 +85,21 @@ const Splash = () => {
 };
 
 /* ============================================================
+   URGENCY BAR — sticky top strip, soft pulse, links to apply.
+   ============================================================ */
+const UrgencyBar = () => (
+  <a href="https://apply.mastermangroup.com/" target="_blank" rel="noopener" className="urgency-bar">
+    <span className="urgency-bar__dot" aria-hidden="true" />
+    <span className="urgency-bar__text">
+      <strong>Upcoming Retreat</strong>
+      <span className="urgency-bar__sep">·</span>
+      <span className="urgency-bar__spots">20 spots left</span>
+    </span>
+    <span className="urgency-bar__cta">Sign up to the Retreat<span className="urgency-bar__arrow" aria-hidden="true">→</span></span>
+  </a>
+);
+
+/* ============================================================
    NAV
    ============================================================ */
 const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
@@ -610,6 +625,7 @@ const Footer = ({ logoPath = 'assets/logo-mark.png' }) => (
 
 Object.assign(window, {
   MMSplash: Splash,
+  MMUrgencyBar: UrgencyBar,
   MMNav: Nav,
   MMHero: Hero,
   MMProblem: Problem,
