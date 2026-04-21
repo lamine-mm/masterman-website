@@ -1,0 +1,366 @@
+/* ============================================================
+   MASTERMAN — colors_and_type.css
+   Dark throughout. Warm, grounded, earthy.
+   Discipline the gold; let the dark carry the confidence.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap');
+
+:root {
+  /* ---------- COLOR: INK (warm darks, never pure black) ---------- */
+  --ink-900: #0E0E0D;   /* primary canvas — near-black, slightly warm */
+  --ink-850: #111111;   /* alternate primary canvas */
+  --ink-800: #1A1A1A;   /* card surface */
+  --ink-750: #1F1F1E;   /* divider / raised card */
+  --ink-700: #26241F;   /* hover / subtle emphasis */
+  --ink-600: #3A2E1F;   /* deep brown — secondary accent, borders */
+  --ink-500: #4A4438;   /* strong border */
+
+  /* ---------- COLOR: PARCHMENT (warm text, never pure white) ---------- */
+  --parchment-100: #F4EFE6;   /* primary text */
+  --parchment-300: #A9A39A;   /* secondary text / metadata */
+  --parchment-500: #6E6862;   /* tertiary / disabled */
+
+  /* ---------- COLOR: GOLD (primary CTA + framework anchor ONLY) ---------- */
+  --gold-400: #C8A24B;   /* primary gold */
+  --gold-500: #B8923A;   /* hover / pressed */
+  --gold-300: #D9B768;   /* lightened — rare */
+  --gold-hairline: rgba(200, 162, 75, 0.28);  /* rare section-anchor rule */
+
+  /* ---------- COLOR: SEMANTIC (quiet, earth-toned) ---------- */
+  --olive:     #7A8B6B;   /* brotherhood / completion — rare */
+  --terracotta:#A24B3A;   /* form error / warning */
+
+  /* ---------- SEMANTIC ROLES ---------- */
+  --bg:            var(--ink-900);
+  --surface:       var(--ink-800);
+  --surface-2:     var(--ink-750);
+  --border:        var(--ink-600);
+  --border-strong: var(--ink-500);
+  --accent:        var(--gold-400);   /* use sparingly */
+  --accent-strong: var(--gold-500);
+
+  --fg:         var(--parchment-100);   /* headlines + body */
+  --fg-body:    var(--parchment-100);
+  --fg-muted:   var(--parchment-300);   /* metadata, captions */
+  --fg-dim:     var(--parchment-500);
+  --fg-on-gold: var(--ink-900);
+
+  /* ---------- TYPE: FAMILIES ---------- */
+  --font-display: 'Fraunces', 'GT Sectra', 'Tiempos Headline', Georgia, serif;
+  --font-text:    'Inter', 'Söhne', 'Neue Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-arabic:  'Amiri', 'Kitab', serif;
+  --font-mono:    ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ---------- TYPE: SCALE (px) — per brand brief ---------- */
+  --fs-eyebrow: 12px;     /* 12–13, small-caps */
+  --fs-xs:      13px;
+  --fs-sm:      14px;
+  --fs-ui:      16px;     /* mobile body */
+  --fs-base:    17px;     /* body — desktop */
+  --fs-body-lg: 18px;
+  --fs-h3-m:    22px;     /* h3 mobile */
+  --fs-h3:      28px;     /* h3 desktop (24–32) */
+  --fs-h2-m:    32px;     /* h2 mobile */
+  --fs-h2:      48px;     /* h2 desktop (40–56) */
+  --fs-h1-m:    40px;     /* h1 mobile (36–44) */
+  --fs-h1:      64px;     /* h1 desktop (56–72) */
+
+  /* ---------- TYPE: TRACKING ---------- */
+  --track-tight:   -0.02em;
+  --track-display: -0.015em;  /* humanist serif reads better slightly tight */
+  --track-normal:   0;
+  --track-eyebrow:  0.1em;    /* uppercase labels */
+
+  /* ---------- TYPE: WEIGHTS ---------- */
+  --wt-regular: 400;
+  --wt-medium:  500;
+  --wt-semi:    600;
+  --wt-bold:    700;
+  --wt-display: 450;          /* Fraunces sweet spot — 400–500, not bold */
+
+  /* ---------- SPACING (4px base) ---------- */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   24px;
+  --space-6:   32px;
+  --space-7:   48px;
+  --space-8:   64px;    /* mobile section rhythm */
+  --space-9:   96px;    /* desktop section rhythm min */
+  --space-10: 128px;    /* desktop section rhythm max */
+
+  /* ---------- RADII ---------- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-pill: 999px;
+
+  /* ---------- BORDERS ---------- */
+  --border-1:              1px solid var(--border);
+  --border-1-strong:       1px solid var(--border-strong);
+  --border-gold-hairline:  1px solid var(--gold-hairline);   /* rare, section-anchor */
+
+  /* ---------- SHADOWS (very subtle in dark mode) ---------- */
+  --shadow-sm:   0 1px 0 rgba(0,0,0,.5);
+  --shadow-md:   0 8px 24px -8px rgba(0,0,0,.6);
+  --shadow-lift: 0 16px 48px -12px rgba(0,0,0,.75);
+  --shadow-inset-pressed: inset 0 1px 0 rgba(255,255,255,.04), inset 0 -1px 0 rgba(0,0,0,.5);
+
+  /* ---------- MOTION ---------- */
+  --ease-standard: cubic-bezier(.2, .7, .2, 1);
+  --dur-ui:        180ms;
+  --dur-section:   320ms;
+
+  /* ---------- LAYOUT ---------- */
+  --container: 1200px;
+  --container-narrow: 860px;
+  --measure: 68ch;    /* max reading width — NEVER wider */
+}
+
+/* ============================================================
+   SEMANTIC ELEMENTS
+   ============================================================ */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg-body);
+  font-family: var(--font-text);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headlines — Fraunces humanist serif, weight 400–500 (NOT bold) */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: var(--wt-display);
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  letter-spacing: var(--track-display);
+  color: var(--fg);
+  margin: 0;
+}
+@media (max-width: 720px) { h1, .h1 { font-size: var(--fs-h1-m); } }
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: var(--wt-display);
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: var(--track-display);
+  color: var(--fg);
+  margin: 0;
+}
+@media (max-width: 720px) { h2, .h2 { font-size: var(--fs-h2-m); } }
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: var(--track-display);
+  color: var(--fg);
+  margin: 0;
+}
+@media (max-width: 720px) { h3, .h3 { font-size: var(--fs-h3-m); } }
+
+h4, .h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--fg);
+  margin: 0;
+}
+
+/* Body — Inter, generous line-height, max 68ch */
+p, .body {
+  font-family: var(--font-text);
+  font-weight: var(--wt-regular);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: var(--fg-body);
+  max-width: var(--measure);
+}
+.body-lg { font-size: var(--fs-body-lg); line-height: 1.55; }
+.body-sm { font-size: var(--fs-sm); line-height: 1.5; color: var(--fg-muted); }
+
+/* Eyebrow — small-caps, tracked 0.1em, quiet gold */
+.eyebrow {
+  font-family: var(--font-text);
+  font-weight: var(--wt-semi);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Arabic — deliberate moments only */
+.arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.2em;
+  line-height: 1.6;
+  direction: rtl;
+}
+
+/* Editorial — use Fraunces italic, not a separate family */
+.editorial {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  line-height: 1.35;
+  color: var(--fg);
+}
+
+.numeral {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--accent);
+}
+
+code, .code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--surface);
+  border: var(--border-1);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--fg-body);
+}
+
+a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color var(--dur-ui) var(--ease-standard);
+}
+a:hover { color: var(--accent); }
+
+/* Reserved gold hairline — use sparingly, only as framework/section anchor */
+hr, .rule-gold {
+  border: 0;
+  border-top: 1px solid var(--accent);
+  opacity: .8;
+  margin: var(--space-7) 0;
+}
+.rule-neutral {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-7) 0;
+}
+
+/* ============================================================
+   PRIMITIVES
+   ============================================================ */
+
+.container        { max-width: var(--container); margin: 0 auto; padding: 0 var(--space-5); }
+.container-narrow { max-width: var(--container-narrow); margin: 0 auto; padding: 0 var(--space-5); }
+
+.card {
+  background: var(--surface);
+  border: var(--border-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+}
+.card--anchor { /* reserved: one anchor card per section, max */
+  border-top: 1px solid var(--accent);
+}
+
+/* Buttons — gold is ONLY for the primary apply/CTA */
+.btn {
+  font-family: var(--font-text);
+  font-weight: var(--wt-semi);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.02em;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: background var(--dur-ui) var(--ease-standard),
+              border-color var(--dur-ui) var(--ease-standard),
+              transform var(--dur-ui) var(--ease-standard),
+              color var(--dur-ui) var(--ease-standard);
+  text-decoration: none;
+}
+.btn--primary {
+  background: var(--accent);
+  color: var(--fg-on-gold);
+  border-color: var(--accent);
+}
+.btn--primary:hover  { background: var(--accent-strong); border-color: var(--accent-strong); }
+.btn--primary:active { transform: translateY(1px); box-shadow: var(--shadow-inset-pressed); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--fg);
+  border-color: var(--border-strong);
+}
+.btn--ghost:hover  { background: var(--ink-700); border-color: var(--border-strong); }
+.btn--ghost:active { transform: translateY(1px); }
+
+.btn--quiet {
+  background: transparent;
+  color: var(--fg-muted);
+  border-color: transparent;
+  padding: 10px 16px;
+}
+.btn--quiet:hover { color: var(--fg); }
+
+/* Inputs */
+.input {
+  font-family: var(--font-text);
+  font-size: var(--fs-base);
+  padding: 12px 14px;
+  background: var(--ink-900);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--fg);
+  width: 100%;
+  transition: border-color var(--dur-ui) var(--ease-standard);
+}
+.input:focus {
+  outline: none;
+  border-color: var(--border-strong);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+.input::placeholder { color: var(--fg-dim); }
+.input.is-error { border-color: var(--terracotta); }
+
+/* Badge / eyebrow chip — NEUTRAL by default (gold is not for decoration) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-text);
+  font-size: var(--fs-xs);
+  font-weight: var(--wt-semi);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  color: var(--fg-muted);
+  background: transparent;
+}
+.badge--olive       { border-color: var(--olive); color: var(--olive); }
+.badge--terracotta  { border-color: var(--terracotta); color: var(--terracotta); }
+
+/* Optional grain overlay for large surfaces */
+.grain::before {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' seed='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/></svg>");
+}

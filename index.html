@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masterman — For the Muslim man ready to do the real work.</title>
+<link rel="stylesheet" href="styles/colors_and_type.css">
+<link rel="stylesheet" href="styles/site.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="components/FrameworkVisual.jsx" data-presets="react"></script>
+<script type="text/babel" src="components/Sections.jsx" data-presets="react"></script>
+
+<script type="text/babel" data-presets="react">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "frameworkVariant": "triad",
+    "heroVariant": "C"
+  }/*EDITMODE-END*/;
+
+  const App = () => {
+    const [tweaksOpen, setTweaksOpen] = React.useState(false);
+    const [fw, setFw] = React.useState(TWEAK_DEFAULTS.frameworkVariant);
+    const [hero, setHero] = React.useState(TWEAK_DEFAULTS.heroVariant);
+
+    // Tweaks protocol
+    React.useEffect(() => {
+      const onMsg = (e) => {
+        if (!e.data || typeof e.data !== 'object') return;
+        if (e.data.type === '__activate_edit_mode') setTweaksOpen(true);
+        if (e.data.type === '__deactivate_edit_mode') setTweaksOpen(false);
+      };
+      window.addEventListener('message', onMsg);
+      window.parent.postMessage({type: '__edit_mode_available'}, '*');
+      return () => window.removeEventListener('message', onMsg);
+    }, []);
+
+    const setKey = (k, v) => {
+      window.parent.postMessage({type: '__edit_mode_set_keys', edits: {[k]: v}}, '*');
+    };
+
+    return (
+      <>
+        <MMSplash />
+        <MMNav />
+        <MMHero variant={hero} />
+        <MMProblem />
+        <MMMethod frameworkVariant={fw} />
+        <MMPrograms />
+        <MMRetreat />
+        <MMYouTube />
+        <MMTestimonials />
+        <MMFinalCTA />
+        <MMFooter />
+
+        <div className={`tweaks ${tweaksOpen ? 'is-open' : ''}`}>
+          <div className="tweaks__head">
+            <span>Tweaks</span>
+            <span style={{color: 'var(--parchment-500)', fontSize: '10px', letterSpacing: '0.1em'}}>design options</span>
+          </div>
+          <div className="tweaks__row">
+            <label className="tweaks__label">Framework Visual</label>
+            <div className="tweaks__segmented">
+              {[['anchor','A'],['triad','B'],['vertex','C']].map(([k,l]) => (
+                <button key={k}
+                  className={`tweaks__seg ${fw === k ? 'is-active' : ''}`}
+                  onClick={() => { setFw(k); setKey('frameworkVariant', k); }}>
+                  {l}
+                </button>
+              ))}
+            </div>
+            <div style={{fontSize: '10.5px', color: 'var(--parchment-500)', marginTop: '6px', letterSpacing: '0.02em', lineHeight: 1.5}}>
+              A · Anchor + Circle + Vector (recommended)<br/>
+              B · Three overlapping circles<br/>
+              C · Triangle with interior triangle
+            </div>
+          </div>
+          <div className="tweaks__row">
+            <label className="tweaks__label">Hero Headline</label>
+            <div className="tweaks__segmented">
+              {['A','B','C'].map(k => (
+                <button key={k}
+                  className={`tweaks__seg ${hero === k ? 'is-active' : ''}`}
+                  onClick={() => { setHero(k); setKey('heroVariant', k); }}>
+                  {k}
+                </button>
+              ))}
+            </div>
+            <div style={{fontSize: '10.5px', color: 'var(--parchment-500)', marginTop: '6px', letterSpacing: '0.02em', lineHeight: 1.5}}>
+              A · Diagnostic (recommended)<br/>
+              B · Call-out<br/>
+              C · Promise
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  const waitAndRender = () => {
+    if (!window.MMFooter || !window.FrameworkVisual) return setTimeout(waitAndRender, 50);
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  };
+  waitAndRender();
+</script>
+</body>
+</html>

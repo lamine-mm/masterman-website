@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programs — Masterman</title>
+<link rel="stylesheet" href="styles/colors_and_type.css">
+<link rel="stylesheet" href="styles/site.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="components/FrameworkVisual.jsx" data-presets="react"></script>
+<script type="text/babel" src="components/Sections.jsx" data-presets="react"></script>
+<script type="text/babel" src="components/PageSections.jsx" data-presets="react"></script>
+<script type="text/babel" data-presets="react">
+  const App = () => (
+    <>
+      <MMNav />
+      <MMProgramsPage />
+      <MMFinalCTA />
+      <MMFooter />
+    </>
+  );
+  const waitAndRender = () => {
+    if (!window.MMFooter || !window.MMProgramsPage) return setTimeout(waitAndRender, 50);
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  };
+  waitAndRender();
+</script>
+</body>
+</html>
