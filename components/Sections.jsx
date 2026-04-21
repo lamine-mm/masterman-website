@@ -98,7 +98,7 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
   return (
     <nav className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="nav__inner">
-        <a href="#top" className="nav__brand">
+        <a href="index.html" className="nav__brand">
           <img src={logoPath} alt="" />
           <span className="nav__brand-word">Masterman</span>
         </a>
@@ -451,20 +451,22 @@ const YouTube = () => (
           <a href="https://www.youtube.com/@shabdullahoduro" target="_blank" rel="noopener" className="youtube__link">Visit YouTube Channel →</a>
         </div>
         <div className="videos">
-          <div className="video" style={{backgroundImage: `url(${IMG.yt1})`}}>
+          <a href="https://www.youtube.com/@shabdullahoduro" target="_blank" rel="noopener"
+             className="video" style={{backgroundImage: `url(${IMG.yt1})`}}>
             <PlayBtn />
             <div className="video__meta">
-              Identity before ambition
-              <span className="video__dur">14:22 · Ep. 08</span>
+              What Actually Happens At A Masterman Retreat
+              <span className="video__dur">24 min</span>
             </div>
-          </div>
-          <div className="video" style={{backgroundImage: `url(${IMG.yt2})`}}>
+          </a>
+          <a href="https://www.youtube.com/@shabdullahoduro" target="_blank" rel="noopener"
+             className="video" style={{backgroundImage: `url(${IMG.yt2})`}}>
             <PlayBtn />
             <div className="video__meta">
-              The prayer that feels like a checklist
-              <span className="video__dur">11:08 · Ep. 07</span>
+              How To Rebuild Your Life in Your 30s–40s
+              <span className="video__dur">30 min</span>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -538,16 +540,17 @@ const Testimonials = () => (
         ))}
       </div>
       <div className="testi__videos">
-        {[{src: IMG.tv1, n: 'Bilal R.', r: 'Inner Circle · Cohort II'},
-          {src: IMG.tv2, n: 'Omar S.',  r: 'Retreat · Smoky Mtn \'25'},
-          {src: IMG.tv3, n: 'Tariq M.', r: 'Inner Circle · Cohort I'}].map((v, i) => (
-          <div key={i} className="testi-video" style={{backgroundImage: `url(${v.src})`}}>
+        {[{src: IMG.tv1, n: 'Faizan Siddiqui',  r: 'Masterman Inner Circle', href: 'https://www.loom.com/share/cedc9ffeee15461198cebc2acc6968a8'},
+          {src: IMG.tv2, n: 'Abdullah Muhammad', r: 'Masterman Inner Circle', href: 'https://www.loom.com/share/3045f9003fd54d658d3ba2de1ed14968'},
+          {src: IMG.tv3, n: 'Risad Khandaker',   r: 'Masterman Inner Circle', href: 'https://www.loom.com/share/7e8c89c917254929999ce0e735ebd77d'}].map((v, i) => (
+          <a key={i} href={v.href} target="_blank" rel="noopener"
+             className="testi-video" style={{backgroundImage: `url(${v.src})`}}>
             <PlayBtn />
             <div className="testi-video__name">
               {v.n}
               <br/><span className="testi-video__role">{v.r}</span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>

@@ -857,6 +857,7 @@ button { font: inherit; }
 }
 @media (max-width: 720px) { .videos { grid-template-columns: 1fr; } }
 .video {
+  display: block;
   aspect-ratio: 16/9;
   background-size: cover;
   background-position: center;
@@ -865,6 +866,7 @@ button { font: inherit; }
   filter: grayscale(60%) brightness(0.72);
   transition: filter 240ms var(--ease-standard);
   border: 1px solid rgba(255,255,255,0.06);
+  text-decoration: none;
 }
 .video:hover { filter: grayscale(10%) brightness(0.92); }
 .video__play {
@@ -1038,6 +1040,7 @@ button { font: inherit; }
 }
 @media (max-width: 820px) { .testi__videos { grid-template-columns: 1fr; } }
 .testi-video {
+  display: block;
   aspect-ratio: 4/5;
   background-size: cover;
   background-position: center;
@@ -1046,6 +1049,7 @@ button { font: inherit; }
   filter: grayscale(55%) brightness(0.72);
   transition: filter 240ms var(--ease-standard);
   border: 1px solid rgba(255,255,255,0.06);
+  text-decoration: none;
 }
 .testi-video:hover { filter: grayscale(5%) brightness(0.92); }
 .testi-video__name {
