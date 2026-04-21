@@ -931,11 +931,11 @@ button { font: inherit; }
 
 .testi__features {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   margin-bottom: 48px;
 }
-@media (max-width: 820px) { .testi__features { grid-template-columns: 1fr; } }
+@media (max-width: 1000px) { .testi__features { grid-template-columns: 1fr; gap: 20px; } }
 .testi-feature {
   background: #121211;
   border: 1px solid rgba(255,255,255,0.06);

@@ -440,7 +440,7 @@ const YouTube = () => (
           <span className="eyebrow">From the Channel</span>
           <h3 className="youtube__h3">Watch Abdullah teach.</h3>
           <p className="youtube__desc">Weekly teachings on identity, brotherhood, and the work of becoming a Muslim man with direction. Start here if you want a feel for how we think before you apply.</p>
-          <a href="#channel" className="youtube__link">Visit YouTube Channel →</a>
+          <a href="https://www.youtube.com/@shabdullahoduro" target="_blank" rel="noopener" className="youtube__link">Visit YouTube Channel →</a>
         </div>
         <div className="videos">
           <div className="video" style={{backgroundImage: `url(${IMG.yt1})`}}>
@@ -468,16 +468,22 @@ const YouTube = () => (
    ============================================================ */
 const LONG_TESTIMONIALS = [
   {
-    quote: "I came into Masterman with the career, the marriage, the kids — and a quiet panic that none of it was mine. Deep into the work, the panic is gone. Not because anything external changed. Because I finally know who I am before any of that. My wife noticed in week three. My kids noticed in month two. That's the proof I needed.",
-    name: 'Yousef H.',
-    role: 'Inner Circle · Cohort II',
-    avatar: IMG.av1,
+    quote: "I argue less with my wife — and she concurs. It sounds mundane, but me actually doing what I'm supposed to — praying on time, reading Qur'an, exercising, reflecting — makes me a better husband. The work is real. The difference shows up at home first.",
+    name: 'Tim Farid',
+    role: 'Masterman Inner Circle',
+    avatar: 'assets/photos/testimonial-1.jpg',
   },
   {
-    quote: "I have friends. I have a mosque. I thought I had brotherhood. I didn't. The men in this circle know things about me my own brother doesn't, and I know theirs. We meet weekly. We call between. When my father passed, I had seven men on a plane within 48 hours. That is what Masterman built.",
-    name: 'Kareem A.',
-    role: 'Inner Circle · Cohort I',
-    avatar: IMG.av2,
+    quote: "This has been a transformative Ramadan — not just for me, but for everyone in the household. Worshipping Allah together with my wife and kids. Praying together. Accountability for it. Masterman is what keeps salah established across the whole family, not just for me as an individual.",
+    name: 'Adnan Khan',
+    role: 'Masterman Inner Circle',
+    avatar: 'assets/photos/testimonial-2.jpg',
+  },
+  {
+    quote: "My desire to make time for the Qur'an has grown. I'm praying at the masjid a lot more — at least once a day. I had to change my perspective: my purpose here is to please Allah ﷻ, not to please people. The Masterman app lets me check off my non-negotiables each day — gym, salah, Qur'an. That accountability is exactly what I needed.",
+    name: 'Mohammad Ali Itani',
+    role: 'Masterman Inner Circle',
+    avatar: 'assets/photos/testimonial-3.jpg',
   },
 ];
 
