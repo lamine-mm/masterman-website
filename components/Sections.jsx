@@ -17,8 +17,8 @@ const IMG = {
   g3: 'assets/photos/gallery-3.jpg',
   g4: 'assets/photos/gallery-4.jpg',
   g5: 'assets/photos/gallery-5.jpg',
-  yt1: 'assets/photos/yt-1.jpg',
-  yt2: 'assets/photos/yt-2.jpg',
+  yt1: 'assets/photos/yt-retreat.jpg',
+  yt2: 'assets/photos/yt-rebuild-life.jpg',
   tv1: 'assets/photos/tv-1.jpg',
   tv2: 'assets/photos/tv-2.jpg',
   tv3: 'assets/photos/tv-3.jpg',
@@ -503,7 +503,28 @@ const PlayBtn = () => (
   </div>
 );
 
-const YouTube = () => (
+const YOUTUBE_VIDEOS = [
+  {
+    src: IMG.yt1,
+    title: 'What Actually Happens At A Masterman Retreat',
+    dur: '24 min',
+    n: 'What Actually Happens At A Masterman Retreat',
+    r: 'From the Channel',
+    embed: 'https://www.youtube.com/embed/mrxaCnaWR-U?autoplay=1&rel=0',
+  },
+  {
+    src: IMG.yt2,
+    title: 'How To Rebuild Your Life in Your 30s–40s',
+    dur: '30 min',
+    n: 'How To Rebuild Your Life in Your 30s–40s',
+    r: 'From the Channel',
+    embed: 'https://www.youtube.com/embed/LhfgkI1uRuU?autoplay=1&rel=0&start=174',
+  },
+];
+
+const YouTube = () => {
+  const [activeVideo, setActiveVideo] = React.useState(null);
+  return (
   <section className="section section--tight" id="channel" data-screen-label="06 Channel">
     <div className="wrap">
       <div className="youtube__layout">
@@ -514,27 +535,24 @@ const YouTube = () => (
           <a href="https://www.youtube.com/@shabdullahoduro" target="_blank" rel="noopener" className="youtube__link">Visit YouTube Channel →</a>
         </div>
         <div className="videos">
-          <a href="https://www.youtube.com/@shabdullahoduro" target="_blank" rel="noopener"
-             className="video" style={{backgroundImage: `url(${IMG.yt1})`}}>
-            <PlayBtn />
-            <div className="video__meta">
-              What Actually Happens At A Masterman Retreat
-              <span className="video__dur">24 min</span>
-            </div>
-          </a>
-          <a href="https://www.youtube.com/@shabdullahoduro" target="_blank" rel="noopener"
-             className="video" style={{backgroundImage: `url(${IMG.yt2})`}}>
-            <PlayBtn />
-            <div className="video__meta">
-              How To Rebuild Your Life in Your 30s–40s
-              <span className="video__dur">30 min</span>
-            </div>
-          </a>
+          {YOUTUBE_VIDEOS.map((v, i) => (
+            <button key={i} type="button"
+               className="video" style={{backgroundImage: `url(${v.src})`}}
+               onClick={() => setActiveVideo(v)} aria-label={`Play ${v.title}`}>
+              <PlayBtn />
+              <div className="video__meta">
+                {v.title}
+                <span className="video__dur">{v.dur}</span>
+              </div>
+            </button>
+          ))}
         </div>
       </div>
     </div>
+    <VideoModal video={activeVideo} onClose={() => setActiveVideo(null)} />
   </section>
-);
+  );
+};
 
 /* ============================================================
    TESTIMONIALS
@@ -589,13 +607,13 @@ const VideoModal = ({ video, onClose }) => {
   }, [video, onClose]);
   if (!video) return null;
   return (
-    <div className="video-modal" role="dialog" aria-modal="true" aria-label={`${video.n} — video testimonial`} onClick={onClose}>
+    <div className="video-modal" role="dialog" aria-modal="true" aria-label={video.n} onClick={onClose}>
       <button type="button" className="video-modal__close" aria-label="Close" onClick={onClose}>×</button>
       <div className="video-modal__content" onClick={(e) => e.stopPropagation()}>
         <div className="video-modal__iframe-wrap">
           <iframe
             src={video.embed}
-            title={`${video.n} — video testimonial`}
+            title={video.n}
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
