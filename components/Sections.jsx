@@ -201,14 +201,9 @@ const Hero = ({ variant = 'A' }) => {
             <span className="hero__retreat-pill-spots">20 seats remaining</span>
             <span className="hero__retreat-pill-arrow" aria-hidden="true">→</span>
           </a>
-          <span className="eyebrow">Identity · Brotherhood · Direction</span>
+          <span className="eyebrow">Identity · Discipline · Leadership · Brotherhood</span>
           <h1 className="hero__title">{copy.h1}</h1>
           <p className="hero__deck">{copy.deck}</p>
-          <p className="hero__sub">
-            Masterman is a structured brotherhood for Muslim men who have the career,
-            the wife, the kids — and still feel out of alignment with Allah. Not another
-            motivation loop. Identity work, honest brotherhood, and retreats that leave a mark.
-          </p>
           <div className="hero__cta-row">
             <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--primary">
               Take Free Assessment
@@ -281,9 +276,10 @@ const Problem = () => (
    METHOD — with framework visual
    ============================================================ */
 const PILLARS = [
-  { n: 'I',  name: 'Identity',    body: 'Anchored in who Allah made you — not what the world expects you to produce. The ground every other part of your life is built on.' },
-  { n: 'II', name: 'Brotherhood', body: 'Real men, real conversations. A circle that knows you, holds you accountable, and shows up at 3am if the call needs to be made.' },
-  { n: 'III',name: 'Direction',   body: 'A clear vision for your life as a Muslim man — husband, father, leader — and the discipline to live it day after day.' },
+  { n: 'I',   name: 'Identity',    body: 'Anchored in who Allah made you — not what the world expects you to produce. The ground every other part of your life is built on.' },
+  { n: 'II',  name: 'Discipline',  body: 'Command of the nafs — appetite, anger, impulse. The daily work of choosing who you want to be over who you feel like being in the moment.' },
+  { n: 'III', name: 'Leadership',  body: 'A marriage you lead with mercy and presence. Intimacy built on trust, not performance. A father and husband your family can lean on.' },
+  { n: 'IV',  name: 'Brotherhood', body: 'Real men, real conversations. A circle that knows you, holds you accountable, and shows up at 3am if the call needs to be made.' },
 ];
 
 const Method = ({ frameworkVariant }) => {
@@ -314,12 +310,9 @@ const Method = ({ frameworkVariant }) => {
     <div className="wrap">
       <div className="method__head">
         <span className="eyebrow">The Method</span>
-        <h2 className="method__h2">Three anchors.<br/>One unshakeable man.</h2>
+        <h2 className="method__h2">Four anchors.<br/>One unshakeable man.</h2>
         <p className="method__intro">
           Masterman is not therapy. Not a motivational program. Not a course you finish in a weekend.
-        </p>
-        <p className="method__intro">
-          It's a structured environment where Muslim men do the real work: understanding who they are as servants of Allah before they are anything else. When identity is rooted in the Creator — not the career, not the wife, not the children — you become unshakeable. A better husband. A present father. A man with direction.
         </p>
         <p className="method__intro method__intro--final">
           We don't hand out inspiration. We build the structure, the brotherhood, and the accountability that make change hold long after the retreat ends.
@@ -331,7 +324,7 @@ const Method = ({ frameworkVariant }) => {
           {React.createElement(window.FrameworkVisual, { variant: frameworkVariant })}
         </div>
       </div>
-      <div className="framework__caption">The Masterman Method · I · II · III</div>
+      <div className="framework__caption">The Masterman Method · I · II · III · IV</div>
 
       <div className="pillars">
         {PILLARS.map(p => (

@@ -106,19 +106,21 @@ const FrameworkAnchor = () => (
 const FrameworkTriad = () => (
   <svg
     className="framework__svg"
-    viewBox="0 70 600 440"
+    viewBox="-60 30 720 480"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    aria-label="The Masterman Method — Identity, Brotherhood, Direction"
+    aria-label="The Masterman Method — Identity, Discipline, Leadership, Brotherhood"
   >
-    {/* three overlapping circles — one gold (the man at the center) */}
+    {/* four overlapping circles on compass points — all meet at the center (the man) */}
     <g stroke="#F4EFE6" strokeWidth="1" fill="none">
-      {/* Identity — bottom */}
+      {/* Brotherhood — top (North) */}
+      <circle className="mm-circle mm-circle--brotherhood" cx="300" cy="180" r="120" />
+      {/* Leadership — right (East) */}
+      <circle className="mm-circle mm-circle--leadership" cx="380" cy="260" r="120" />
+      {/* Identity — bottom (South) */}
       <circle className="mm-circle mm-circle--identity" cx="300" cy="340" r="120" />
-      {/* Brotherhood — upper-left */}
-      <circle className="mm-circle mm-circle--brotherhood" cx="220" cy="220" r="120" />
-      {/* Direction — upper-right */}
-      <circle className="mm-circle mm-circle--direction" cx="380" cy="220" r="120" />
+      {/* Discipline — left (West) */}
+      <circle className="mm-circle mm-circle--discipline" cx="220" cy="260" r="120" />
     </g>
 
     {/* Shared center — gold filled marker */}
@@ -127,26 +129,30 @@ const FrameworkTriad = () => (
 
     {/* Labels */}
     <g fontFamily="Fraunces, serif">
+      <text className="mm-label mm-label--brotherhood"
+        x="300" y="50" textAnchor="middle" fontSize="13"
+        letterSpacing="4" fill="#C8A24B">IV · BROTHERHOOD</text>
+      <text className="mm-label mm-label--leadership"
+        x="510" y="264" textAnchor="start" fontSize="13"
+        letterSpacing="4" fill="#C8A24B">III · LEADERSHIP</text>
       <text className="mm-label mm-label--identity"
         x="300" y="490" textAnchor="middle" fontSize="13"
         letterSpacing="4" fill="#C8A24B">I · IDENTITY</text>
-      <text className="mm-label mm-label--brotherhood"
-        x="96" y="175" textAnchor="start" fontSize="13"
-        letterSpacing="4" fill="#C8A24B">II · BROTHERHOOD</text>
-      <text className="mm-label mm-label--direction"
-        x="504" y="175" textAnchor="end" fontSize="13"
-        letterSpacing="4" fill="#C8A24B">III · DIRECTION</text>
+      <text className="mm-label mm-label--discipline"
+        x="90" y="264" textAnchor="end" fontSize="13"
+        letterSpacing="4" fill="#C8A24B">II · DISCIPLINE</text>
 
       <text className="mm-label mm-label--center"
         x="300" y="296" textAnchor="middle" fontSize="11"
         fill="#A9A39A" fontStyle="italic">the man</text>
     </g>
 
-    {/* connectors */}
+    {/* connectors — center out to each circle */}
     <g className="mm-connectors" stroke="#C8A24B" strokeWidth="0.5" opacity="0.4">
-      <line x1="300" y1="260" x2="220" y2="220" strokeDasharray="2 3" />
-      <line x1="300" y1="260" x2="380" y2="220" strokeDasharray="2 3" />
+      <line x1="300" y1="260" x2="300" y2="180" strokeDasharray="2 3" />
+      <line x1="300" y1="260" x2="380" y2="260" strokeDasharray="2 3" />
       <line x1="300" y1="260" x2="300" y2="340" strokeDasharray="2 3" />
+      <line x1="300" y1="260" x2="220" y2="260" strokeDasharray="2 3" />
     </g>
   </svg>
 );
