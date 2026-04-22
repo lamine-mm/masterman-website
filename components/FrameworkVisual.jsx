@@ -16,7 +16,7 @@ const FrameworkVisual = ({ variant = 'anchor' }) => {
 const FrameworkAnchor = () => (
   <svg
     className="framework__svg"
-    viewBox="0 0 720 520"
+    viewBox="0 10 720 500"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     aria-label="The Masterman Method — Identity, Brotherhood, Direction"
@@ -106,7 +106,7 @@ const FrameworkAnchor = () => (
 const FrameworkTriad = () => (
   <svg
     className="framework__svg"
-    viewBox="0 0 600 520"
+    viewBox="0 70 600 440"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     aria-label="The Masterman Method — Identity, Brotherhood, Direction"
@@ -157,7 +157,7 @@ const FrameworkTriad = () => (
 const FrameworkVertex = () => (
   <svg
     className="framework__svg"
-    viewBox="0 0 600 520"
+    viewBox="0 30 600 470"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     aria-label="The Masterman Method — Identity, Brotherhood, Direction"
