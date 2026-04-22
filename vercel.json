@@ -4,5 +4,57 @@
   "framework": null,
   "installCommand": "echo skip install",
   "buildCommand": "echo skip build",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/summer-retreat-2026",
+      "destination": "https://programs.mastermangroup.com/summer-retreat-2026",
+      "statusCode": 301
+    },
+    {
+      "source": "/summer-retreat-thank-you",
+      "destination": "https://programs.mastermangroup.com/summer-retreat-thank-you",
+      "statusCode": 301
+    },
+    {
+      "source": "/ty-booking-retreat",
+      "destination": "https://programs.mastermangroup.com/ty-booking-retreat",
+      "statusCode": 301
+    },
+    {
+      "source": "/program-post-booking",
+      "destination": "https://programs.mastermangroup.com/program-post-booking",
+      "statusCode": 301
+    },
+    {
+      "source": "/masterman-nation",
+      "destination": "https://programs.mastermangroup.com/masterman-nation",
+      "statusCode": 301
+    },
+    {
+      "source": "/summer-retreat-2026/:subpath*",
+      "destination": "https://programs.mastermangroup.com/summer-retreat-2026/:subpath*",
+      "statusCode": 301
+    },
+    {
+      "source": "/summer-retreat-thank-you/:subpath*",
+      "destination": "https://programs.mastermangroup.com/summer-retreat-thank-you/:subpath*",
+      "statusCode": 301
+    },
+    {
+      "source": "/ty-booking-retreat/:subpath*",
+      "destination": "https://programs.mastermangroup.com/ty-booking-retreat/:subpath*",
+      "statusCode": 301
+    },
+    {
+      "source": "/program-post-booking/:subpath*",
+      "destination": "https://programs.mastermangroup.com/program-post-booking/:subpath*",
+      "statusCode": 301
+    },
+    {
+      "source": "/masterman-nation/:subpath*",
+      "destination": "https://programs.mastermangroup.com/masterman-nation/:subpath*",
+      "statusCode": 301
+    }
+  ]
 }
