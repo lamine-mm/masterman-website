@@ -87,17 +87,35 @@ const Splash = () => {
 /* ============================================================
    URGENCY BAR — sticky top strip, soft pulse, links to apply.
    ============================================================ */
-const UrgencyBar = () => (
-  <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="urgency-bar">
-    <span className="urgency-bar__dot" aria-hidden="true" />
-    <span className="urgency-bar__text">
-      <strong>Upcoming Retreat</strong>
-      <span className="urgency-bar__sep">·</span>
-      <span className="urgency-bar__spots">20 seats remaining</span>
-    </span>
-    <span className="urgency-bar__cta">Sign up to the Retreat<span className="urgency-bar__arrow" aria-hidden="true">→</span></span>
-  </a>
-);
+const UrgencyBar = () => {
+  const [hidden, setHidden] = React.useState(false);
+  React.useEffect(() => {
+    const target = document.getElementById('retreats');
+    if (!target || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(
+      ([entry]) => setHidden(entry.isIntersecting),
+      { threshold: 0.15 }
+    );
+    io.observe(target);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <a
+      href="https://programs.mastermangroup.com/summer-retreat-2026"
+      target="_blank"
+      rel="noopener"
+      className={`urgency-bar ${hidden ? 'is-hidden' : ''}`}
+    >
+      <span className="urgency-bar__dot" aria-hidden="true" />
+      <span className="urgency-bar__text">
+        <strong>Upcoming Retreat</strong>
+        <span className="urgency-bar__sep">·</span>
+        <span className="urgency-bar__spots">20 seats remaining</span>
+      </span>
+      <span className="urgency-bar__cta">Sign up to the Retreat<span className="urgency-bar__arrow" aria-hidden="true">→</span></span>
+    </a>
+  );
+};
 
 /* ============================================================
    NAV
