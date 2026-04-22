@@ -194,6 +194,13 @@ const Hero = ({ variant = 'A' }) => {
       <div className="hero__grain" />
       <div className="wrap">
         <div className="hero__inner">
+          <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="hero__retreat-pill">
+            <span className="hero__retreat-pill-dot" aria-hidden="true" />
+            <span className="hero__retreat-pill-label">Upcoming Retreat</span>
+            <span className="hero__retreat-pill-sep">·</span>
+            <span className="hero__retreat-pill-spots">20 seats remaining</span>
+            <span className="hero__retreat-pill-arrow" aria-hidden="true">→</span>
+          </a>
           <span className="eyebrow">Identity · Brotherhood · Direction</span>
           <h1 className="hero__title">{copy.h1}</h1>
           <p className="hero__deck">{copy.deck}</p>
@@ -562,7 +569,50 @@ const SHORT_TESTIMONIALS = [
   { q: "One of the best retreats I have participated in. I highly recommend it.", n: 'Coach Abdirahman', r: 'Retreat Participant' },
 ];
 
-const Testimonials = () => (
+const VIDEO_TESTIMONIALS = [
+  { src: IMG.tv1, n: 'Faizan Siddiqui',   r: 'Retreat Attendee',       embed: 'https://www.loom.com/embed/cedc9ffeee15461198cebc2acc6968a8' },
+  { src: IMG.tv2, n: 'Abdullah Muhammad', r: 'Retreat Attendee',       embed: 'https://www.loom.com/embed/3045f9003fd54d658d3ba2de1ed14968' },
+  { src: IMG.tv3, n: 'Safwan',            r: 'Masterman Inner Circle', embed: 'https://www.loom.com/embed/001f674420f94f6e86826ce25a1df2c5' },
+];
+
+const VideoModal = ({ video, onClose }) => {
+  React.useEffect(() => {
+    if (!video) return;
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [video, onClose]);
+  if (!video) return null;
+  return (
+    <div className="video-modal" role="dialog" aria-modal="true" aria-label={`${video.n} — video testimonial`} onClick={onClose}>
+      <button type="button" className="video-modal__close" aria-label="Close" onClick={onClose}>×</button>
+      <div className="video-modal__content" onClick={(e) => e.stopPropagation()}>
+        <div className="video-modal__iframe-wrap">
+          <iframe
+            src={video.embed}
+            title={`${video.n} — video testimonial`}
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+        <div className="video-modal__caption">
+          <p className="video-modal__name">{video.n}</p>
+          <p className="video-modal__role">{video.r}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Testimonials = () => {
+  const [activeVideo, setActiveVideo] = React.useState(null);
+  return (
   <section className="section" id="testimonials" data-screen-label="07 Testimonials">
     <div className="wrap">
       <div className="testi__head">
@@ -596,22 +646,23 @@ const Testimonials = () => (
         ))}
       </div>
       <div className="testi__videos">
-        {[{src: IMG.tv1, n: 'Faizan Siddiqui',  r: 'Masterman Inner Circle', href: 'https://www.loom.com/share/cedc9ffeee15461198cebc2acc6968a8'},
-          {src: IMG.tv2, n: 'Abdullah Muhammad', r: 'Masterman Inner Circle', href: 'https://www.loom.com/share/3045f9003fd54d658d3ba2de1ed14968'},
-          {src: IMG.tv3, n: 'Risad Khandaker',   r: 'Masterman Inner Circle', href: 'https://www.loom.com/share/7e8c89c917254929999ce0e735ebd77d'}].map((v, i) => (
-          <a key={i} href={v.href} target="_blank" rel="noopener"
-             className="testi-video" style={{backgroundImage: `url(${v.src})`}}>
+        {VIDEO_TESTIMONIALS.map((v, i) => (
+          <button key={i} type="button"
+             className="testi-video" style={{backgroundImage: `url(${v.src})`}}
+             onClick={() => setActiveVideo(v)} aria-label={`Play ${v.n} video testimonial`}>
             <PlayBtn />
             <div className="testi-video__name">
               {v.n}
               <br/><span className="testi-video__role">{v.r}</span>
             </div>
-          </a>
+          </button>
         ))}
       </div>
     </div>
+    <VideoModal video={activeVideo} onClose={() => setActiveVideo(null)} />
   </section>
-);
+  );
+};
 
 /* ============================================================
    FINAL CTA
