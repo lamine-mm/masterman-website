@@ -572,7 +572,7 @@ const SHORT_TESTIMONIALS = [
 const VIDEO_TESTIMONIALS = [
   { src: IMG.tv1, n: 'Faizan Siddiqui',   r: 'Retreat Attendee',       embed: 'https://www.loom.com/embed/cedc9ffeee15461198cebc2acc6968a8' },
   { src: IMG.tv2, n: 'Abdullah Muhammad', r: 'Retreat Attendee',       embed: 'https://www.loom.com/embed/3045f9003fd54d658d3ba2de1ed14968' },
-  { src: IMG.tv3, n: 'Safwan',            r: 'Masterman Inner Circle', embed: 'https://www.loom.com/embed/001f674420f94f6e86826ce25a1df2c5' },
+  { src: IMG.tv3, n: 'Safwan Halabi',     r: 'Masterman Inner Circle', embed: 'https://www.loom.com/embed/001f674420f94f6e86826ce25a1df2c5' },
 ];
 
 const VideoModal = ({ video, onClose }) => {
