@@ -104,14 +104,20 @@ const UrgencyBar = () => (
    ============================================================ */
 const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
   const [scrolled, setScrolled] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  React.useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+  const closeMenu = () => setMenuOpen(false);
   return (
-    <nav className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
+    <nav className={`nav ${scrolled ? 'is-scrolled' : ''} ${menuOpen ? 'is-menu-open' : ''}`}>
       <div className="nav__inner">
         <a href="index.html" className="nav__brand">
           <img src={logoPath} alt="" />
@@ -123,6 +129,23 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
           <a href="retreats.html" className="nav__link">Retreats</a>
         </div>
         <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="nav__cta">Free Assessment</a>
+        <button
+          type="button"
+          className="nav__burger"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(o => !o)}
+        >
+          <span className="nav__burger-bar" />
+          <span className="nav__burger-bar" />
+          <span className="nav__burger-bar" />
+        </button>
+      </div>
+      <div className="nav__mobile" role="dialog" aria-hidden={!menuOpen}>
+        <a href="programs.html" className="nav__mobile-link" onClick={closeMenu}>Programs</a>
+        <a href="about.html" className="nav__mobile-link" onClick={closeMenu}>About</a>
+        <a href="retreats.html" className="nav__mobile-link" onClick={closeMenu}>Retreats</a>
+        <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="nav__mobile-cta" onClick={closeMenu}>Free Assessment</a>
       </div>
     </nav>
   );
@@ -304,7 +327,7 @@ const Method = ({ frameworkVariant }) => {
    ============================================================ */
 const PROGRAMS = [
   {
-    rung: 'Rung I',
+    rung: 'Level I',
     name: 'MasterMan Nation',
     tag: 'Free · Open Access',
     desc: 'Weekly guidance, practical reminders, and a growth-focused community of Muslim men walking the same path.',
@@ -317,7 +340,7 @@ const PROGRAMS = [
     external: true,
   },
   {
-    rung: 'Rung II',
+    rung: 'Level II',
     name: 'MasterMan Inner Circle',
     tag: 'Mentorship brotherhood',
     desc: 'High-accountability circle for men who want structure, mentorship, and weekly implementation across every area of life.',
@@ -331,7 +354,7 @@ const PROGRAMS = [
     external: true,
   },
   {
-    rung: 'Rung III',
+    rung: 'Level III',
     name: 'MasterMan Retreats',
     tag: 'Immersive weekend',
     desc: 'Step out of the noise. Spiritual grounding, strategic life planning, and brotherhood that lasts long after the weekend ends.',
@@ -361,9 +384,9 @@ const Programs = () => (
     <div className="wrap">
       <div className="programs__head">
         <span className="eyebrow">Our Programs</span>
-        <h2 className="programs__h2">Three rungs.<br/>Meet yourself at the right one.</h2>
+        <h2 className="programs__h2">Three levels.<br/>Meet yourself at the right one.</h2>
         <p className="programs__sub">
-          Each program meets you at a different stage of the work. Start where you are. <em>We'll say so on the call if you should be one rung lower.</em>
+          Each program meets you at a different stage of the work. Start where you are. <em>We'll say so on the call if you should begin one level lower.</em>
         </p>
       </div>
       <div className="programs__grid">
@@ -436,9 +459,9 @@ const Retreat = () => (
           <div className="retreat__up-label">Upcoming</div>
           <div className="retreat__up-when">June 2026 · Smoky Mountains, Tennessee</div>
           <p className="retreat__up-desc">Small-group immersion. Identity, discipline, and brotherhood in a high-accountability setting.</p>
-          <div className="retreat__up-capacity">Limited capacity · 14 seats</div>
+          <div className="retreat__up-capacity">Limited capacity · 20 seats remaining</div>
         </div>
-        <a href="https://apply.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--primary">Apply for the Next Retreat<span className="btn__arrow">→</span></a>
+        <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="btn btn--primary">Apply for the Next Retreat<span className="btn__arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -588,7 +611,7 @@ const FinalCTA = () => (
         </div>
         <div className="finalcta__ctas">
           <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--primary">Take Free Assessment<span className="btn__arrow">→</span></a>
-          <a href="https://apply.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--ghost">Book a Discovery Call</a>
+          <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="btn btn--ghost">Apply</a>
           <a href="https://www.skool.com/mastermannation" target="_blank" rel="noopener" className="btn btn--link">Join Nation — Free →</a>
         </div>
       </div>
