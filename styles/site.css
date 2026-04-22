@@ -319,7 +319,7 @@ button { font: inherit; }
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   padding: 160px 0 96px;
   overflow: hidden;
   isolation: isolate;
