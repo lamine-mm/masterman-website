@@ -110,7 +110,7 @@ const UrgencyBar = () => {
       <span className="urgency-bar__text">
         <strong>Upcoming Retreat</strong>
         <span className="urgency-bar__sep">·</span>
-        <span className="urgency-bar__spots">20 seats remaining</span>
+        <span className="urgency-bar__spots">19 seats remaining</span>
       </span>
       <span className="urgency-bar__cta">Sign up to the Retreat<span className="urgency-bar__arrow" aria-hidden="true">→</span></span>
     </a>
@@ -146,7 +146,7 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
           <a href="about.html" className="nav__link">About</a>
           <a href="retreats.html" className="nav__link">Retreats</a>
         </div>
-        <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="nav__cta">Free Assessment</a>
+        <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="nav__cta">Join the Retreat</a>
         <button
           type="button"
           className="nav__burger"
@@ -163,7 +163,7 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
         <a href="programs.html" className="nav__mobile-link" onClick={closeMenu}>Programs</a>
         <a href="about.html" className="nav__mobile-link" onClick={closeMenu}>About</a>
         <a href="retreats.html" className="nav__mobile-link" onClick={closeMenu}>Retreats</a>
-        <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="nav__mobile-cta" onClick={closeMenu}>Free Assessment</a>
+        <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="nav__mobile-cta" onClick={closeMenu}>Join the Retreat</a>
       </div>
     </nav>
   );
@@ -198,15 +198,15 @@ const Hero = ({ variant = 'A' }) => {
             <span className="hero__retreat-pill-dot" aria-hidden="true" />
             <span className="hero__retreat-pill-label">Upcoming Retreat</span>
             <span className="hero__retreat-pill-sep">·</span>
-            <span className="hero__retreat-pill-spots">20 seats remaining</span>
+            <span className="hero__retreat-pill-spots">19 seats remaining</span>
             <span className="hero__retreat-pill-arrow" aria-hidden="true">→</span>
           </a>
           <span className="eyebrow">Identity · Discipline · Leadership · Brotherhood</span>
           <h1 className="hero__title">{copy.h1}</h1>
           <p className="hero__deck">{copy.deck}</p>
           <div className="hero__cta-row">
-            <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--primary">
-              Take Free Assessment
+            <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="btn btn--primary">
+              Join the Retreat
               <span className="btn__arrow">→</span>
             </a>
             <a href="#method" className="btn btn--ghost">See How It Works</a>
@@ -477,7 +477,7 @@ const Retreat = () => (
           <div className="retreat__up-label">Upcoming</div>
           <div className="retreat__up-when">June 2026 · Smoky Mountains, Tennessee</div>
           <p className="retreat__up-desc">Small-group immersion. Identity, discipline, and brotherhood in a high-accountability setting.</p>
-          <div className="retreat__up-capacity">Limited capacity · 20 seats remaining</div>
+          <div className="retreat__up-capacity">Limited capacity · 19 seats remaining</div>
         </div>
         <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="btn btn--primary">Apply for the Next Retreat<span className="btn__arrow">→</span></a>
       </div>
@@ -690,8 +690,8 @@ const FinalCTA = () => (
           <p>If that's not you, the free community is the right door. No offense taken. No pressure to move up.</p>
         </div>
         <div className="finalcta__ctas">
-          <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--primary">Take Free Assessment<span className="btn__arrow">→</span></a>
-          <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="btn btn--ghost">Apply</a>
+          <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="btn btn--primary">Join the Retreat<span className="btn__arrow">→</span></a>
+          <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--ghost">Take Free Assessment</a>
           <a href="https://www.skool.com/mastermannation" target="_blank" rel="noopener" className="btn btn--link">Join Nation — Free →</a>
         </div>
       </div>
