@@ -142,9 +142,29 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
           <span className="nav__brand-word">Masterman</span>
         </a>
         <div className="nav__links">
-          <a href="programs.html" className="nav__link">Programs</a>
-          <a href="about.html" className="nav__link">About</a>
+          <div className="nav__dropdown">
+            <a href="programs.html" className="nav__link nav__link--has-menu">
+              Programs
+              <span className="nav__chevron" aria-hidden="true">▾</span>
+            </a>
+            <div className="nav__menu" role="menu">
+              <a href="https://www.skool.com/mastermannation" target="_blank" rel="noopener" className="nav__menu-item" role="menuitem">
+                <span className="nav__menu-name">MasterMan Nation</span>
+                <span className="nav__menu-tag">Free community</span>
+              </a>
+              <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="nav__menu-item" role="menuitem">
+                <span className="nav__menu-name">Inner Circle</span>
+                <span className="nav__menu-tag">Mentorship</span>
+              </a>
+              <a href="retreats.html" className="nav__menu-item" role="menuitem">
+                <span className="nav__menu-name">Retreats</span>
+                <span className="nav__menu-tag">Immersive weekend</span>
+              </a>
+            </div>
+          </div>
           <a href="retreats.html" className="nav__link">Retreats</a>
+          <a href="media.html" className="nav__link">Media</a>
+          <a href="about.html" className="nav__link">About</a>
         </div>
         <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="nav__cta">Join the Retreat</a>
         <button
@@ -161,8 +181,9 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
       </div>
       <div className="nav__mobile" role="dialog" aria-hidden={!menuOpen}>
         <a href="programs.html" className="nav__mobile-link" onClick={closeMenu}>Programs</a>
-        <a href="about.html" className="nav__mobile-link" onClick={closeMenu}>About</a>
         <a href="retreats.html" className="nav__mobile-link" onClick={closeMenu}>Retreats</a>
+        <a href="media.html" className="nav__mobile-link" onClick={closeMenu}>Media</a>
+        <a href="about.html" className="nav__mobile-link" onClick={closeMenu}>About</a>
         <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="nav__mobile-cta" onClick={closeMenu}>Join the Retreat</a>
       </div>
     </nav>
@@ -183,7 +204,7 @@ const Hero = ({ variant = 'A' }) => {
       deck: "You didn't come this far to coast. Masterman is where the real work starts.",
     },
     C: {
-      h1: <>Identity rooted in Allah. <em>Brotherhood you can call at 3am.</em> Direction you actually live.</>,
+      h1: <>Identity rooted in Allah.<br/><em>Brotherhood you can count on.</em><br/>Direction you actually live.</>,
       deck: 'A movement for Muslim men who have run out of surface-level answers.',
     },
   }[variant];
@@ -239,11 +260,6 @@ const PROBLEM_CARDS = [
     n: '03',
     title: 'Lose the job, the marriage, or the kids and you don\'t know who you are.',
     body: 'Your sense of self is tied to your role. When any of it shakes, you shake with it.',
-  },
-  {
-    n: '04',
-    title: 'You have goals for this year. You don\'t have a direction for your life.',
-    body: 'Goals are tactical. Direction is strategic. You feel the difference every morning.',
   },
 ];
 
@@ -402,17 +418,16 @@ const Programs = () => (
     <div className="wrap">
       <div className="programs__head">
         <span className="eyebrow">Our Programs</span>
-        <h2 className="programs__h2">Three levels.<br/>Meet yourself at the right one.</h2>
+        <h2 className="programs__h2">What we offer.</h2>
         <p className="programs__sub">
-          Each program meets you at a different stage of the work. Start where you are. <em>We'll say so on the call if you should begin one level lower.</em>
+          Three distinct paths into the work. Start where you are. <em>We'll tell you on the call if you should begin somewhere else.</em>
         </p>
       </div>
       <div className="programs__grid">
         {PROGRAMS.map(p => (
           <div key={p.name} className={`program ${p.featured ? 'program--featured' : ''}`}>
-            <div className="program__rung">{p.rung}</div>
-            <h3 className="program__name">{p.name}</h3>
             <p className="program__tagline">{p.tag}</p>
+            <h3 className="program__name">{p.name}</h3>
             <p className="program__desc">{p.desc}</p>
             <div className="program__fit">
               <div className="program__fit-row program__fit-row--fit">
@@ -700,6 +715,141 @@ const FinalCTA = () => (
 );
 
 /* ============================================================
+   MOMENT — full-bleed cinematic image break between Method and Retreat.
+   Uses an existing retreat photo to provide a visual breath between
+   text-heavy sections without adding stock imagery.
+   ============================================================ */
+const Moment = ({ image = 'assets/photos/splash/brokenbow2026.jpg', caption = 'Real brotherhood, in real rooms.' }) => (
+  <section className="moment" aria-label="A moment from a recent retreat">
+    <div className="moment__bg" style={{backgroundImage: `url(${image})`}} />
+    <div className="moment__overlay" />
+    <p className="moment__caption">{caption}</p>
+  </section>
+);
+
+/* ============================================================
+   WHAT WE OFFER — short 3-card strip on the homepage
+   Mirrors the 3 programs in compact form so skimmers can
+   see the offerings without scrolling through the full Programs section.
+   ============================================================ */
+const OFFERINGS = [
+  {
+    name: 'MasterMan Nation',
+    tag: 'Free community',
+    desc: 'Weekly guidance and a growth-focused circle of Muslim men. Start here.',
+    cta: 'Join Free',
+    href: 'https://www.skool.com/mastermannation',
+    external: true,
+  },
+  {
+    name: 'Inner Circle',
+    tag: 'Mentorship',
+    desc: 'High-accountability brotherhood for men ready to commit to the real work.',
+    cta: 'Take the Assessment',
+    href: 'https://assessment.mastermangroup.com/',
+    external: true,
+    featured: true,
+  },
+  {
+    name: 'Retreats',
+    tag: 'Immersive weekend',
+    desc: 'Step out of the noise. Spiritual grounding, strategy, and brotherhood that holds.',
+    cta: 'Join the Retreat',
+    href: 'https://programs.mastermangroup.com/summer-retreat-2026',
+    external: true,
+  },
+];
+
+const WhatWeOffer = () => (
+  <section className="section section--tight offer" id="offer" data-screen-label="01b What We Offer">
+    <div className="wrap">
+      <div className="offer__head">
+        <span className="eyebrow">What we offer</span>
+        <h2 className="offer__h2">Three doors. One brotherhood.</h2>
+      </div>
+      <div className="offer__grid">
+        {OFFERINGS.map((o) => (
+          <a key={o.name}
+             href={o.href}
+             {...(o.external ? { target: '_blank', rel: 'noopener' } : {})}
+             className={`offer__card ${o.featured ? 'offer__card--featured' : ''}`}>
+            <div className="offer__card-tag">{o.tag}</div>
+            <h3 className="offer__card-name">{o.name}</h3>
+            <p className="offer__card-desc">{o.desc}</p>
+            <span className="offer__card-cta">{o.cta} <span aria-hidden="true">→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+/* ============================================================
+   LEAD MAGNET — free resource email capture
+   ============================================================ */
+const LeadMagnet = () => {
+  const [email, setEmail] = React.useState('');
+  const [submitting, setSubmitting] = React.useState(false);
+  const [msg, setMsg] = React.useState(null);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setMsg({ kind: 'error', text: 'Please enter a valid email.' });
+      return;
+    }
+    setSubmitting(true);
+    setMsg(null);
+    try {
+      const r = await fetch('/api/lead-magnet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, resource: '40-hadith-manhood' }),
+      });
+      const data = await r.json().catch(() => ({}));
+      if (r.ok) {
+        setMsg({ kind: 'success', text: 'Check your inbox — the guide is on its way.' });
+        setEmail('');
+      } else {
+        setMsg({ kind: 'error', text: data.error || `Error (${r.status})` });
+      }
+    } catch (err) {
+      setMsg({ kind: 'error', text: 'Network error — please try again.' });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <section className="section lead-magnet" id="resources" data-screen-label="07 Free Resource">
+      <div className="wrap">
+        <div className="lead-magnet__inner">
+          <span className="eyebrow">Free Resource</span>
+          <h2 className="lead-magnet__h2">40 Hadith on Manhood.</h2>
+          <p className="lead-magnet__desc">
+            Forty narrations from the Prophet ﷺ on what it means to be a Muslim man — distilled into a clean, printable PDF you can read in one sitting and return to often. Free.
+          </p>
+          <form className="lead-magnet__form" onSubmit={onSubmit} noValidate>
+            <input type="email" required placeholder="you@example.com"
+              value={email} onChange={(e) => setEmail(e.target.value)} />
+            <button type="submit" className="btn btn--primary" disabled={submitting}>
+              {submitting ? 'Sending…' : 'Send me the PDF'}
+              <span className="btn__arrow">→</span>
+            </button>
+          </form>
+          {msg && (
+            <p className={`lead-magnet__msg lead-magnet__msg--${msg.kind}`} role={msg.kind === 'error' ? 'alert' : 'status'}>
+              {msg.text}
+            </p>
+          )}
+          <p className="lead-magnet__hint">No spam · unsubscribe any time</p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ============================================================
    FOOTER
    ============================================================ */
 const Footer = ({ logoPath = 'assets/logo-mark.png' }) => (
@@ -737,6 +887,9 @@ Object.assign(window, {
   MMRetreat: Retreat,
   MMYouTube: YouTube,
   MMTestimonials: Testimonials,
+  MMWhatWeOffer: WhatWeOffer,
+  MMMoment: Moment,
+  MMLeadMagnet: LeadMagnet,
   MMFinalCTA: FinalCTA,
   MMFooter: Footer,
 });

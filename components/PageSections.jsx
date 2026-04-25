@@ -50,18 +50,9 @@ const About = () => (
    PROGRAMS PAGE — header + reuse of the shared Programs block
    ============================================================ */
 const ProgramsPage = () => (
-  <>
-    <section className="section section--tight" style={{paddingTop: '160px'}}>
-      <div className="wrap">
-        <span className="eyebrow">Our Programs</span>
-        <h1 className="problem__h2">Built for where<br/>you are on the journey.</h1>
-        <p className="programs__sub" style={{marginTop: '24px', maxWidth: '620px'}}>
-          Whether you're just recognizing the gap or you're ready for deep, structured work, our programs meet you where you are and move you toward a grounded Islamic identity.
-        </p>
-      </div>
-    </section>
+  <div style={{paddingTop: '120px'}}>
     {React.createElement(window.MMPrograms)}
-  </>
+  </div>
 );
 
 /* ============================================================
@@ -125,8 +116,233 @@ const RetreatsPage = () => (
   </>
 );
 
+/* ============================================================
+   MEDIA PAGE — past appearances + custom podcast request form
+   ============================================================ */
+const PODCAST_PAST_APPEARANCES = [
+  {
+    title: 'What Actually Happens At A Masterman Retreat',
+    show: 'Masterman Channel',
+    embed: 'https://www.youtube.com/embed/mrxaCnaWR-U?rel=0',
+  },
+  {
+    title: 'How To Rebuild Your Life in Your 30s–40s',
+    show: 'Masterman Channel',
+    embed: 'https://www.youtube.com/embed/LhfgkI1uRuU?rel=0&start=174',
+  },
+];
+
+const AUDIENCE_OPTIONS = ['Under 1,000', '1K – 10K', '10K – 100K', '100K +'];
+const FORMAT_OPTIONS = [
+  { value: 'audio', label: 'Audio' },
+  { value: 'video', label: 'Video' },
+  { value: 'live',  label: 'Live event' },
+];
+
+const PodcastRequestForm = () => {
+  const [form, setForm] = React.useState({
+    requestType: 'podcast',
+    name: '', email: '', phone: '', showName: '',
+    audienceSize: AUDIENCE_OPTIONS[0], topic: '',
+    format: 'audio', agreed: false,
+    dateRange: '', notes: '',
+  });
+  const [submitting, setSubmitting] = React.useState(false);
+  const [result, setResult] = React.useState(null);
+  const update = (k, v) => setForm((s) => ({ ...s, [k]: v }));
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.agreed) {
+      setResult({ error: 'Please confirm the conditions to continue.' });
+      return;
+    }
+    setSubmitting(true);
+    setResult(null);
+    try {
+      const r = await fetch('/api/podcast-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await r.json().catch(() => ({}));
+      if (r.ok) setResult({ ok: true });
+      else setResult({ error: data.error || `Error (${r.status})` });
+    } catch (err) {
+      setResult({ error: 'Network error — please try again.' });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (result && result.ok) {
+    return (
+      <div className="podcast-form podcast-form--success">
+        <h3 className="podcast-form__success-title">Request received.</h3>
+        <p className="podcast-form__success-body">We'll review and respond within 5 business days. Jazak Allah khayr.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form className="podcast-form" onSubmit={onSubmit} noValidate>
+      <fieldset className="podcast-form__field podcast-form__radio podcast-form__type">
+        <legend>Request type *</legend>
+        <div className="podcast-form__radio-group">
+          {[
+            { value: 'podcast',  label: 'Podcast appearance' },
+            { value: 'speaking', label: 'Speaking engagement' },
+          ].map((t) => (
+            <label key={t.value} className="podcast-form__radio-opt podcast-form__radio-opt--card">
+              <input type="radio" name="requestType" value={t.value}
+                checked={form.requestType === t.value}
+                onChange={(e) => update('requestType', e.target.value)} />
+              <span>{t.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div className="podcast-form__row">
+        <label className="podcast-form__field">
+          <span>Your name *</span>
+          <input type="text" required maxLength="200"
+            value={form.name} onChange={(e) => update('name', e.target.value)} />
+        </label>
+        <label className="podcast-form__field">
+          <span>Email *</span>
+          <input type="email" required maxLength="200"
+            value={form.email} onChange={(e) => update('email', e.target.value)} />
+        </label>
+      </div>
+
+      <div className="podcast-form__row">
+        <label className="podcast-form__field">
+          <span>{form.requestType === 'speaking' ? 'Event / Organization name *' : 'Show / Podcast name *'}</span>
+          <input type="text" required maxLength="200"
+            value={form.showName} onChange={(e) => update('showName', e.target.value)} />
+        </label>
+        <label className="podcast-form__field">
+          <span>Audience size *</span>
+          <select required value={form.audienceSize}
+            onChange={(e) => update('audienceSize', e.target.value)}>
+            {AUDIENCE_OPTIONS.map((o) => <option key={o}>{o}</option>)}
+          </select>
+        </label>
+      </div>
+
+      <label className="podcast-form__field">
+        <span>What you'd like Sheikh Abdullah to discuss *</span>
+        <textarea rows="4" required maxLength="4000"
+          value={form.topic} onChange={(e) => update('topic', e.target.value)} />
+      </label>
+
+      <div className="podcast-form__row">
+        <fieldset className="podcast-form__field podcast-form__radio">
+          <legend>Format *</legend>
+          <div className="podcast-form__radio-group">
+            {FORMAT_OPTIONS.map((f) => (
+              <label key={f.value} className="podcast-form__radio-opt">
+                <input type="radio" name="format" value={f.value}
+                  checked={form.format === f.value}
+                  onChange={(e) => update('format', e.target.value)} />
+                <span>{f.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <label className="podcast-form__field">
+          <span>Phone (optional)</span>
+          <input type="tel" maxLength="60"
+            value={form.phone} onChange={(e) => update('phone', e.target.value)} />
+        </label>
+      </div>
+
+      <label className="podcast-form__field">
+        <span>Preferred date range</span>
+        <input type="text" placeholder="e.g. May–June 2026" maxLength="200"
+          value={form.dateRange} onChange={(e) => update('dateRange', e.target.value)} />
+      </label>
+
+      <label className="podcast-form__field">
+        <span>Anything else?</span>
+        <textarea rows="3" maxLength="4000"
+          value={form.notes} onChange={(e) => update('notes', e.target.value)} />
+      </label>
+
+      <div className="podcast-form__conditions">
+        <label className="podcast-form__check">
+          <input type="checkbox" required
+            checked={form.agreed}
+            onChange={(e) => update('agreed', e.target.checked)} />
+          <span>I agree to the conditions below.</span>
+        </label>
+        <ul className="podcast-form__conditions-list">
+          <li>I will share the raw footage of the recording with the Masterman team after completion.</li>
+          <li>I grant Masterman permission to use clips from the footage on its social media accounts.</li>
+          <li>Masterman has final approval of all pre- and post-interview promotional materials.</li>
+        </ul>
+      </div>
+
+      {result && result.error && (
+        <div className="podcast-form__error" role="alert">{result.error}</div>
+      )}
+
+      <button type="submit" className="btn btn--primary podcast-form__submit" disabled={submitting}>
+        {submitting ? 'Sending…' : 'Send Request'}
+        <span className="btn__arrow">→</span>
+      </button>
+    </form>
+  );
+};
+
+const MediaPage = () => (
+  <>
+    <section className="section section--tight" style={{paddingTop: '160px', paddingBottom: '24px'}}>
+      <div className="wrap">
+        <div className="problem__head" style={{marginBottom: 0}}>
+          <span className="eyebrow">Media</span>
+          <h1 className="problem__h2">Have Sheikh Abdullah<br/>on your show.</h1>
+          <div className="problem__intro">
+            <p>Sheikh Abdullah Oduro speaks on Muslim identity, brotherhood, marriage, and the inner work of becoming an unshakeable man. If you run a podcast, conference, or community gathering and would like him on, send a request below. We respond within 5 business days.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="section" id="podcast-request" style={{paddingTop: '8px', paddingBottom: '64px'}}>
+      <div className="wrap">
+        <PodcastRequestForm />
+      </div>
+    </section>
+
+    <section className="section">
+      <div className="wrap">
+        <span className="eyebrow">Past appearances</span>
+        <h2 className="problem__h2" style={{marginBottom: '32px'}}>A few recent talks.</h2>
+        <div className="media-appearances">
+          {PODCAST_PAST_APPEARANCES.map((a, i) => (
+            <div key={i} className="media-appearance">
+              <div className="media-appearance__embed">
+                <iframe src={a.embed} title={a.title} loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen />
+              </div>
+              <div className="media-appearance__meta">
+                <h3 className="media-appearance__title">{a.title}</h3>
+                <p className="media-appearance__show">{a.show}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </>
+);
+
 Object.assign(window, {
   MMAbout: About,
   MMProgramsPage: ProgramsPage,
   MMRetreatsPage: RetreatsPage,
+  MMMediaPage: MediaPage,
 });
