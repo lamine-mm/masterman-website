@@ -121,14 +121,14 @@ const RetreatsPage = () => (
    ============================================================ */
 const PODCAST_PAST_APPEARANCES = [
   {
-    title: 'What Actually Happens At A Masterman Retreat',
-    show: 'Masterman Channel',
-    embed: 'https://www.youtube.com/embed/mrxaCnaWR-U?rel=0',
+    title: 'Working Out, Approaching Muslim Women & Converting to Islam',
+    show: 'The Ansari Podcast · E78',
+    embed: 'https://www.youtube.com/embed/hODL4TvYrWg?rel=0&start=2389',
   },
   {
-    title: 'How To Rebuild Your Life in Your 30s–40s',
-    show: 'Masterman Channel',
-    embed: 'https://www.youtube.com/embed/LhfgkI1uRuU?rel=0&start=174',
+    title: 'A Book About Government Secrets Led Me To Islam',
+    show: '1st Pillar',
+    embed: 'https://www.youtube.com/embed/TJfBFJQGI5I?rel=0',
   },
 ];
 
