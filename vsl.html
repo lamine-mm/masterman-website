@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masterman — Watch the program walkthrough</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="styles/colors_and_type.css">
+<style>
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .vsl-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+  .vsl-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: var(--fs-eyebrow);
+    color: var(--fg-muted);
+    text-align: center;
+    margin: 0;
+  }
+  .vsl-headline {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin: 24px 0 16px;
+  }
+  .vsl-sub {
+    text-align: center;
+    color: var(--fg-muted);
+    font-size: var(--fs-base);
+    margin: 0 auto 40px;
+    max-width: 56ch;
+  }
+  .vsl-video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg-dim);
+    overflow: hidden;
+  }
+  .vsl-cta-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+  }
+  .vsl-cta {
+    display: inline-block;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: var(--fg-on-gold);
+    font-weight: 600;
+    font-size: var(--fs-ui);
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .vsl-cta:hover { background: var(--accent-strong); }
+  .vsl-section {
+    margin-top: 80px;
+    color: var(--fg-muted);
+    text-align: center;
+    font-size: var(--fs-sm);
+  }
+</style>
+</head>
+<body>
+  <main class="vsl-wrap">
+    <p class="vsl-eyebrow">Masterman</p>
+    <h1 class="vsl-headline">Headline goes here.</h1>
+    <p class="vsl-sub">Subhead goes here.</p>
+
+    <!-- Replace with the real video embed (Vimeo iframe / Mux / native <video>). -->
+    <div class="vsl-video">Video placeholder</div>
+
+    <div class="vsl-cta-row">
+      <a class="vsl-cta"
+         data-cta="book-call"
+         href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+        Apply now
+      </a>
+    </div>
+
+    <section class="vsl-section">
+      <!-- Drop in program-info sections here once Lamine sends the structure. -->
+      More about the program coming soon.
+    </section>
+  </main>
+
+  <script src="https://apply.mastermangroup.com/track.js"
+          data-page="vsl-v1" defer></script>
+</body>
+</html>
