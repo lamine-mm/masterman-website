@@ -1487,8 +1487,8 @@
           <div class="inside__body">
             <span class="inside__tag">Weekly · Qur'an</span>
             <h3 class="inside__name">Qur'an Sessions</h3>
-            <p class="inside__copy">Recitation, tafsir, and reflection — taught with depth, lived with discipline. The
-              Book of Allah, returned to its place at the center of your week.</p>
+            <p class="inside__copy">Recitation and reflection — taught with depth, lived with discipline. The Book of
+              Allah, returned to its place at the center of your week.</p>
           </div>
         </div>
 
@@ -1637,9 +1637,21 @@
       var close = document.getElementById('vmodalClose');
       if (!modal) return;
 
+      function escapeAttr(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
       function open(embed, name, role) {
-        frame.innerHTML = '<iframe src="' + embed + '?autoplay=1" title="' + name + '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-        caption.innerHTML = '<strong>' + name + '</strong>' + (role ? role : '');
+        var iframe = document.createElement('iframe');
+        iframe.src = embed;
+        iframe.title = name;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        frame.replaceChildren(iframe);
+        caption.innerHTML = '<strong>' + escapeAttr(name) + '</strong>' + (role ? escapeAttr(role) : '');
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -1647,7 +1659,7 @@
       function shut() {
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
-        frame.innerHTML = '';
+        frame.replaceChildren();
         document.body.style.overflow = '';
       }
 
