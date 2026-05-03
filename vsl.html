@@ -735,6 +735,9 @@
       transform: translateY(-2px);
     }
 
+    /* ---- WIDE CARD — spans both columns, used to bookend the grid ---- */
+    .inside__card--wide { grid-column: 1 / -1; }
+
     /* ---- HERO CARD (Tracker) — landscape, full width, mockup + copy ---- */
     .inside__hero {
       display: grid;
@@ -1467,7 +1470,7 @@
       <div class="inside__grid">
         <div class="inside__card">
           <div class="inside__media">
-            <img src="assets/photos/splash/shk.jpg" alt="">
+            <img src="assets/photos/session_shk.png" alt="">
           </div>
           <div class="inside__body">
             <span class="inside__tag">Weekly · Live</span>
@@ -1503,18 +1506,6 @@
 
         <div class="inside__card">
           <div class="inside__media">
-            <img src="assets/photos/session_shk.png" alt="">
-          </div>
-          <div class="inside__body">
-            <span class="inside__tag">Pod · Brotherhood</span>
-            <h3 class="inside__name">Your Brotherhood Pod</h3>
-            <p class="inside__copy">Three to five serious men. The unit you're in for the season — they know your real
-              life, the wins and the slips. Weekly check-ins. Fitness challenges. Held to the line.</p>
-          </div>
-        </div>
-
-        <div class="inside__card">
-          <div class="inside__media">
             <img src="assets/photos/accountabilitycall.png" alt="">
           </div>
           <div class="inside__body">
@@ -1525,7 +1516,7 @@
           </div>
         </div>
 
-        <div class="inside__card">
+        <div class="inside__card inside__card--wide">
           <div class="inside__media">
             <img src="assets/photos/retreat-feature.jpg" alt="">
           </div>
