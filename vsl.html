@@ -1,1243 +1,1656 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Masterman — Watch the program walkthrough</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="styles/colors_and_type.css">
-<style>
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--fg-body);
-    font-family: var(--font-text);
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  /* ---------- LAYOUT ---------- */
-  .wrap        { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  .wrap-narrow { max-width: 760px;  margin: 0 auto; padding: 0 24px; }
-  section      { padding: 96px 0; position: relative; }
-  @media (max-width: 720px) { section { padding: 64px 0; } }
-
-  .rule-fade {
-    height: 1px;
-    width: 100%;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    margin: 0 auto;
-    max-width: 1100px;
-  }
-
-  /* ---------- NAV ---------- */
-  .vsl-nav {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(14,14,13,.85);
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
-    border-bottom: 1px solid rgba(255,255,255,.04);
-  }
-  .vsl-nav__inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 14px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .vsl-nav__brand {
-    display: flex; align-items: center; gap: 10px;
-    text-decoration: none; color: var(--fg);
-  }
-  .vsl-nav__brand img { width: 26px; height: 26px; }
-  .vsl-nav__brand-word {
-    font-family: var(--font-text);
-    font-weight: 600; font-size: 13px;
-    letter-spacing: 0.18em; text-transform: uppercase;
-  }
-  .vsl-nav__cta {
-    font-family: var(--font-text);
-    font-size: 13px; font-weight: 600;
-    color: var(--fg); text-decoration: none;
-    letter-spacing: 0.04em;
-    padding: 9px 16px;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-md);
-    transition: border-color 180ms var(--ease-standard), color 180ms var(--ease-standard);
-  }
-  .vsl-nav__cta:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* ---------- SHARED EYEBROW + SECTION TITLES (all centered) ---------- */
-  .eyebrow {
-    display: block;
-    text-align: center;
-    font-family: var(--font-text);
-    font-size: var(--fs-eyebrow);
-    text-transform: uppercase;
-    letter-spacing: 0.28em;
-    color: var(--accent);
-    font-weight: 600;
-    margin: 0 0 20px;
-  }
-  .section-title {
-    font-family: var(--font-display);
-    font-weight: 450;
-    font-size: clamp(28px, 3.8vw, 44px);
-    line-height: 1.1;
-    letter-spacing: -0.012em;
-    color: var(--fg);
-    margin: 0 auto 56px;
-    text-align: center;
-    max-width: 22ch;
-  }
-  .section-title em {
-    font-style: italic;
-    color: var(--parchment-300);
-    font-weight: 400;
-  }
-
-  /* ---------- BUTTONS ---------- */
-  .btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: var(--font-text);
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.02em;
-    padding: 16px 30px;
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: background 180ms var(--ease-standard),
-                border-color 180ms var(--ease-standard),
-                transform 180ms var(--ease-standard),
-                color 180ms var(--ease-standard);
-  }
-  .btn--gold {
-    background: var(--accent);
-    color: var(--fg-on-gold);
-    border-color: var(--accent);
-  }
-  .btn--gold:hover { background: var(--accent-strong); border-color: var(--accent-strong); transform: translateY(-1px); }
-  .btn__arrow { transition: transform 180ms var(--ease-standard); }
-  .btn:hover .btn__arrow { transform: translateX(4px); }
-
-  /* ---------- HERO ---------- */
-  .hero { padding-top: 88px; padding-bottom: 28px; text-align: center; }
-  .hero h1 {
-    font-family: var(--font-display);
-    font-weight: 450;
-    font-size: clamp(34px, 5.6vw, 64px);
-    line-height: 1.04;
-    letter-spacing: -0.018em;
-    color: var(--fg);
-    margin: 0 auto 24px;
-    max-width: 18ch;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--parchment-300);
-    font-weight: 400;
-  }
-  .hero__sub {
-    font-family: var(--font-text);
-    font-size: clamp(16px, 1.8vw, 19px);
-    line-height: 1.55;
-    color: var(--parchment-300);
-    margin: 0 auto;
-    max-width: 52ch;
-  }
-
-  /* ---------- VIDEO BLOCK ---------- */
-  .video {
-    padding-top: 0;
-    padding-bottom: 96px;
-  }
-  .video__frame {
-    aspect-ratio: 16 / 9;
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-lift);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--fg-dim);
-    overflow: hidden;
-    position: relative;
-  }
-  .video__frame::before {
-    content: "VIDEO";
-    position: absolute; top: 14px; left: 16px;
-    font-size: 11px; letter-spacing: 0.2em;
-    color: var(--parchment-500);
-  }
-  .video__placeholder-mark {
-    width: 64px; height: 64px;
-    border-radius: 999px;
-    border: 1px solid var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--accent);
-  }
-  .video__cta-row { text-align: center; margin-top: 36px; }
-
-  /* ---------- VIDEO TESTIMONIALS ---------- */
-  .testi { background: var(--ink-850); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .testi__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 900px) { .testi__grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
-  .testi__card {
-    background: var(--ink-900);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    transition: border-color 220ms var(--ease-standard), transform 220ms var(--ease-standard);
-    padding: 0;
-    text-align: left;
-    cursor: pointer;
-    color: inherit;
-    font: inherit;
-    display: block;
-    width: 100%;
-  }
-  .testi__card:hover { border-color: var(--gold-hairline); transform: translateY(-2px); }
-  .testi__video {
-    aspect-ratio: 16 / 10;
-    background: var(--surface);
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .testi__thumb {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: grayscale(0.6) brightness(0.65);
-    transition: filter 320ms var(--ease-standard);
-  }
-  .testi__card:hover .testi__thumb { filter: grayscale(0.2) brightness(0.85); }
-  .testi__play {
-    position: relative; z-index: 2;
-    width: 56px; height: 56px;
-    border-radius: 999px;
-    background: rgba(14,14,13,0.7);
-    backdrop-filter: blur(6px);
-    border: 1px solid var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--accent);
-  }
-  .testi__meta { padding: 18px 20px 22px; }
-  .testi__name {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 18px;
-    color: var(--fg);
-    margin: 0 0 6px;
-    line-height: 1.2;
-  }
-  .testi__role {
-    font-family: var(--font-text);
-    font-size: 12.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--parchment-500);
-  }
-  /* ============================================================ */
-  /* SCROLL STAGES — The Four F's
-  /* ============================================================ */
-  .stages-section { padding: 112px 0 128px; }
-  @media (max-width: 720px) { .stages-section { padding: 80px 0; } }
-  .stages-intro {
-    text-align: center;
-    color: var(--parchment-300);
-    font-family: var(--font-text);
-    font-size: 17px;
-    line-height: 1.6;
-    max-width: 56ch;
-    margin: -32px auto 72px;
-  }
-  .stages-intro strong { color: var(--fg); font-weight: 600; }
-
-  .stages {
-    position: relative;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  /* spine */
-  .stages::before {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 50%;
-    width: 1px;
-    background: var(--ink-600);
-    transform: translateX(-0.5px);
-  }
-  .stages__row {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 80px 1fr;
-    align-items: center;
-    gap: 24px;
-    padding: 56px 0;
-    min-height: 360px;
-  }
-  .stages__row + .stages__row { margin-top: 32px; }
-  .stages__node {
-    position: relative;
-    width: 14px; height: 14px;
-    border-radius: 999px;
-    background: var(--ink-850);
-    border: 1px solid var(--ink-500);
-    justify-self: center;
-    z-index: 2;
-    transition: background 320ms var(--ease-standard),
-                border-color 320ms var(--ease-standard),
-                box-shadow 320ms var(--ease-standard),
-                transform 320ms var(--ease-standard);
-  }
-  .stages__row.is-active .stages__node {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 0 8px rgba(200, 162, 75, 0.12);
-    transform: scale(1.1);
-  }
-  .stages__node-num {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) translateX(28px);
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: var(--parchment-500);
-    transition: color 320ms var(--ease-standard);
-    white-space: nowrap;
-  }
-  .stages__row.is-active .stages__node-num { color: var(--accent); }
-
-  .stages__media,
-  .stages__card {
-    opacity: 0.42;
-    transition: opacity 480ms var(--ease-standard), transform 480ms var(--ease-standard);
-    transform: translateY(8px);
-  }
-  .stages__row.is-active .stages__media,
-  .stages__row.is-active .stages__card {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .stages__row[data-side="left"]  .stages__card  { grid-column: 1; grid-row: 1; }
-  .stages__row[data-side="left"]  .stages__media { grid-column: 3; grid-row: 1; }
-  .stages__row[data-side="right"] .stages__media { grid-column: 1; grid-row: 1; }
-  .stages__row[data-side="right"] .stages__card  { grid-column: 3; grid-row: 1; }
-  .stages__row .stages__node                     { grid-column: 2; grid-row: 1; }
-
-  .stages__media {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    max-width: 380px;
-    width: 100%;
-  }
-  .stages__row[data-side="left"]  .stages__media { justify-self: start; }
-  .stages__row[data-side="right"] .stages__media { justify-self: end; }
-  .stages__media img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: grayscale(0.85) brightness(0.7);
-    transition: filter 600ms var(--ease-standard), transform 800ms var(--ease-standard);
-  }
-  .stages__row.is-active .stages__media img {
-    filter: grayscale(0.25) brightness(0.95);
-    transform: scale(1.02);
-  }
-  .stages__media::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(14,14,13,0.55) 100%);
-    pointer-events: none;
-  }
-
-  .stages__card {
-    max-width: 420px;
-  }
-  .stages__row[data-side="left"]  .stages__card { justify-self: end; text-align: right; }
-  .stages__row[data-side="right"] .stages__card { justify-self: start; text-align: left; }
-  .stages__letter {
-    display: inline-block;
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 56px;
-    line-height: 1;
-    color: var(--accent);
-    margin-bottom: 14px;
-    opacity: 0.8;
-  }
-  .stages__name {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(28px, 3vw, 38px);
-    line-height: 1.05;
-    color: var(--fg);
-    margin: 0 0 12px;
-    letter-spacing: -0.01em;
-  }
-  .stages__module {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 5px 12px;
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    font-family: var(--font-text);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--parchment-300);
-    margin-bottom: 16px;
-  }
-  .stages__row[data-side="left"] .stages__module { flex-direction: row-reverse; }
-  .stages__module-dot { width: 5px; height: 5px; border-radius: 999px; background: var(--accent); }
-  .stages__what {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 19px;
-    line-height: 1.4;
-    color: var(--parchment-100);
-    margin: 0 0 12px;
-  }
-  .stages__how {
-    font-family: var(--font-text);
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--parchment-300);
-    margin: 0;
-  }
-
-  /* mobile stages — spine on left, all content right */
-  @media (max-width: 820px) {
-    .stages { padding: 0 20px 0 20px; }
-    .stages::before { left: 20px; transform: none; }
-    .stages__row {
-      grid-template-columns: 20px 1fr;
-      gap: 24px;
-      padding: 32px 0;
-      min-height: 0;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Masterman — Watch the program walkthrough</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="stylesheet" href="styles/colors_and_type.css">
+  <style>
+    * {
+      box-sizing: border-box;
     }
-    .stages__row[data-side="left"]  .stages__card,
-    .stages__row[data-side="right"] .stages__card,
-    .stages__row[data-side="left"]  .stages__media,
-    .stages__row[data-side="right"] .stages__media {
-      grid-column: 2;
-      grid-row: auto;
-      justify-self: stretch;
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg-body);
+      font-family: var(--font-text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ---------- LAYOUT ---------- */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .wrap-narrow {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 96px 0;
+      position: relative;
+    }
+
+    @media (max-width: 720px) {
+      section {
+        padding: 64px 0;
+      }
+    }
+
+    .rule-fade {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 auto;
+      max-width: 1100px;
+    }
+
+    /* ---------- NAV ---------- */
+    .vsl-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(14, 14, 13, .85);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+    }
+
+    .vsl-nav__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .vsl-nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--fg);
+    }
+
+    .vsl-nav__brand img {
+      width: 26px;
+      height: 26px;
+    }
+
+    .vsl-nav__brand-word {
+      font-family: var(--font-text);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .vsl-nav__cta {
+      font-family: var(--font-text);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--fg);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      padding: 9px 16px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      transition: border-color 180ms var(--ease-standard), color 180ms var(--ease-standard);
+    }
+
+    .vsl-nav__cta:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ---------- SHARED EYEBROW + SECTION TITLES (all centered) ---------- */
+    .eyebrow {
+      display: block;
+      text-align: center;
+      font-family: var(--font-text);
+      font-size: var(--fs-eyebrow);
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 0 20px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 450;
+      font-size: clamp(28px, 3.8vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.012em;
+      color: var(--fg);
+      margin: 0 auto 56px;
+      text-align: center;
+      max-width: 22ch;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--parchment-300);
+      font-weight: 400;
+    }
+
+    /* ---------- BUTTONS ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-text);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      padding: 16px 30px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background 180ms var(--ease-standard),
+        border-color 180ms var(--ease-standard),
+        transform 180ms var(--ease-standard),
+        color 180ms var(--ease-standard);
+    }
+
+    .btn--gold {
+      background: var(--accent);
+      color: var(--fg-on-gold);
+      border-color: var(--accent);
+    }
+
+    .btn--gold:hover {
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+      transform: translateY(-1px);
+    }
+
+    .btn__arrow {
+      transition: transform 180ms var(--ease-standard);
+    }
+
+    .btn:hover .btn__arrow {
+      transform: translateX(4px);
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      padding-top: 88px;
+      padding-bottom: 28px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 450;
+      font-size: clamp(34px, 5.6vw, 64px);
+      line-height: 1.04;
+      letter-spacing: -0.018em;
+      color: var(--fg);
+      margin: 0 auto 24px;
+      max-width: 18ch;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--parchment-300);
+      font-weight: 400;
+    }
+
+    .hero__sub {
+      font-family: var(--font-text);
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.55;
+      color: var(--parchment-300);
+      margin: 0 auto;
+      max-width: 52ch;
+    }
+
+    /* ---------- VIDEO BLOCK ---------- */
+    .video {
+      padding-top: 0;
+      padding-bottom: 96px;
+    }
+
+    .video__frame {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow-lift);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg-dim);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .video__frame::before {
+      content: "VIDEO";
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--parchment-500);
+    }
+
+    .video__placeholder-mark {
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+
+    .video__cta-row {
+      text-align: center;
+      margin-top: 36px;
+    }
+
+    /* ---------- VIDEO TESTIMONIALS ---------- */
+    .testi {
+      background: var(--ink-850);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .testi__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .testi__grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+    }
+
+    .testi__card {
+      background: var(--ink-900);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color 220ms var(--ease-standard), transform 220ms var(--ease-standard);
+      padding: 0;
       text-align: left;
-      max-width: 100%;
+      cursor: pointer;
+      color: inherit;
+      font: inherit;
+      display: block;
+      width: 100%;
     }
-    .stages__row[data-side="left"] .stages__module { flex-direction: row; }
-    .stages__row .stages__node {
+
+    .testi__card:hover {
+      border-color: var(--gold-hairline);
+      transform: translateY(-2px);
+    }
+
+    .testi__video {
+      aspect-ratio: 16 / 10;
+      background: var(--surface);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .testi__thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.6) brightness(0.65);
+      transition: filter 320ms var(--ease-standard);
+    }
+
+    .testi__card:hover .testi__thumb {
+      filter: grayscale(0.2) brightness(0.85);
+    }
+
+    .testi__play {
+      position: relative;
+      z-index: 2;
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: rgba(14, 14, 13, 0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+
+    .testi__meta {
+      padding: 18px 20px 22px;
+    }
+
+    .testi__name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 18px;
+      color: var(--fg);
+      margin: 0 0 6px;
+      line-height: 1.2;
+    }
+
+    .testi__role {
+      font-family: var(--font-text);
+      font-size: 12.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--parchment-500);
+    }
+
+    /* ============================================================ */
+    /* SCROLL STAGES — The Four F's
+  /* ============================================================ */
+    .stages-section {
+      padding: 112px 0 128px;
+    }
+
+    @media (max-width: 720px) {
+      .stages-section {
+        padding: 80px 0;
+      }
+    }
+
+    .stages-intro {
+      text-align: center;
+      color: var(--parchment-300);
+      font-family: var(--font-text);
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 56ch;
+      margin: -32px auto 72px;
+    }
+
+    .stages-intro strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .stages {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* spine */
+    .stages::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--ink-600);
+      transform: translateX(-0.5px);
+    }
+
+    .stages__row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      align-items: center;
+      gap: 24px;
+      padding: 56px 0;
+      min-height: 360px;
+    }
+
+    .stages__row+.stages__row {
+      margin-top: 32px;
+    }
+
+    .stages__node {
+      position: relative;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--ink-850);
+      border: 1px solid var(--ink-500);
+      justify-self: center;
+      z-index: 2;
+      transition: background 320ms var(--ease-standard),
+        border-color 320ms var(--ease-standard),
+        box-shadow 320ms var(--ease-standard),
+        transform 320ms var(--ease-standard);
+    }
+
+    .stages__row.is-active .stages__node {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 8px rgba(200, 162, 75, 0.12);
+      transform: scale(1.1);
+    }
+
+    .stages__node-num {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) translateX(28px);
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--parchment-500);
+      transition: color 320ms var(--ease-standard);
+      white-space: nowrap;
+    }
+
+    .stages__row.is-active .stages__node-num {
+      color: var(--accent);
+    }
+
+    .stages__media,
+    .stages__card {
+      opacity: 0.42;
+      transition: opacity 480ms var(--ease-standard), transform 480ms var(--ease-standard);
+      transform: translateY(8px);
+    }
+
+    .stages__row.is-active .stages__media,
+    .stages__row.is-active .stages__card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stages__row[data-side="left"] .stages__card {
       grid-column: 1;
       grid-row: 1;
-      align-self: start;
-      margin-top: 8px;
     }
-    .stages__media { aspect-ratio: 16/10; margin-bottom: 18px; max-width: 100%; }
-    .stages__media { grid-row: 2 !important; }
-    .stages__card  { grid-row: 1 !important; }
-    .stages__letter { font-size: 40px; margin-bottom: 8px; }
-    .stages__node-num { display: none; }
-  }
 
+    .stages__row[data-side="left"] .stages__media {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .stages__row[data-side="right"] .stages__media {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .stages__row[data-side="right"] .stages__card {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .stages__row .stages__node {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .stages__media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      max-width: 380px;
+      width: 100%;
+    }
+
+    .stages__row[data-side="left"] .stages__media {
+      justify-self: start;
+    }
+
+    .stages__row[data-side="right"] .stages__media {
+      justify-self: end;
+    }
+
+    .stages__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.85) brightness(0.7);
+      transition: filter 600ms var(--ease-standard), transform 800ms var(--ease-standard);
+    }
+
+    .stages__row.is-active .stages__media img {
+      filter: grayscale(0.25) brightness(0.95);
+      transform: scale(1.02);
+    }
+
+    .stages__media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(14, 14, 13, 0.55) 100%);
+      pointer-events: none;
+    }
+
+    .stages__card {
+      max-width: 420px;
+    }
+
+    .stages__row[data-side="left"] .stages__card {
+      justify-self: end;
+      text-align: right;
+    }
+
+    .stages__row[data-side="right"] .stages__card {
+      justify-self: start;
+      text-align: left;
+    }
+
+    .stages__letter {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 56px;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 14px;
+      opacity: 0.8;
+    }
+
+    .stages__name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(28px, 3vw, 38px);
+      line-height: 1.05;
+      color: var(--fg);
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .stages__module {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      font-family: var(--font-text);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--parchment-300);
+      margin-bottom: 16px;
+    }
+
+    .stages__row[data-side="left"] .stages__module {
+      flex-direction: row-reverse;
+    }
+
+    .stages__module-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .stages__what {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 1.4;
+      color: var(--parchment-100);
+      margin: 0 0 12px;
+    }
+
+    .stages__how {
+      font-family: var(--font-text);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--parchment-300);
+      margin: 0;
+    }
+
+    /* mobile stages — spine on left, all content right */
+    @media (max-width: 820px) {
+      .stages {
+        padding: 0 20px 0 20px;
+      }
+
+      .stages::before {
+        left: 20px;
+        transform: none;
+      }
+
+      .stages__row {
+        grid-template-columns: 20px 1fr;
+        gap: 24px;
+        padding: 32px 0;
+        min-height: 0;
+      }
+
+      .stages__row[data-side="left"] .stages__card,
+      .stages__row[data-side="right"] .stages__card,
+      .stages__row[data-side="left"] .stages__media,
+      .stages__row[data-side="right"] .stages__media {
+        grid-column: 2;
+        grid-row: auto;
+        justify-self: stretch;
+        text-align: left;
+        max-width: 100%;
+      }
+
+      .stages__row[data-side="left"] .stages__module {
+        flex-direction: row;
+      }
+
+      .stages__row .stages__node {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: start;
+        margin-top: 8px;
+      }
+
+      .stages__media {
+        aspect-ratio: 16/10;
+        margin-bottom: 18px;
+        max-width: 100%;
+      }
+
+      .stages__media {
+        grid-row: 2 !important;
+      }
+
+      .stages__card {
+        grid-row: 1 !important;
+      }
+
+      .stages__letter {
+        font-size: 40px;
+        margin-bottom: 8px;
+      }
+
+      .stages__node-num {
+        display: none;
+      }
+    }
+
+    /* ============================================================ */
+    /* WHAT'S INSIDE THE PROGRAM
   /* ============================================================ */
-  /* WHAT'S INSIDE THE PROGRAM
-  /* ============================================================ */
-  .inside { background: var(--ink-850); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .inside__intro {
-    text-align: center;
-    color: var(--parchment-300);
-    font-family: var(--font-text);
-    font-size: 17px;
-    line-height: 1.6;
-    max-width: 56ch;
-    margin: -32px auto 56px;
-  }
-
-  .inside__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-  @media (max-width: 700px) { .inside__grid { grid-template-columns: 1fr; } }
-
-  .inside__card {
-    background: var(--ink-900);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 220ms var(--ease-standard), transform 220ms var(--ease-standard);
-  }
-  .inside__card:hover { border-color: var(--gold-hairline); transform: translateY(-2px); }
-
-  /* ---- HERO CARD (Tracker) — landscape, full width, mockup + copy ---- */
-  .inside__hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background: var(--ink-900);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    margin-bottom: 18px;
-    transition: border-color 220ms var(--ease-standard);
-  }
-  .inside__hero:hover { border-color: var(--gold-hairline); }
-  @media (max-width: 820px) { .inside__hero { grid-template-columns: 1fr; } }
-  .inside__hero .inside__app {
-    aspect-ratio: auto;
-    min-height: 340px;
-    border-bottom: 0;
-    border-right: 1px solid var(--border);
-  }
-  @media (max-width: 820px) {
-    .inside__hero .inside__app {
-      border-right: 0;
+    .inside {
+      background: var(--ink-850);
+      border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      min-height: 280px;
     }
-  }
-  .inside__hero .inside__body {
-    padding: 36px 40px;
-    justify-content: center;
-  }
-  .inside__hero .inside__name { font-size: 28px; }
-  @media (max-width: 820px) { .inside__hero .inside__body { padding: 24px 22px 28px; } .inside__hero .inside__name { font-size: 24px; } }
 
-  .inside__media {
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    position: relative;
-  }
-  .inside__media img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: grayscale(0.7) brightness(0.75);
-    transition: filter 320ms var(--ease-standard), transform 600ms var(--ease-standard);
-  }
-  .inside__card:hover .inside__media img { filter: grayscale(0.2) brightness(0.95); transform: scale(1.04); }
+    .inside__intro {
+      text-align: center;
+      color: var(--parchment-300);
+      font-family: var(--font-text);
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 56ch;
+      margin: -32px auto 56px;
+    }
 
-  .inside__app {
-    aspect-ratio: 16 / 10;
-    background:
-      radial-gradient(circle at 30% 20%, rgba(200,162,75,0.08), transparent 60%),
-      linear-gradient(160deg, var(--ink-800), var(--ink-900));
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    border-bottom: 1px solid var(--border);
-  }
-  .app-mock {
-    width: 64%;
-    max-width: 220px;
-    background: var(--ink-850);
-    border: 1px solid var(--border-strong);
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-  }
-  .app-mock__head {
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--font-text);
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--parchment-500);
-    margin-bottom: 10px;
-  }
-  .app-mock__head span:last-child { color: var(--accent); }
-  .app-mock__row {
-    display: flex; align-items: center; gap: 8px;
-    padding: 7px 0;
-    font-family: var(--font-text);
-    font-size: 11.5px;
-    color: var(--parchment-100);
-    border-top: 1px solid rgba(255,255,255,0.04);
-  }
-  .app-mock__row:first-of-type { border-top: 0; }
-  .app-mock__check {
-    width: 14px; height: 14px;
-    border-radius: 3px;
-    border: 1px solid var(--border-strong);
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--accent); font-size: 10px;
-  }
-  .app-mock__row--done .app-mock__check { background: var(--accent); border-color: var(--accent); color: var(--fg-on-gold); }
-  .app-mock__row--done { color: var(--parchment-300); }
+    .inside__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
 
-  .inside__body { padding: 20px 22px 24px; flex: 1; display: flex; flex-direction: column; }
-  .inside__tag {
-    font-family: var(--font-text);
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .inside__name {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 1.2;
-    color: var(--fg);
-    margin: 0 0 10px;
-  }
-  .inside__copy {
-    font-family: var(--font-text);
-    font-size: 14.5px;
-    line-height: 1.55;
-    color: var(--parchment-300);
-    margin: 0;
-  }
+    @media (max-width: 700px) {
+      .inside__grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
+    .inside__card {
+      background: var(--ink-900);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 220ms var(--ease-standard), transform 220ms var(--ease-standard);
+    }
+
+    .inside__card:hover {
+      border-color: var(--gold-hairline);
+      transform: translateY(-2px);
+    }
+
+    /* ---- HERO CARD (Tracker) — landscape, full width, mockup + copy ---- */
+    .inside__hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--ink-900);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 18px;
+      transition: border-color 220ms var(--ease-standard);
+    }
+
+    .inside__hero:hover {
+      border-color: var(--gold-hairline);
+    }
+
+    @media (max-width: 820px) {
+      .inside__hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .inside__hero .inside__app {
+      aspect-ratio: auto;
+      min-height: 340px;
+      border-bottom: 0;
+      border-right: 1px solid var(--border);
+    }
+
+    @media (max-width: 820px) {
+      .inside__hero .inside__app {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        min-height: 280px;
+      }
+    }
+
+    .inside__hero .inside__body {
+      padding: 36px 40px;
+      justify-content: center;
+    }
+
+    .inside__hero .inside__name {
+      font-size: 28px;
+    }
+
+    @media (max-width: 820px) {
+      .inside__hero .inside__body {
+        padding: 24px 22px 28px;
+      }
+
+      .inside__hero .inside__name {
+        font-size: 24px;
+      }
+    }
+
+    .inside__media {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .inside__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.7) brightness(0.75);
+      transition: filter 320ms var(--ease-standard), transform 600ms var(--ease-standard);
+    }
+
+    .inside__card:hover .inside__media img {
+      filter: grayscale(0.2) brightness(0.95);
+      transform: scale(1.04);
+    }
+
+    .inside__app {
+      aspect-ratio: 16 / 10;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(200, 162, 75, 0.08), transparent 60%),
+        linear-gradient(160deg, var(--ink-800), var(--ink-900));
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .app-mock {
+      width: 64%;
+      max-width: 220px;
+      background: var(--ink-850);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .app-mock__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-text);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--parchment-500);
+      margin-bottom: 10px;
+    }
+
+    .app-mock__head span:last-child {
+      color: var(--accent);
+    }
+
+    .app-mock__row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      font-family: var(--font-text);
+      font-size: 11.5px;
+      color: var(--parchment-100);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .app-mock__row:first-of-type {
+      border-top: 0;
+    }
+
+    .app-mock__check {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid var(--border-strong);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 10px;
+    }
+
+    .app-mock__row--done .app-mock__check {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--fg-on-gold);
+    }
+
+    .app-mock__row--done {
+      color: var(--parchment-300);
+    }
+
+    .inside__body {
+      padding: 20px 22px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .inside__tag {
+      font-family: var(--font-text);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .inside__name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1.2;
+      color: var(--fg);
+      margin: 0 0 10px;
+    }
+
+    .inside__copy {
+      font-family: var(--font-text);
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--parchment-300);
+      margin: 0;
+    }
+
+    /* ============================================================ */
+    /* WHAT THIS CALL IS / ISN'T
   /* ============================================================ */
-  /* WHAT THIS CALL IS / ISN'T
+    .call__split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      max-width: 880px;
+      margin: 0 auto 48px;
+    }
+
+    @media (max-width: 720px) {
+      .call__split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .call__col {
+      padding: 32px 28px;
+      background: var(--ink-850);
+    }
+
+    .call__col+.call__col {
+      border-left: 1px solid var(--border);
+    }
+
+    @media (max-width: 720px) {
+      .call__col+.call__col {
+        border-left: 0;
+        border-top: 1px solid var(--border);
+      }
+    }
+
+    .call__col-head {
+      font-family: var(--font-text);
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .call__col--is .call__col-head {
+      color: var(--accent);
+    }
+
+    .call__col--isnt .call__col-head {
+      color: var(--parchment-500);
+    }
+
+    .call__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .call__list li {
+      font-family: var(--font-text);
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--parchment-100);
+      padding: 10px 0 10px 24px;
+      position: relative;
+    }
+
+    .call__list li+li {
+      border-top: 1px solid rgba(255, 255, 255, .04);
+    }
+
+    .call__col--is .call__list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      color: var(--accent);
+    }
+
+    .call__col--isnt .call__list li::before {
+      content: "×";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      color: var(--parchment-500);
+      font-size: 16px;
+    }
+
+    .call__col--isnt .call__list li {
+      color: var(--parchment-300);
+    }
+
+    .call__close {
+      text-align: center;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(18px, 2.2vw, 22px);
+      color: var(--fg);
+      line-height: 1.5;
+      max-width: 50ch;
+      margin: 0 auto;
+    }
+
+    /* ============================================================ */
+    /* FINAL CTA
   /* ============================================================ */
-  .call__split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    max-width: 880px;
-    margin: 0 auto 48px;
-  }
-  @media (max-width: 720px) { .call__split { grid-template-columns: 1fr; } }
-  .call__col { padding: 32px 28px; background: var(--ink-850); }
-  .call__col + .call__col { border-left: 1px solid var(--border); }
-  @media (max-width: 720px) {
-    .call__col + .call__col { border-left: 0; border-top: 1px solid var(--border); }
-  }
-  .call__col-head {
-    font-family: var(--font-text);
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 18px;
-  }
-  .call__col--is .call__col-head { color: var(--accent); }
-  .call__col--isnt .call__col-head { color: var(--parchment-500); }
-  .call__list { list-style: none; padding: 0; margin: 0; }
-  .call__list li {
-    font-family: var(--font-text);
-    font-size: 15px;
-    line-height: 1.55;
-    color: var(--parchment-100);
-    padding: 10px 0 10px 24px;
-    position: relative;
-  }
-  .call__list li + li { border-top: 1px solid rgba(255,255,255,.04); }
-  .call__col--is .call__list li::before {
-    content: "—";
-    position: absolute; left: 0; top: 10px;
-    color: var(--accent);
-  }
-  .call__col--isnt .call__list li::before {
-    content: "×";
-    position: absolute; left: 0; top: 9px;
-    color: var(--parchment-500);
-    font-size: 16px;
-  }
-  .call__col--isnt .call__list li { color: var(--parchment-300); }
+    .final {
+      text-align: center;
+      padding-top: 112px;
+      padding-bottom: 128px;
+    }
 
-  .call__close {
-    text-align: center;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(18px, 2.2vw, 22px);
-    color: var(--fg);
-    line-height: 1.5;
-    max-width: 50ch;
-    margin: 0 auto;
-  }
+    .final__cost {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(22px, 2.8vw, 30px);
+      line-height: 1.4;
+      color: var(--parchment-300);
+      max-width: 32ch;
+      margin: 0 auto 56px;
+    }
 
-  /* ============================================================ */
-  /* FINAL CTA
-  /* ============================================================ */
-  .final {
-    text-align: center;
-    padding-top: 112px;
-    padding-bottom: 128px;
-  }
-  .final__cost {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(22px, 2.8vw, 30px);
-    line-height: 1.4;
-    color: var(--parchment-300);
-    max-width: 32ch;
-    margin: 0 auto 56px;
-  }
-  .final__cost strong {
-    color: var(--fg);
-    font-style: normal;
-    font-weight: 500;
-  }
-  .ayah {
-    border-top: 1px solid var(--gold-hairline);
-    border-bottom: 1px solid var(--gold-hairline);
-    padding: 36px 24px;
-    max-width: 640px;
-    margin: 0 auto 64px;
-  }
-  .ayah__arabic {
-    font-family: var(--font-arabic);
-    font-size: clamp(22px, 2.6vw, 28px);
-    line-height: 1.8;
-    color: var(--fg);
-    direction: rtl;
-    margin: 0 0 14px;
-  }
-  .ayah__english {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(16px, 1.8vw, 19px);
-    line-height: 1.5;
-    color: var(--parchment-100);
-    margin: 0 0 8px;
-  }
-  .ayah__cite {
-    font-family: var(--font-text);
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .final__h {
-    font-family: var(--font-display);
-    font-weight: 450;
-    font-size: clamp(30px, 4.4vw, 48px);
-    line-height: 1.1;
-    color: var(--fg);
-    letter-spacing: -0.014em;
-    margin: 0 auto 20px;
-    max-width: 18ch;
-  }
-  .final__sub {
-    font-family: var(--font-text);
-    font-size: 16px;
-    color: var(--parchment-300);
-    line-height: 1.55;
-    max-width: 48ch;
-    margin: 0 auto 36px;
-  }
+    .final__cost strong {
+      color: var(--fg);
+      font-style: normal;
+      font-weight: 500;
+    }
 
-  /* ---------- VIDEO MODAL ---------- */
-  .vmodal {
-    position: fixed; inset: 0;
-    z-index: 200;
-    background: rgba(8,8,7,0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: flex; align-items: center; justify-content: center;
-    padding: 32px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 220ms var(--ease-standard);
-  }
-  .vmodal.is-open { opacity: 1; pointer-events: auto; }
-  .vmodal__inner {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    background: var(--ink-900);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--shadow-lift);
-    transform: translateY(8px);
-    transition: transform 240ms var(--ease-standard);
-  }
-  .vmodal.is-open .vmodal__inner { transform: translateY(0); }
-  .vmodal__iframe-wrap { aspect-ratio: 16 / 9; width: 100%; background: #000; }
-  .vmodal__iframe-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
-  .vmodal__caption {
-    padding: 14px 20px;
-    border-top: 1px solid var(--border);
-    color: var(--parchment-300);
-    font-family: var(--font-text);
-    font-size: 14px;
-  }
-  .vmodal__caption strong { color: var(--fg); font-weight: 500; margin-right: 8px; }
-  .vmodal__close {
-    position: absolute;
-    top: -44px; right: -4px;
-    width: 36px; height: 36px;
-    border-radius: 999px;
-    background: transparent;
-    border: 1px solid var(--border-strong);
-    color: var(--parchment-100);
-    font-size: 18px; line-height: 1;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: border-color 180ms var(--ease-standard), color 180ms var(--ease-standard);
-  }
-  .vmodal__close:hover { border-color: var(--accent); color: var(--accent); }
-  @media (max-width: 720px) {
-    .vmodal { padding: 16px; }
-    .vmodal__close { top: -40px; right: 0; }
-  }
+    .ayah {
+      border-top: 1px solid var(--gold-hairline);
+      border-bottom: 1px solid var(--gold-hairline);
+      padding: 36px 24px;
+      max-width: 640px;
+      margin: 0 auto 64px;
+    }
 
-  /* ---------- FOOTER ---------- */
-  .vsl-footer {
-    text-align: center;
-    padding: 32px 24px;
-    border-top: 1px solid var(--border);
-    color: var(--parchment-500);
-    font-family: var(--font-text);
-    font-size: 12px;
-    letter-spacing: 0.08em;
-  }
-</style>
+    .ayah__arabic {
+      font-family: var(--font-arabic);
+      font-size: clamp(22px, 2.6vw, 28px);
+      line-height: 1.8;
+      color: var(--fg);
+      direction: rtl;
+      margin: 0 0 14px;
+    }
+
+    .ayah__english {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.5;
+      color: var(--parchment-100);
+      margin: 0 0 8px;
+    }
+
+    .ayah__cite {
+      font-family: var(--font-text);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .final__h {
+      font-family: var(--font-display);
+      font-weight: 450;
+      font-size: clamp(30px, 4.4vw, 48px);
+      line-height: 1.1;
+      color: var(--fg);
+      letter-spacing: -0.014em;
+      margin: 0 auto 20px;
+      max-width: 18ch;
+    }
+
+    .final__sub {
+      font-family: var(--font-text);
+      font-size: 16px;
+      color: var(--parchment-300);
+      line-height: 1.55;
+      max-width: 48ch;
+      margin: 0 auto 36px;
+    }
+
+    /* ---------- VIDEO MODAL ---------- */
+    .vmodal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(8, 8, 7, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms var(--ease-standard);
+    }
+
+    .vmodal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .vmodal__inner {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      background: var(--ink-900);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lift);
+      transform: translateY(8px);
+      transition: transform 240ms var(--ease-standard);
+    }
+
+    .vmodal.is-open .vmodal__inner {
+      transform: translateY(0);
+    }
+
+    .vmodal__iframe-wrap {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      background: #000;
+    }
+
+    .vmodal__iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .vmodal__caption {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--parchment-300);
+      font-family: var(--font-text);
+      font-size: 14px;
+    }
+
+    .vmodal__caption strong {
+      color: var(--fg);
+      font-weight: 500;
+      margin-right: 8px;
+    }
+
+    .vmodal__close {
+      position: absolute;
+      top: -44px;
+      right: -4px;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--parchment-100);
+      font-size: 18px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 180ms var(--ease-standard), color 180ms var(--ease-standard);
+    }
+
+    .vmodal__close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    @media (max-width: 720px) {
+      .vmodal {
+        padding: 16px;
+      }
+
+      .vmodal__close {
+        top: -40px;
+        right: 0;
+      }
+    }
+
+    /* ---------- FOOTER ---------- */
+    .vsl-footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--parchment-500);
+      font-family: var(--font-text);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ============================================================ -->
-<!-- NAV -->
-<!-- ============================================================ -->
-<header class="vsl-nav">
-  <div class="vsl-nav__inner">
-    <a class="vsl-nav__brand" href="/">
-      <img src="assets/logo-mark.png" alt="">
-      <span class="vsl-nav__brand-word">Masterman</span>
-    </a>
-    <a class="vsl-nav__cta"
-       data-cta="apply-nav"
-       href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
-      Apply for a Call
-    </a>
-  </div>
-</header>
+  <!-- ============================================================ -->
+  <!-- NAV -->
+  <!-- ============================================================ -->
+  <header class="vsl-nav">
+    <div class="vsl-nav__inner">
+      <a class="vsl-nav__brand" href="/">
+        <img src="assets/logo-mark.png" alt="">
+        <span class="vsl-nav__brand-word">Masterman</span>
+      </a>
+      <a class="vsl-nav__cta" data-cta="apply-nav"
+        href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+        Apply for a Call
+      </a>
+    </div>
+  </header>
 
-<!-- ============================================================ -->
-<!-- HERO -->
-<!-- ============================================================ -->
-<section class="hero">
-  <div class="wrap-narrow">
-    <span class="eyebrow">For High-Performing Professional Muslim Men</span>
-    <h1>You look like you have it together. <em>Privately, you know you don't.</em></h1>
-    <p class="hero__sub">
-      You are not in crisis. You are drifting. Slow, quiet — quiet enough to ignore.
-      There is a system that ends it.
-    </p>
-  </div>
-</section>
+  <!-- ============================================================ -->
+  <!-- HERO -->
+  <!-- ============================================================ -->
+  <section class="hero">
+    <div class="wrap-narrow">
+      <span class="eyebrow">For High-Performing Professional Muslim Men</span>
+      <h1>You look like you have it together. <em>Privately, you know you don't.</em></h1>
+      <p class="hero__sub">
+        You are not in crisis. You are drifting. Slow, quiet — quiet enough to ignore.
+        There is a system that ends it.
+      </p>
+    </div>
+  </section>
 
-<!-- ============================================================ -->
-<!-- VSL VIDEO -->
-<!-- ============================================================ -->
-<section class="video" id="vsl-video">
-  <div class="wrap-narrow">
-    <!-- Replace with the real video embed (Vimeo iframe / Mux / native <video>). -->
-    <div class="video__frame">
-      <div class="video__placeholder-mark" aria-hidden="true">
-        <svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor">
-          <path d="M0 0v22l20-11L0 0z"/>
-        </svg>
+  <!-- ============================================================ -->
+  <!-- VSL VIDEO -->
+  <!-- ============================================================ -->
+  <section class="video" id="vsl-video">
+    <div class="wrap-narrow">
+      <!-- Replace with the real video embed (Vimeo iframe / Mux / native <video>). -->
+      <div class="video__frame">
+        <div class="video__placeholder-mark" aria-hidden="true">
+          <svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor">
+            <path d="M0 0v22l20-11L0 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="video__cta-row">
+        <a class="btn btn--gold" data-cta="under-video"
+          href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+          I'm Ready to Change
+          <span class="btn__arrow">→</span>
+        </a>
       </div>
     </div>
+  </section>
 
-    <div class="video__cta-row">
-      <a class="btn btn--gold"
-         data-cta="under-video"
-         href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+  <div class="rule-fade"></div>
+
+  <!-- ============================================================ -->
+  <!-- VIDEO TESTIMONIALS -->
+  <!-- ============================================================ -->
+  <section class="testi">
+    <div class="wrap">
+      <span class="eyebrow">Brothers who chose not to drift</span>
+      <h2 class="section-title">Hear it from the men who walked the road.</h2>
+
+      <div class="testi__grid">
+        <button type="button" class="testi__card" data-cta="testi-1"
+          data-embed="https://www.loom.com/embed/cedc9ffeee15461198cebc2acc6968a8" data-name="Faizan Siddiqui"
+          aria-label="Play Faizan Siddiqui's testimonial">
+          <div class="testi__video">
+            <img class="testi__thumb" src="assets/photos/tv-1.jpg" alt="">
+            <div class="testi__play" aria-hidden="true">
+              <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
+                <path d="M0 0v22l20-11L0 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="testi__meta">
+            <p class="testi__name">Faizan Siddiqui</p>
+            <span class="testi__role">Retreat Attendee</span>
+          </div>
+        </button>
+
+        <button type="button" class="testi__card" data-cta="testi-2"
+          data-embed="https://www.loom.com/embed/3045f9003fd54d658d3ba2de1ed14968" data-name="Abdullah Muhammad"
+          aria-label="Play Abdullah Muhammad's testimonial">
+          <div class="testi__video">
+            <img class="testi__thumb" src="assets/photos/tv-2.jpg" alt="">
+            <div class="testi__play" aria-hidden="true">
+              <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
+                <path d="M0 0v22l20-11L0 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="testi__meta">
+            <p class="testi__name">Abdullah Muhammad</p>
+            <span class="testi__role">Retreat Attendee</span>
+          </div>
+        </button>
+
+        <button type="button" class="testi__card" data-cta="testi-3"
+          data-embed="https://www.loom.com/embed/001f674420f94f6e86826ce25a1df2c5" data-name="Safwan Halabi"
+          aria-label="Play Safwan Halabi's testimonial">
+          <div class="testi__video">
+            <img class="testi__thumb" src="assets/photos/tv-3.jpg" alt="">
+            <div class="testi__play" aria-hidden="true">
+              <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
+                <path d="M0 0v22l20-11L0 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="testi__meta">
+            <p class="testi__name">Safwan Halabi</p>
+            <span class="testi__role">Masterman Inner Circle</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- THE FOUR F'S — SCROLL STAGES -->
+  <!-- ============================================================ -->
+  <section class="stages-section">
+    <div class="wrap-narrow">
+      <span class="eyebrow">The Four F's</span>
+      <h2 class="section-title">Four parts of your life. <em>Built one module at a time.</em></h2>
+      <p class="stages-intro">
+        Identity is the foundation. <strong>Discipline</strong> is the thread.
+        Together they hold faith, family, fitness, and fraternity in place.
+      </p>
+    </div>
+
+    <div class="stages" id="stages">
+      <!-- 01 — FAITH (left) -->
+      <div class="stages__row" data-side="left">
+        <div class="stages__card">
+          <span class="stages__letter">F.</span>
+          <h3 class="stages__name">Faith</h3>
+          <span class="stages__module"><span class="stages__module-dot"></span>Identity Module</span>
+          <p class="stages__what">Your relationship with Allah, brought back.</p>
+          <p class="stages__how">Who Allah made you to be — before the world told you otherwise. Anchored in Qur'an and
+            the Sunnah, taught by the Shaykh, weekly.</p>
+        </div>
+        <div class="stages__node" aria-hidden="true">
+          <span class="stages__node-num">01</span>
+        </div>
+        <div class="stages__media">
+          <img src="assets/photos/shk_oduro.webp" alt="">
+        </div>
+      </div>
+
+      <!-- 02 — FAMILY (right) -->
+      <div class="stages__row" data-side="right">
+        <div class="stages__media">
+          <img src="assets/photos/fam.JPG" alt="">
+        </div>
+        <div class="stages__node" aria-hidden="true">
+          <span class="stages__node-num">02</span>
+        </div>
+        <div class="stages__card">
+          <span class="stages__letter">F.</span>
+          <h3 class="stages__name">Family</h3>
+          <span class="stages__module"><span class="stages__module-dot"></span>Leadership Module</span>
+          <p class="stages__what">The household you lead, or the one you are preparing to.</p>
+          <p class="stages__how">Qawwamah in motion. The weight, not the throne. We train you to lead a home — not
+            perform one.</p>
+        </div>
+      </div>
+
+      <!-- 03 — FITNESS (left) -->
+      <div class="stages__row" data-side="left">
+        <div class="stages__card">
+          <span class="stages__letter">F.</span>
+          <h3 class="stages__name">Fitness</h3>
+          <span class="stages__module"><span class="stages__module-dot"></span>Discipline Module</span>
+          <p class="stages__what">Your body and nafs under your command.</p>
+          <p class="stages__how">Daily non-negotiables. Logged in the Masterman tracker, every night. No hiding.</p>
+        </div>
+        <div class="stages__node" aria-hidden="true">
+          <span class="stages__node-num">03</span>
+        </div>
+        <div class="stages__media">
+          <img src="assets/photos/fitnez.jpg" alt="">
+        </div>
+      </div>
+
+      <!-- 04 — FRATERNITY (right) -->
+      <div class="stages__row" data-side="right">
+        <div class="stages__media">
+          <img src="assets/photos/splash/brokenbow2025.jpg" alt="">
+        </div>
+        <div class="stages__node" aria-hidden="true">
+          <span class="stages__node-num">04</span>
+        </div>
+        <div class="stages__card">
+          <span class="stages__letter">F.</span>
+          <h3 class="stages__name">Fraternity</h3>
+          <span class="stages__module"><span class="stages__module-dot"></span>Brotherhood Module</span>
+          <p class="stages__what">Real brothers who notice if you disappear.</p>
+          <p class="stages__how">A pod of three to five serious men. Weekly check-ins. Held to the line. The brotherhood
+            that carries through to the retreats.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- WHAT'S INSIDE THE PROGRAM -->
+  <!-- ============================================================ -->
+  <section class="inside">
+    <div class="wrap">
+      <span class="eyebrow">What you get inside</span>
+      <h2 class="section-title">A complete operating system. <em>Not a course.</em></h2>
+      <p class="inside__intro">
+        Everything the system gives you. Each piece designed to keep you from drifting back.
+      </p>
+
+      <!-- HERO CARD: The Tracker -->
+      <div class="inside__hero">
+        <div class="inside__app" aria-hidden="true">
+          <div class="app-mock">
+            <div class="app-mock__head">
+              <span>Today</span>
+              <span>4 / 5</span>
+            </div>
+            <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Fajr on time</div>
+            <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Qur'an — 10 min</div>
+            <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Training — 45 min
+            </div>
+            <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> No phone after 10pm
+            </div>
+            <div class="app-mock__row"><span class="app-mock__check"></span> Pod check-in</div>
+          </div>
+        </div>
+        <div class="inside__body">
+          <span class="inside__tag">Daily · The App</span>
+          <h3 class="inside__name">The Masterman Tracker</h3>
+          <p class="inside__copy">Log your non-negotiables every night. Your pod sees the streak. So does the Shaykh.
+            The standards don't move — and neither does the record of whether you met them.</p>
+        </div>
+      </div>
+
+      <!-- 2x2 GRID: Sessions, Qur'an, Brotherhood, Retreats -->
+      <div class="inside__grid">
+        <div class="inside__card">
+          <div class="inside__media">
+            <img src="assets/photos/splash/shk.jpg" alt="">
+          </div>
+          <div class="inside__body">
+            <span class="inside__tag">Weekly · Live</span>
+            <h3 class="inside__name">Sessions with Shaykh Abdullah</h3>
+            <p class="inside__copy">Live, every week. Classical scholarship applied to the real life of a working Muslim
+              man. Bring questions. Leave with a path.</p>
+          </div>
+        </div>
+
+        <div class="inside__card">
+          <div class="inside__media">
+            <img src="assets/photos/splash/dsc01005.jpg" alt="">
+          </div>
+          <div class="inside__body">
+            <span class="inside__tag">Weekly · Qur'an</span>
+            <h3 class="inside__name">Qur'an Sessions</h3>
+            <p class="inside__copy">Recitation, tafsir, and reflection — taught with depth, lived with discipline. The
+              Book of Allah, returned to its place at the center of your week.</p>
+          </div>
+        </div>
+
+        <div class="inside__card">
+          <div class="inside__media">
+            <img src="assets/photos/splash/dsc00285.jpg" alt="">
+          </div>
+          <div class="inside__body">
+            <span class="inside__tag">Pod · Accountability</span>
+            <h3 class="inside__name">Your Brotherhood Pod</h3>
+            <p class="inside__copy">Three to five serious men. Weekly accountability calls. Fitness challenges. Real
+              check-ins on real life — they notice when you slip.</p>
+          </div>
+        </div>
+
+        <div class="inside__card">
+          <div class="inside__media">
+            <img src="assets/photos/retreat-feature.jpg" alt="">
+          </div>
+          <div class="inside__body">
+            <span class="inside__tag">In Person · Retreats</span>
+            <h3 class="inside__name">The Retreats</h3>
+            <p class="inside__copy">Where what you've built gets pushed to the limit, alongside the brothers walking the
+              same road. Off the screen. In person. Together.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- WHAT THIS CALL IS / ISN'T -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">What this call is — and isn't</span>
+      <h2 class="section-title">A 30-minute audit. Both ways.</h2>
+
+      <div class="call__split">
+        <div class="call__col call__col--is">
+          <div class="call__col-head">What it is</div>
+          <ul class="call__list">
+            <li>An honest audit of where your salah, body, discipline, and the people around you actually stand.</li>
+            <li>A clear plan for the road forward — if Masterman is the right system for you.</li>
+            <li>A fit check. Both ways.</li>
+          </ul>
+        </div>
+        <div class="call__col call__col--isnt">
+          <div class="call__col-head">What it isn't</div>
+          <ul class="call__list">
+            <li>Not therapy. Not clinical. We are a standards system.</li>
+            <li>Not a casual chat. We have a wait list.</li>
+            <li>Not pressure. If we tell you it isn't right, that is the call.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="call__close">
+        "Most brothers say this 30-minute audit gave them more clarity than years of trying to fix things on their own."
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FINAL CTA -->
+  <!-- ============================================================ -->
+  <section class="final">
+    <div class="wrap-narrow">
+      <p class="final__cost">
+        The cost of doing nothing is <strong>another five years of the same.</strong><br>
+        Same pattern. Same crash. Same 11:30 voice. Same question.
+      </p>
+
+      <div class="ayah">
+        <p class="ayah__arabic">إِنَّ ٱللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا۟ مَا بِأَنفُسِهِمْ</p>
+        <p class="ayah__english">"Allah does not change a people until they change themselves."</p>
+        <span class="ayah__cite">Ar-Ra'd 13:11</span>
+      </div>
+
+      <h2 class="final__h">Apply below. Be honest.</h2>
+      <p class="final__sub">We'll read every line before we meet.</p>
+
+      <a class="btn btn--gold" data-cta="final-apply"
+        href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
         I'm Ready to Change
         <span class="btn__arrow">→</span>
       </a>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="rule-fade"></div>
-
-<!-- ============================================================ -->
-<!-- VIDEO TESTIMONIALS -->
-<!-- ============================================================ -->
-<section class="testi">
-  <div class="wrap">
-    <span class="eyebrow">Brothers who chose not to drift</span>
-    <h2 class="section-title">Hear it from the men who walked the road.</h2>
-
-    <div class="testi__grid">
-      <button type="button" class="testi__card" data-cta="testi-1"
-              data-embed="https://www.loom.com/embed/cedc9ffeee15461198cebc2acc6968a8"
-              data-name="Faizan Siddiqui"
-              aria-label="Play Faizan Siddiqui's testimonial">
-        <div class="testi__video">
-          <img class="testi__thumb" src="assets/photos/tv-1.jpg" alt="">
-          <div class="testi__play" aria-hidden="true">
-            <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
-              <path d="M0 0v22l20-11L0 0z"/>
-            </svg>
-          </div>
-        </div>
-        <div class="testi__meta">
-          <p class="testi__name">Faizan Siddiqui</p>
-          <span class="testi__role">Retreat Attendee</span>
-        </div>
-      </button>
-
-      <button type="button" class="testi__card" data-cta="testi-2"
-              data-embed="https://www.loom.com/embed/3045f9003fd54d658d3ba2de1ed14968"
-              data-name="Abdullah Muhammad"
-              aria-label="Play Abdullah Muhammad's testimonial">
-        <div class="testi__video">
-          <img class="testi__thumb" src="assets/photos/tv-2.jpg" alt="">
-          <div class="testi__play" aria-hidden="true">
-            <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
-              <path d="M0 0v22l20-11L0 0z"/>
-            </svg>
-          </div>
-        </div>
-        <div class="testi__meta">
-          <p class="testi__name">Abdullah Muhammad</p>
-          <span class="testi__role">Retreat Attendee</span>
-        </div>
-      </button>
-
-      <button type="button" class="testi__card" data-cta="testi-3"
-              data-embed="https://www.loom.com/embed/001f674420f94f6e86826ce25a1df2c5"
-              data-name="Safwan Halabi"
-              aria-label="Play Safwan Halabi's testimonial">
-        <div class="testi__video">
-          <img class="testi__thumb" src="assets/photos/tv-3.jpg" alt="">
-          <div class="testi__play" aria-hidden="true">
-            <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
-              <path d="M0 0v22l20-11L0 0z"/>
-            </svg>
-          </div>
-        </div>
-        <div class="testi__meta">
-          <p class="testi__name">Safwan Halabi</p>
-          <span class="testi__role">Masterman Inner Circle</span>
-        </div>
-      </button>
+  <!-- ============================================================ -->
+  <!-- VIDEO MODAL -->
+  <!-- ============================================================ -->
+  <div class="vmodal" id="vmodal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="vmodal__inner">
+      <button type="button" class="vmodal__close" id="vmodalClose" aria-label="Close video">×</button>
+      <div class="vmodal__iframe-wrap" id="vmodalFrame"></div>
+      <div class="vmodal__caption" id="vmodalCaption"></div>
     </div>
   </div>
-</section>
 
-<!-- ============================================================ -->
-<!-- THE FOUR F'S — SCROLL STAGES -->
-<!-- ============================================================ -->
-<section class="stages-section">
-  <div class="wrap-narrow">
-    <span class="eyebrow">The Four F's</span>
-    <h2 class="section-title">Four parts of your life. <em>Built one module at a time.</em></h2>
-    <p class="stages-intro">
-      Identity is the foundation. <strong>Discipline</strong> is the thread.
-      Together they hold faith, family, fitness, and fraternity in place.
-    </p>
-  </div>
+  <footer class="vsl-footer">
+    © Masterman. Built for the man who refuses to drift.
+  </footer>
 
-  <div class="stages" id="stages">
-    <!-- 01 — FAITH (left) -->
-    <div class="stages__row" data-side="left">
-      <div class="stages__card">
-        <span class="stages__letter">F.</span>
-        <h3 class="stages__name">Faith</h3>
-        <span class="stages__module"><span class="stages__module-dot"></span>Identity Module</span>
-        <p class="stages__what">Your relationship with Allah, brought back.</p>
-        <p class="stages__how">Who Allah made you to be — before the world told you otherwise. Anchored in Qur'an and the Sunnah, taught by the Shaykh, weekly.</p>
-      </div>
-      <div class="stages__node" aria-hidden="true">
-        <span class="stages__node-num">01</span>
-      </div>
-      <div class="stages__media">
-        <img src="assets/photos/splash/shk.jpg" alt="">
-      </div>
-    </div>
+  <script>
+    // Scroll-triggered active state for the Four F's stages.
+    (function () {
+      var rows = document.querySelectorAll('.stages__row');
+      if (!rows.length || !('IntersectionObserver' in window)) {
+        rows.forEach(function (r) { r.classList.add('is-active'); });
+        return;
+      }
 
-    <!-- 02 — FAMILY (right) -->
-    <div class="stages__row" data-side="right">
-      <div class="stages__media">
-        <img src="assets/photos/fam.JPG" alt="">
-      </div>
-      <div class="stages__node" aria-hidden="true">
-        <span class="stages__node-num">02</span>
-      </div>
-      <div class="stages__card">
-        <span class="stages__letter">F.</span>
-        <h3 class="stages__name">Family</h3>
-        <span class="stages__module"><span class="stages__module-dot"></span>Leadership Module</span>
-        <p class="stages__what">The household you lead, or the one you are preparing to.</p>
-        <p class="stages__how">Qawwamah in motion. The weight, not the throne. We train you to lead a home — not perform one.</p>
-      </div>
-    </div>
-
-    <!-- 03 — FITNESS (left) -->
-    <div class="stages__row" data-side="left">
-      <div class="stages__card">
-        <span class="stages__letter">F.</span>
-        <h3 class="stages__name">Fitness</h3>
-        <span class="stages__module"><span class="stages__module-dot"></span>Discipline Module</span>
-        <p class="stages__what">Your body and nafs under your command.</p>
-        <p class="stages__how">Daily non-negotiables. Logged in the Masterman tracker, every night. No hiding.</p>
-      </div>
-      <div class="stages__node" aria-hidden="true">
-        <span class="stages__node-num">03</span>
-      </div>
-      <div class="stages__media">
-        <img src="assets/photos/fitnez.jpg" alt="">
-      </div>
-    </div>
-
-    <!-- 04 — FRATERNITY (right) -->
-    <div class="stages__row" data-side="right">
-      <div class="stages__media">
-        <img src="assets/photos/splash/brokenbow2025.jpg" alt="">
-      </div>
-      <div class="stages__node" aria-hidden="true">
-        <span class="stages__node-num">04</span>
-      </div>
-      <div class="stages__card">
-        <span class="stages__letter">F.</span>
-        <h3 class="stages__name">Fraternity</h3>
-        <span class="stages__module"><span class="stages__module-dot"></span>Brotherhood Module</span>
-        <p class="stages__what">Real brothers who notice if you disappear.</p>
-        <p class="stages__how">A pod of three to five serious men. Weekly check-ins. Held to the line. The brotherhood that carries through to the retreats.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- WHAT'S INSIDE THE PROGRAM -->
-<!-- ============================================================ -->
-<section class="inside">
-  <div class="wrap">
-    <span class="eyebrow">What you get inside</span>
-    <h2 class="section-title">A complete operating system. <em>Not a course.</em></h2>
-    <p class="inside__intro">
-      Everything the system gives you. Each piece designed to keep you from drifting back.
-    </p>
-
-    <!-- HERO CARD: The Tracker -->
-    <div class="inside__hero">
-      <div class="inside__app" aria-hidden="true">
-        <div class="app-mock">
-          <div class="app-mock__head">
-            <span>Today</span>
-            <span>4 / 5</span>
-          </div>
-          <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Fajr on time</div>
-          <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Qur'an — 10 min</div>
-          <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Training — 45 min</div>
-          <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> No phone after 10pm</div>
-          <div class="app-mock__row"><span class="app-mock__check"></span> Pod check-in</div>
-        </div>
-      </div>
-      <div class="inside__body">
-        <span class="inside__tag">Daily · The App</span>
-        <h3 class="inside__name">The Masterman Tracker</h3>
-        <p class="inside__copy">Log your non-negotiables every night. Your pod sees the streak. So does the Shaykh. The standards don't move — and neither does the record of whether you met them.</p>
-      </div>
-    </div>
-
-    <!-- 2x2 GRID: Sessions, Qur'an, Brotherhood, Retreats -->
-    <div class="inside__grid">
-      <div class="inside__card">
-        <div class="inside__media">
-          <img src="assets/photos/splash/shk.jpg" alt="">
-        </div>
-        <div class="inside__body">
-          <span class="inside__tag">Weekly · Live</span>
-          <h3 class="inside__name">Sessions with Shaykh Abdullah</h3>
-          <p class="inside__copy">Live, every week. Classical scholarship applied to the real life of a working Muslim man. Bring questions. Leave with a path.</p>
-        </div>
-      </div>
-
-      <div class="inside__card">
-        <div class="inside__media">
-          <img src="assets/photos/splash/dsc01005.jpg" alt="">
-        </div>
-        <div class="inside__body">
-          <span class="inside__tag">Weekly · Qur'an</span>
-          <h3 class="inside__name">Qur'an Sessions</h3>
-          <p class="inside__copy">Recitation, tafsir, and reflection — taught with depth, lived with discipline. The Book of Allah, returned to its place at the center of your week.</p>
-        </div>
-      </div>
-
-      <div class="inside__card">
-        <div class="inside__media">
-          <img src="assets/photos/splash/dsc00285.jpg" alt="">
-        </div>
-        <div class="inside__body">
-          <span class="inside__tag">Pod · Accountability</span>
-          <h3 class="inside__name">Your Brotherhood Pod</h3>
-          <p class="inside__copy">Three to five serious men. Weekly accountability calls. Fitness challenges. Real check-ins on real life — they notice when you slip.</p>
-        </div>
-      </div>
-
-      <div class="inside__card">
-        <div class="inside__media">
-          <img src="assets/photos/retreat-feature.jpg" alt="">
-        </div>
-        <div class="inside__body">
-          <span class="inside__tag">In Person · Retreats</span>
-          <h3 class="inside__name">The Retreats</h3>
-          <p class="inside__copy">Where what you've built gets pushed to the limit, alongside the brothers walking the same road. Off the screen. In person. Together.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- WHAT THIS CALL IS / ISN'T -->
-<!-- ============================================================ -->
-<section>
-  <div class="wrap">
-    <span class="eyebrow">What this call is — and isn't</span>
-    <h2 class="section-title">A 30-minute audit. Both ways.</h2>
-
-    <div class="call__split">
-      <div class="call__col call__col--is">
-        <div class="call__col-head">What it is</div>
-        <ul class="call__list">
-          <li>An honest audit of where your salah, body, discipline, and the people around you actually stand.</li>
-          <li>A clear plan for the road forward — if Masterman is the right system for you.</li>
-          <li>A fit check. Both ways.</li>
-        </ul>
-      </div>
-      <div class="call__col call__col--isnt">
-        <div class="call__col-head">What it isn't</div>
-        <ul class="call__list">
-          <li>Not therapy. Not clinical. We are a standards system.</li>
-          <li>Not a casual chat. We have a wait list.</li>
-          <li>Not pressure. If we tell you it isn't right, that is the call.</li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="call__close">
-      "Most brothers say this 30-minute audit gave them more clarity than years of trying to fix things on their own."
-    </p>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- FINAL CTA -->
-<!-- ============================================================ -->
-<section class="final">
-  <div class="wrap-narrow">
-    <p class="final__cost">
-      The cost of doing nothing is <strong>another five years of the same.</strong><br>
-      Same pattern. Same crash. Same 11:30 voice. Same question.
-    </p>
-
-    <div class="ayah">
-      <p class="ayah__arabic">إِنَّ ٱللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا۟ مَا بِأَنفُسِهِمْ</p>
-      <p class="ayah__english">"Allah does not change a people until they change themselves."</p>
-      <span class="ayah__cite">Ar-Ra'd 13:11</span>
-    </div>
-
-    <h2 class="final__h">Apply below. Be honest.</h2>
-    <p class="final__sub">We'll read every line before we meet.</p>
-
-    <a class="btn btn--gold"
-       data-cta="final-apply"
-       href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
-      I'm Ready to Change
-      <span class="btn__arrow">→</span>
-    </a>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- VIDEO MODAL -->
-<!-- ============================================================ -->
-<div class="vmodal" id="vmodal" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="vmodal__inner">
-    <button type="button" class="vmodal__close" id="vmodalClose" aria-label="Close video">×</button>
-    <div class="vmodal__iframe-wrap" id="vmodalFrame"></div>
-    <div class="vmodal__caption" id="vmodalCaption"></div>
-  </div>
-</div>
-
-<footer class="vsl-footer">
-  © Masterman. Built for the man who refuses to drift.
-</footer>
-
-<script>
-  // Scroll-triggered active state for the Four F's stages.
-  (function () {
-    var rows = document.querySelectorAll('.stages__row');
-    if (!rows.length || !('IntersectionObserver' in window)) {
-      rows.forEach(function (r) { r.classList.add('is-active'); });
-      return;
-    }
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-active');
-        }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-active');
+          }
+        });
+      }, {
+        rootMargin: '-30% 0px -40% 0px',
+        threshold: 0.01
       });
-    }, {
-      rootMargin: '-30% 0px -40% 0px',
-      threshold: 0.01
-    });
 
-    rows.forEach(function (r) { io.observe(r); });
-  })();
+      rows.forEach(function (r) { io.observe(r); });
+    })();
 
-  // Video testimonial modal.
-  (function () {
-    var modal   = document.getElementById('vmodal');
-    var frame   = document.getElementById('vmodalFrame');
-    var caption = document.getElementById('vmodalCaption');
-    var close   = document.getElementById('vmodalClose');
-    if (!modal) return;
+    // Video testimonial modal.
+    (function () {
+      var modal = document.getElementById('vmodal');
+      var frame = document.getElementById('vmodalFrame');
+      var caption = document.getElementById('vmodalCaption');
+      var close = document.getElementById('vmodalClose');
+      if (!modal) return;
 
-    function open(embed, name, role) {
-      frame.innerHTML = '<iframe src="' + embed + '?autoplay=1" title="' + name + '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-      caption.innerHTML = '<strong>' + name + '</strong>' + (role ? role : '');
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-    function shut() {
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-      frame.innerHTML = '';
-      document.body.style.overflow = '';
-    }
+      function open(embed, name, role) {
+        frame.innerHTML = '<iframe src="' + embed + '?autoplay=1" title="' + name + '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+        caption.innerHTML = '<strong>' + name + '</strong>' + (role ? role : '');
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function shut() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        frame.innerHTML = '';
+        document.body.style.overflow = '';
+      }
 
-    document.querySelectorAll('.testi__card[data-embed]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var embed = btn.getAttribute('data-embed');
-        var name  = btn.getAttribute('data-name') || '';
-        var role  = (btn.querySelector('.testi__role') || {}).textContent || '';
-        open(embed, name, role);
+      document.querySelectorAll('.testi__card[data-embed]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var embed = btn.getAttribute('data-embed');
+          var name = btn.getAttribute('data-name') || '';
+          var role = (btn.querySelector('.testi__role') || {}).textContent || '';
+          open(embed, name, role);
+        });
       });
-    });
-    close.addEventListener('click', shut);
-    modal.addEventListener('click', function (e) { if (e.target === modal) shut(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
-  })();
-</script>
+      close.addEventListener('click', shut);
+      modal.addEventListener('click', function (e) { if (e.target === modal) shut(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+    })();
+  </script>
 
-<script src="https://apply.mastermangroup.com/track.js"
-        data-page="vsl-v1" defer></script>
+  <script src="https://apply.mastermangroup.com/track.js" data-page="vsl-v1" defer></script>
 </body>
+
 </html>
