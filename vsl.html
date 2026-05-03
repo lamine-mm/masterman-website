@@ -7,103 +7,1080 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="styles/colors_and_type.css">
 <style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
   body {
-    margin: 0;
     background: var(--bg);
-    color: var(--fg);
+    color: var(--fg-body);
     font-family: var(--font-text);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
-  .vsl-wrap {
-    max-width: 880px;
+
+  /* ---------- LAYOUT ---------- */
+  .wrap        { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .wrap-narrow { max-width: 760px;  margin: 0 auto; padding: 0 24px; }
+  section      { padding: 96px 0; position: relative; }
+  @media (max-width: 720px) { section { padding: 64px 0; } }
+
+  .rule-fade {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
     margin: 0 auto;
-    padding: 56px 24px 96px;
+    max-width: 1080px;
   }
-  .vsl-eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
+
+  /* ---------- NAV (minimal) ---------- */
+  .vsl-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,14,13,.85);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    border-bottom: 1px solid rgba(255,255,255,.04);
+  }
+  .vsl-nav__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .vsl-nav__brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; color: var(--fg);
+  }
+  .vsl-nav__brand img { width: 26px; height: 26px; }
+  .vsl-nav__brand-word {
+    font-family: var(--font-text);
+    font-weight: 600; font-size: 13px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .vsl-nav__cta {
+    font-family: var(--font-text);
+    font-size: 13px; font-weight: 600;
+    color: var(--fg); text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: 9px 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    transition: border-color 180ms var(--ease-standard), color 180ms var(--ease-standard);
+  }
+  .vsl-nav__cta:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- HERO ---------- */
+  .hero { padding-top: 88px; padding-bottom: 48px; text-align: center; }
+  .eyebrow {
+    font-family: var(--font-text);
     font-size: var(--fs-eyebrow);
-    color: var(--fg-muted);
-    text-align: center;
-    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 20px;
   }
-  .vsl-headline {
+  .hero h1 {
     font-family: var(--font-display);
+    font-weight: 450;
+    font-size: clamp(34px, 5.6vw, 64px);
+    line-height: 1.04;
+    letter-spacing: -0.018em;
+    color: var(--fg);
+    margin: 0 auto 24px;
+    max-width: 18ch;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--parchment-300);
     font-weight: 400;
-    font-size: clamp(32px, 5vw, 56px);
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    text-align: center;
-    margin: 24px 0 16px;
   }
-  .vsl-sub {
+  .hero__sub {
+    font-family: var(--font-text);
+    font-size: clamp(16px, 1.8vw, 19px);
+    line-height: 1.55;
+    color: var(--parchment-300);
+    margin: 0 auto 36px;
+    max-width: 52ch;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-text);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    padding: 16px 30px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 180ms var(--ease-standard),
+                border-color 180ms var(--ease-standard),
+                transform 180ms var(--ease-standard),
+                color 180ms var(--ease-standard);
+  }
+  .btn--gold {
+    background: var(--accent);
+    color: var(--fg-on-gold);
+    border-color: var(--accent);
+  }
+  .btn--gold:hover { background: var(--accent-strong); border-color: var(--accent-strong); transform: translateY(-1px); }
+  .btn--ghost {
+    background: transparent;
+    color: var(--fg);
+    border-color: var(--border-strong);
+  }
+  .btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn__arrow { transition: transform 180ms var(--ease-standard); }
+  .btn:hover .btn__arrow { transform: translateX(4px); }
+
+  /* ---------- VIDEO BLOCK ---------- */
+  .video {
+    padding-top: 24px;
+    padding-bottom: 96px;
+  }
+  .video__guard {
     text-align: center;
-    color: var(--fg-muted);
-    font-size: var(--fs-base);
-    margin: 0 auto 40px;
+    color: var(--parchment-300);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(17px, 1.8vw, 20px);
+    line-height: 1.5;
     max-width: 56ch;
+    margin: 0 auto 28px;
   }
-  .vsl-video {
+  .video__frame {
     aspect-ratio: 16 / 9;
     width: 100%;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lift);
+    display: flex; align-items: center; justify-content: center;
     color: var(--fg-dim);
     overflow: hidden;
+    position: relative;
   }
-  .vsl-cta-row {
-    display: flex;
-    justify-content: center;
-    margin-top: 36px;
+  .video__frame::before {
+    content: "VIDEO";
+    position: absolute; top: 14px; left: 16px;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--parchment-500);
   }
-  .vsl-cta {
-    display: inline-block;
-    padding: 14px 28px;
-    background: var(--accent);
-    color: var(--fg-on-gold);
-    font-weight: 600;
-    font-size: var(--fs-ui);
-    border-radius: 10px;
-    text-decoration: none;
-    letter-spacing: 0.01em;
+  .video__placeholder-mark {
+    width: 64px; height: 64px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
   }
-  .vsl-cta:hover { background: var(--accent-strong); }
-  .vsl-section {
-    margin-top: 80px;
-    color: var(--fg-muted);
+  .video__cta-row { text-align: center; margin-top: 32px; }
+
+  /* ---------- "IF THIS IS YOU" ---------- */
+  .ifyou { background: var(--ink-850); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 450;
+    font-size: clamp(28px, 3.8vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.012em;
+    color: var(--fg);
+    margin: 0 auto 56px;
     text-align: center;
-    font-size: var(--fs-sm);
+    max-width: 22ch;
+  }
+  .section-eyebrow {
+    text-align: center;
+    font-family: var(--font-text);
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 18px;
+  }
+  .ifyou__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 56px;
+  }
+  @media (max-width: 720px) { .ifyou__grid { grid-template-columns: 1fr; gap: 14px; } }
+  .ifyou__item {
+    border-left: 2px solid var(--ink-600);
+    padding: 18px 22px;
+    background: rgba(26,26,26,.4);
+    font-family: var(--font-text);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--parchment-100);
+    transition: border-color 220ms var(--ease-standard);
+  }
+  .ifyou__item:hover { border-left-color: var(--accent); }
+  .ifyou__item strong {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .pullquote {
+    text-align: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.35;
+    color: var(--fg);
+    max-width: 28ch;
+    margin: 0 auto;
+    padding: 32px 24px;
+    border-top: 1px solid var(--gold-hairline);
+    border-bottom: 1px solid var(--gold-hairline);
+  }
+  .pullquote__time {
+    display: block;
+    font-family: var(--font-text);
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  /* ---------- WHY YOU HAVEN'T ---------- */
+  .why__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  @media (max-width: 900px) { .why__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .why__grid { grid-template-columns: 1fr; } }
+  .why__card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 28px 22px;
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+  .why__num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .why__no {
+    display: block;
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--parchment-500);
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .why__label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--fg);
+    line-height: 1.2;
+  }
+  .why__close {
+    text-align: center;
+    font-family: var(--font-text);
+    font-size: 17px;
+    color: var(--parchment-300);
+    line-height: 1.6;
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+  .why__close em {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--fg);
+  }
+
+  /* ---------- HOW MASTERMAN HELPS — THE FOUR F'S ---------- */
+  .helps { background: var(--ink-850); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .helps__intro {
+    text-align: center;
+    color: var(--parchment-300);
+    font-family: var(--font-text);
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 58ch;
+    margin: -32px auto 56px;
+  }
+  .helps__intro strong { color: var(--fg); font-weight: 600; }
+  .fs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+  @media (max-width: 720px) { .fs-grid { grid-template-columns: 1fr; } }
+  .f-card {
+    background: var(--ink-900);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 32px 28px;
+    transition: border-color 220ms var(--ease-standard), transform 220ms var(--ease-standard);
+    position: relative;
+    overflow: hidden;
+  }
+  .f-card:hover { border-color: var(--gold-hairline); transform: translateY(-2px); }
+  .f-card__head {
+    display: flex; align-items: baseline; gap: 14px;
+    margin-bottom: 14px;
+  }
+  .f-card__letter {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .f-card__name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--fg);
+    line-height: 1;
+  }
+  .f-card__what {
+    font-family: var(--font-text);
+    font-size: 16px;
+    color: var(--parchment-100);
+    line-height: 1.55;
+    margin: 0 0 14px;
+  }
+  .f-card__module {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-family: var(--font-text);
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--parchment-300);
+    margin-bottom: 12px;
+  }
+  .f-card__module-dot { width: 5px; height: 5px; border-radius: 999px; background: var(--accent); }
+  .f-card__how {
+    font-family: var(--font-text);
+    font-size: 14.5px;
+    color: var(--parchment-300);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .helps__thread {
+    text-align: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(18px, 2vw, 22px);
+    color: var(--fg);
+    line-height: 1.5;
+    max-width: 50ch;
+    margin: 0 auto 56px;
+    padding: 28px 24px;
+    border-top: 1px solid var(--gold-hairline);
+    border-bottom: 1px solid var(--gold-hairline);
+  }
+
+  .practical {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  @media (max-width: 720px) { .practical { grid-template-columns: 1fr; } }
+  .practical__cell {
+    background: var(--ink-900);
+    border: 1px solid var(--border);
+    padding: 22px;
+    border-radius: var(--radius-md);
+  }
+  .practical__cell-eyebrow {
+    font-family: var(--font-text);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .practical__cell-body {
+    font-family: var(--font-text);
+    font-size: 15px;
+    color: var(--parchment-100);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ---------- 30 DAYS ---------- */
+  .days {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 900px) { .days { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .days { grid-template-columns: 1fr; } }
+  .days__card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    background: var(--surface);
+  }
+  .days__num {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 36px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .days__body {
+    font-family: var(--font-text);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--parchment-100);
+    margin: 0;
+  }
+
+  /* ---------- WHY DIFFERENT ---------- */
+  .different { background: var(--ink-850); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .different__list {
+    list-style: none; padding: 0; margin: 0;
+    max-width: 760px; margin: 0 auto;
+  }
+  .different__row {
+    display: grid;
+    grid-template-columns: minmax(160px, 220px) 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+  }
+  .different__row:last-child { border-bottom: 1px solid var(--border); }
+  @media (max-width: 600px) {
+    .different__row { grid-template-columns: 1fr; gap: 8px; }
+  }
+  .different__label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--fg);
+    line-height: 1.25;
+  }
+  .different__copy {
+    font-family: var(--font-text);
+    font-size: 16px;
+    color: var(--parchment-300);
+    line-height: 1.55;
+  }
+  .different__copy strong { color: var(--fg); font-weight: 500; }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px) { .testi__grid { grid-template-columns: 1fr; } }
+  .testi__card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    min-height: 240px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .testi__quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 17px;
+    color: var(--parchment-300);
+    line-height: 1.5;
+    margin: 0 0 24px;
+  }
+  .testi__attr {
+    font-family: var(--font-text);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--parchment-500);
+  }
+  .testi__placeholder-tag {
+    display: inline-block;
+    font-family: var(--font-text);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--gold-hairline);
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+
+  /* ---------- WHAT THIS CALL IS / ISN'T ---------- */
+  .call { background: var(--ink-850); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .call__split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    max-width: 880px;
+    margin: 0 auto 48px;
+  }
+  @media (max-width: 720px) { .call__split { grid-template-columns: 1fr; } }
+  .call__col { padding: 32px 28px; }
+  .call__col + .call__col { border-left: 1px solid var(--border); }
+  @media (max-width: 720px) {
+    .call__col + .call__col { border-left: 0; border-top: 1px solid var(--border); }
+  }
+  .call__col-head {
+    font-family: var(--font-text);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .call__col--is .call__col-head { color: var(--accent); }
+  .call__col--isnt .call__col-head { color: var(--parchment-500); }
+  .call__list { list-style: none; padding: 0; margin: 0; }
+  .call__list li {
+    font-family: var(--font-text);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--parchment-100);
+    padding: 10px 0 10px 24px;
+    position: relative;
+  }
+  .call__list li + li { border-top: 1px solid rgba(255,255,255,.04); }
+  .call__col--is .call__list li::before {
+    content: "—";
+    position: absolute; left: 0; top: 10px;
+    color: var(--accent);
+  }
+  .call__col--isnt .call__list li::before {
+    content: "×";
+    position: absolute; left: 0; top: 9px;
+    color: var(--parchment-500);
+    font-size: 16px;
+  }
+  .call__col--isnt .call__list li { color: var(--parchment-300); }
+
+  .call__quote {
+    text-align: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 22px);
+    color: var(--fg);
+    line-height: 1.5;
+    max-width: 50ch;
+    margin: 0 auto 36px;
+  }
+  .call__close {
+    text-align: center;
+    font-family: var(--font-text);
+    font-size: 16px;
+    color: var(--parchment-300);
+    line-height: 1.6;
+    max-width: 58ch;
+    margin: 0 auto;
+  }
+  .call__close strong { color: var(--fg); font-weight: 500; }
+
+  /* ---------- FINAL CTA ---------- */
+  .final {
+    text-align: center;
+    padding-top: 112px;
+    padding-bottom: 128px;
+  }
+  .final__cost {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(22px, 2.8vw, 30px);
+    line-height: 1.4;
+    color: var(--parchment-300);
+    max-width: 30ch;
+    margin: 0 auto 56px;
+  }
+  .final__cost strong {
+    color: var(--fg);
+    font-style: normal;
+    font-weight: 500;
+  }
+  .ayah {
+    border-top: 1px solid var(--gold-hairline);
+    border-bottom: 1px solid var(--gold-hairline);
+    padding: 36px 24px;
+    max-width: 640px;
+    margin: 0 auto 64px;
+  }
+  .ayah__arabic {
+    font-family: var(--font-arabic);
+    font-size: clamp(22px, 2.6vw, 28px);
+    line-height: 1.8;
+    color: var(--fg);
+    direction: rtl;
+    margin: 0 0 14px;
+  }
+  .ayah__english {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(16px, 1.8vw, 19px);
+    line-height: 1.5;
+    color: var(--parchment-100);
+    margin: 0 0 8px;
+  }
+  .ayah__cite {
+    font-family: var(--font-text);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .final__h {
+    font-family: var(--font-display);
+    font-weight: 450;
+    font-size: clamp(30px, 4.4vw, 48px);
+    line-height: 1.1;
+    color: var(--fg);
+    letter-spacing: -0.014em;
+    margin: 0 auto 20px;
+    max-width: 18ch;
+  }
+  .final__sub {
+    font-family: var(--font-text);
+    font-size: 16px;
+    color: var(--parchment-300);
+    line-height: 1.55;
+    max-width: 48ch;
+    margin: 0 auto 36px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .vsl-footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--parchment-500);
+    font-family: var(--font-text);
+    font-size: 12px;
+    letter-spacing: 0.08em;
   }
 </style>
 </head>
 <body>
-  <main class="vsl-wrap">
-    <p class="vsl-eyebrow">Masterman</p>
-    <h1 class="vsl-headline">Headline goes here.</h1>
-    <p class="vsl-sub">Subhead goes here.</p>
+
+<!-- ============================================================ -->
+<!-- NAV -->
+<!-- ============================================================ -->
+<header class="vsl-nav">
+  <div class="vsl-nav__inner">
+    <a class="vsl-nav__brand" href="/">
+      <img src="assets/logo-mark.png" alt="">
+      <span class="vsl-nav__brand-word">Masterman</span>
+    </a>
+    <a class="vsl-nav__cta"
+       data-cta="apply-nav"
+       href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+      Apply for a Call
+    </a>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- HERO -->
+<!-- ============================================================ -->
+<section class="hero">
+  <div class="wrap-narrow">
+    <p class="eyebrow">For the Functioning Muslim Man</p>
+    <h1>You look like you have it together. <em>Privately, you know you don't.</em></h1>
+    <p class="hero__sub">
+      You are not in crisis. You are drifting. Slow, quiet — quiet enough to ignore.
+      There is a system that ends it.
+    </p>
+    <a class="btn btn--gold"
+       data-cta="hero-watch"
+       href="#vsl-video">
+      Watch the Video and Apply for a Call
+      <span class="btn__arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- VSL VIDEO -->
+<!-- ============================================================ -->
+<section class="video" id="vsl-video">
+  <div class="wrap-narrow">
+    <p class="video__guard">
+      If this video does not describe you, this is not for you.<br>
+      If it does, do not close the tab.
+    </p>
 
     <!-- Replace with the real video embed (Vimeo iframe / Mux / native <video>). -->
-    <div class="vsl-video">Video placeholder</div>
-
-    <div class="vsl-cta-row">
-      <a class="vsl-cta"
-         data-cta="book-call"
-         href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
-        Apply now
-      </a>
+    <div class="video__frame">
+      <div class="video__placeholder-mark" aria-hidden="true">
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor">
+          <path d="M0 0v22l20-11L0 0z"/>
+        </svg>
+      </div>
     </div>
 
-    <section class="vsl-section">
-      <!-- Drop in program-info sections here once Lamine sends the structure. -->
-      More about the program coming soon.
-    </section>
-  </main>
+    <div class="video__cta-row">
+      <a class="btn btn--gold"
+         data-cta="under-video"
+         href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+        Start My Application
+        <span class="btn__arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-  <script src="https://apply.mastermangroup.com/track.js"
-          data-page="vsl-v1" defer></script>
+<div class="rule-fade"></div>
+
+<!-- ============================================================ -->
+<!-- IF THIS IS YOU -->
+<!-- ============================================================ -->
+<section class="ifyou">
+  <div class="wrap">
+    <p class="section-eyebrow">If this is you, keep reading</p>
+    <h2 class="section-title">Read this list slowly. Mark the ones that hit.</h2>
+
+    <div class="ifyou__grid">
+      <div class="ifyou__item">
+        <strong>Your salah feels far.</strong>
+        When you pray, you are not really there. The last close moment with Allah was a Ramadan you can barely remember.
+      </div>
+      <div class="ifyou__item">
+        <strong>Something heavy you can't name.</strong>
+        You walk through your day with a weight on your chest that nobody around you sees.
+      </div>
+      <div class="ifyou__item">
+        <strong>The habit you swore off.</strong>
+        You said never again. You are back in it.
+      </div>
+      <div class="ifyou__item">
+        <strong>The masjid feels anonymous.</strong>
+        You go. You leave the same as you came. Nobody there really knows you.
+      </div>
+      <div class="ifyou__item">
+        <strong>Friends, but no brother.</strong>
+        Nobody would notice if you disappeared for two weeks.
+      </div>
+      <div class="ifyou__item">
+        <strong>The marriage isn't what it was.</strong>
+        Maybe your wife stopped looking at you the way she used to. Maybe one already broke. Maybe you're not sure what kind of man you'd be for her.
+      </div>
+      <div class="ifyou__item" style="grid-column: 1 / -1;">
+        <strong>You know what to do. You can't make yourself do it.</strong>
+        And you have felt this way for years.
+      </div>
+    </div>
+
+    <blockquote class="pullquote">
+      <span class="pullquote__time">11:30 p.m.</span>
+      "Is this who I am going to be?"
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WHY YOU HAVEN'T -->
+<!-- ============================================================ -->
+<section>
+  <div class="wrap">
+    <p class="section-eyebrow">Why you haven't become him</p>
+    <h2 class="section-title">Four things missing. Same four. Every time.</h2>
+
+    <div class="why__grid">
+      <div class="why__card">
+        <span class="why__num">01</span>
+        <span class="why__no">No</span>
+        <span class="why__label">Accountability</span>
+      </div>
+      <div class="why__card">
+        <span class="why__num">02</span>
+        <span class="why__no">No</span>
+        <span class="why__label">Brotherhood</span>
+      </div>
+      <div class="why__card">
+        <span class="why__num">03</span>
+        <span class="why__no">No</span>
+        <span class="why__label">Identity</span>
+      </div>
+      <div class="why__card">
+        <span class="why__num">04</span>
+        <span class="why__no">No</span>
+        <span class="why__label">Leadership</span>
+      </div>
+    </div>
+
+    <p class="why__close">
+      You have been trying to become a serious man, alone, on motivation. That has never worked, for any man, in any century.
+      <em>Even the Prophet ﷺ had Abu Bakr.</em>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- HOW MASTERMAN HELPS -->
+<!-- ============================================================ -->
+<section class="helps">
+  <div class="wrap">
+    <p class="section-eyebrow">How Masterman helps you</p>
+    <h2 class="section-title">Four parts of your life. Built one module at a time.</h2>
+    <p class="helps__intro">
+      Masterman is built across <strong>the Four F's</strong>. Each one has its own module of work. Identity runs underneath all of it. Discipline runs through all of it.
+    </p>
+
+    <div class="fs-grid">
+      <div class="f-card">
+        <div class="f-card__head">
+          <span class="f-card__letter">F.</span>
+          <span class="f-card__name">Faith</span>
+        </div>
+        <p class="f-card__what">Your relationship with Allah, brought back.</p>
+        <span class="f-card__module"><span class="f-card__module-dot"></span>Identity Module</span>
+        <p class="f-card__how">Who Allah made you to be — before the world told you otherwise.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-card__head">
+          <span class="f-card__letter">F.</span>
+          <span class="f-card__name">Family</span>
+        </div>
+        <p class="f-card__what">The household you lead, or the one you are preparing to.</p>
+        <span class="f-card__module"><span class="f-card__module-dot"></span>Leadership Module</span>
+        <p class="f-card__how">Qawwamah in motion. The weight, not the throne.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-card__head">
+          <span class="f-card__letter">F.</span>
+          <span class="f-card__name">Fitness</span>
+        </div>
+        <p class="f-card__what">Your body and nafs under your command.</p>
+        <span class="f-card__module"><span class="f-card__module-dot"></span>Discipline Module</span>
+        <p class="f-card__how">Daily non-negotiables. Logged. No hiding.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-card__head">
+          <span class="f-card__letter">F.</span>
+          <span class="f-card__name">Fraternity</span>
+        </div>
+        <p class="f-card__what">Real brothers who notice if you disappear.</p>
+        <span class="f-card__module"><span class="f-card__module-dot"></span>Brotherhood Module</span>
+        <p class="f-card__how">A pod of serious men. Weekly check-ins. Held to the line.</p>
+      </div>
+    </div>
+
+    <p class="helps__thread">
+      Identity is the foundation. Discipline is the thread.<br>
+      Together they hold faith, family, fitness, and fraternity in place.
+    </p>
+
+    <div class="practical">
+      <div class="practical__cell">
+        <div class="practical__cell-eyebrow">Weekly</div>
+        <p class="practical__cell-body">Live sessions with the Shaykh. A pod of brothers who know your real life.</p>
+      </div>
+      <div class="practical__cell">
+        <div class="practical__cell-eyebrow">Daily</div>
+        <p class="practical__cell-body">A tracker you fill out every night. The standards don't move.</p>
+      </div>
+      <div class="practical__cell" style="grid-column: 1 / -1;">
+        <div class="practical__cell-eyebrow">In Person</div>
+        <p class="practical__cell-body">Retreats. Where you take what you've built and push it to the limit, alongside the brothers walking the same road.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 30 DAYS -->
+<!-- ============================================================ -->
+<section>
+  <div class="wrap">
+    <p class="section-eyebrow">Your first 30 days</p>
+    <h2 class="section-title">By day 30, here is what you have.</h2>
+
+    <div class="days">
+      <div class="days__card">
+        <div class="days__num">01</div>
+        <p class="days__body">A clear audit of where you stand on Faith, Family, Fitness, Fraternity.</p>
+      </div>
+      <div class="days__card">
+        <div class="days__num">02</div>
+        <p class="days__body">A handful of daily non-negotiables in a tracker you fill out every night.</p>
+      </div>
+      <div class="days__card">
+        <div class="days__num">03</div>
+        <p class="days__body">A pod of three to five serious men who check on you weekly.</p>
+      </div>
+      <div class="days__card">
+        <div class="days__num">04</div>
+        <p class="days__body">A weekly live session with the Shaykh.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WHY DIFFERENT -->
+<!-- ============================================================ -->
+<section class="different">
+  <div class="wrap">
+    <p class="section-eyebrow">Why Masterman is different</p>
+    <h2 class="section-title">Not a course. A system.</h2>
+
+    <ul class="different__list">
+      <li class="different__row">
+        <div class="different__label">A system, not a course.</div>
+        <div class="different__copy">We do not hand you information. <strong>We hold you to standards.</strong></div>
+      </li>
+      <li class="different__row">
+        <div class="different__label">Anchored in the Sunnah.</div>
+        <div class="different__copy">Qur'an and classical scholarship. <strong>Not internet masculinity.</strong></div>
+      </li>
+      <li class="different__row">
+        <div class="different__label">For functioning men.</div>
+        <div class="different__copy">Men with responsibility. Not beginners. <strong>We start where you actually are.</strong></div>
+      </li>
+      <li class="different__row">
+        <div class="different__label">Real brotherhood.</div>
+        <div class="different__copy">Pods of three to five men. <strong>No surface friendships.</strong></div>
+      </li>
+      <li class="different__row">
+        <div class="different__label">Enforced.</div>
+        <div class="different__copy">We do not let you drift. <strong>The system holds.</strong></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TESTIMONIALS -->
+<!-- ============================================================ -->
+<section>
+  <div class="wrap">
+    <p class="section-eyebrow">Brothers who chose not to drift</p>
+    <h2 class="section-title">Before. The shift. After.</h2>
+
+    <div class="testi__grid">
+      <div class="testi__card">
+        <div>
+          <span class="testi__placeholder-tag">Testimonial 01</span>
+          <p class="testi__quote">"Brother from a retreat or program. Before, shift, after — one concrete behavior."</p>
+        </div>
+        <div class="testi__attr">— Name / Initials</div>
+      </div>
+      <div class="testi__card">
+        <div>
+          <span class="testi__placeholder-tag">Testimonial 02</span>
+          <p class="testi__quote">"Brother from a retreat or program. Before, shift, after — one concrete behavior."</p>
+        </div>
+        <div class="testi__attr">— Name / Initials</div>
+      </div>
+      <div class="testi__card">
+        <div>
+          <span class="testi__placeholder-tag">Testimonial 03</span>
+          <p class="testi__quote">"Brother from a retreat or program. Before, shift, after — one concrete behavior."</p>
+        </div>
+        <div class="testi__attr">— Name / Initials</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WHAT THIS CALL IS / ISN'T -->
+<!-- ============================================================ -->
+<section class="call">
+  <div class="wrap">
+    <p class="section-eyebrow">What this call is — and isn't</p>
+    <h2 class="section-title">A 30-minute audit. Both ways.</h2>
+
+    <div class="call__split">
+      <div class="call__col call__col--is">
+        <div class="call__col-head">What it is</div>
+        <ul class="call__list">
+          <li>An honest audit of where your salah, body, discipline, and the people around you actually stand.</li>
+          <li>A clear plan for the road forward — if Masterman is the right system for you.</li>
+          <li>A fit check. Both ways.</li>
+        </ul>
+      </div>
+      <div class="call__col call__col--isnt">
+        <div class="call__col-head">What it isn't</div>
+        <ul class="call__list">
+          <li>Not therapy. Not clinical. We are a standards system.</li>
+          <li>Not a casual chat. We have a wait list.</li>
+          <li>Not pressure. If we tell you it isn't right, that is the call.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="call__quote">
+      "Most brothers say this 30-minute audit gave them more clarity than years of trying to fix things on their own."
+    </p>
+
+    <p class="call__close">
+      If it is right, you'll be invited in — weekly coaching with the Shaykh, the brotherhood, and access to the retreats. <strong>If not, we'll tell you straight.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FINAL CTA -->
+<!-- ============================================================ -->
+<section class="final">
+  <div class="wrap-narrow">
+    <p class="final__cost">
+      The cost of doing nothing is <strong>another five years of the same.</strong><br>
+      Same pattern. Same crash. Same 11:30 voice. Same question.
+    </p>
+
+    <div class="ayah">
+      <p class="ayah__arabic">إِنَّ ٱللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا۟ مَا بِأَنفُسِهِمْ</p>
+      <p class="ayah__english">"Allah does not change a people until they change themselves."</p>
+      <span class="ayah__cite">Ar-Ra'd 13:11</span>
+    </div>
+
+    <h2 class="final__h">Apply below. Be honest.</h2>
+    <p class="final__sub">We'll read every line before we meet.</p>
+
+    <a class="btn btn--gold"
+       data-cta="final-apply"
+       href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+      Apply for a Call
+      <span class="btn__arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<footer class="vsl-footer">
+  © Masterman. Built for the man who refuses to drift.
+</footer>
+
+<script src="https://apply.mastermangroup.com/track.js"
+        data-page="vsl-v1" defer></script>
 </body>
 </html>
