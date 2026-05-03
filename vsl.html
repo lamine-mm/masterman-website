@@ -123,7 +123,7 @@
   .btn:hover .btn__arrow { transform: translateX(4px); }
 
   /* ---------- HERO ---------- */
-  .hero { padding-top: 96px; padding-bottom: 56px; text-align: center; }
+  .hero { padding-top: 88px; padding-bottom: 28px; text-align: center; }
   .hero h1 {
     font-family: var(--font-display);
     font-weight: 450;
@@ -150,7 +150,7 @@
 
   /* ---------- VIDEO BLOCK ---------- */
   .video {
-    padding-top: 32px;
+    padding-top: 0;
     padding-bottom: 96px;
   }
   .video__frame {
@@ -194,6 +194,13 @@
     border-radius: var(--radius-md);
     overflow: hidden;
     transition: border-color 220ms var(--ease-standard), transform 220ms var(--ease-standard);
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    display: block;
+    width: 100%;
   }
   .testi__card:hover { border-color: var(--gold-hairline); transform: translateY(-2px); }
   .testi__video {
@@ -237,20 +244,6 @@
     text-transform: uppercase;
     color: var(--parchment-500);
   }
-  .testi__placeholder-tag {
-    position: absolute; top: 12px; right: 14px;
-    z-index: 3;
-    font-family: var(--font-text);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--parchment-100);
-    background: rgba(14,14,13,0.8);
-    border: 1px solid var(--gold-hairline);
-    padding: 3px 8px;
-    border-radius: 999px;
-  }
-
   /* ============================================================ */
   /* SCROLL STAGES — The Four F's
   /* ============================================================ */
@@ -477,11 +470,10 @@
 
   .inside__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 18px;
   }
-  @media (max-width: 900px) { .inside__grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 600px) { .inside__grid { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .inside__grid { grid-template-columns: 1fr; } }
 
   .inside__card {
     background: var(--ink-900);
@@ -493,8 +485,39 @@
     transition: border-color 220ms var(--ease-standard), transform 220ms var(--ease-standard);
   }
   .inside__card:hover { border-color: var(--gold-hairline); transform: translateY(-2px); }
-  .inside__card--span2 { grid-column: span 2; }
-  @media (max-width: 600px) { .inside__card--span2 { grid-column: auto; } }
+
+  /* ---- HERO CARD (Tracker) — landscape, full width, mockup + copy ---- */
+  .inside__hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--ink-900);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 18px;
+    transition: border-color 220ms var(--ease-standard);
+  }
+  .inside__hero:hover { border-color: var(--gold-hairline); }
+  @media (max-width: 820px) { .inside__hero { grid-template-columns: 1fr; } }
+  .inside__hero .inside__app {
+    aspect-ratio: auto;
+    min-height: 340px;
+    border-bottom: 0;
+    border-right: 1px solid var(--border);
+  }
+  @media (max-width: 820px) {
+    .inside__hero .inside__app {
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+      min-height: 280px;
+    }
+  }
+  .inside__hero .inside__body {
+    padding: 36px 40px;
+    justify-content: center;
+  }
+  .inside__hero .inside__name { font-size: 28px; }
+  @media (max-width: 820px) { .inside__hero .inside__body { padding: 24px 22px 28px; } .inside__hero .inside__name { font-size: 24px; } }
 
   .inside__media {
     aspect-ratio: 16 / 10;
@@ -719,6 +742,62 @@
     margin: 0 auto 36px;
   }
 
+  /* ---------- VIDEO MODAL ---------- */
+  .vmodal {
+    position: fixed; inset: 0;
+    z-index: 200;
+    background: rgba(8,8,7,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms var(--ease-standard);
+  }
+  .vmodal.is-open { opacity: 1; pointer-events: auto; }
+  .vmodal__inner {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    background: var(--ink-900);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lift);
+    transform: translateY(8px);
+    transition: transform 240ms var(--ease-standard);
+  }
+  .vmodal.is-open .vmodal__inner { transform: translateY(0); }
+  .vmodal__iframe-wrap { aspect-ratio: 16 / 9; width: 100%; background: #000; }
+  .vmodal__iframe-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .vmodal__caption {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--parchment-300);
+    font-family: var(--font-text);
+    font-size: 14px;
+  }
+  .vmodal__caption strong { color: var(--fg); font-weight: 500; margin-right: 8px; }
+  .vmodal__close {
+    position: absolute;
+    top: -44px; right: -4px;
+    width: 36px; height: 36px;
+    border-radius: 999px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--parchment-100);
+    font-size: 18px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: border-color 180ms var(--ease-standard), color 180ms var(--ease-standard);
+  }
+  .vmodal__close:hover { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 720px) {
+    .vmodal { padding: 16px; }
+    .vmodal__close { top: -40px; right: 0; }
+  }
+
   /* ---------- FOOTER ---------- */
   .vsl-footer {
     text-align: center;
@@ -755,7 +834,7 @@
 <!-- ============================================================ -->
 <section class="hero">
   <div class="wrap-narrow">
-    <span class="eyebrow">For the Functioning Muslim Man</span>
+    <span class="eyebrow">For High-Performing Professional Muslim Men</span>
     <h1>You look like you have it together. <em>Privately, you know you don't.</em></h1>
     <p class="hero__sub">
       You are not in crisis. You are drifting. Slow, quiet — quiet enough to ignore.
@@ -800,10 +879,12 @@
     <h2 class="section-title">Hear it from the men who walked the road.</h2>
 
     <div class="testi__grid">
-      <a class="testi__card" href="#" data-cta="testi-1" aria-label="Play testimonial 1">
+      <button type="button" class="testi__card" data-cta="testi-1"
+              data-embed="https://www.loom.com/embed/cedc9ffeee15461198cebc2acc6968a8"
+              data-name="Faizan Siddiqui"
+              aria-label="Play Faizan Siddiqui's testimonial">
         <div class="testi__video">
-          <span class="testi__placeholder-tag">Video 01</span>
-          <img class="testi__thumb" src="assets/photos/splash/dsc01230.jpg" alt="">
+          <img class="testi__thumb" src="assets/photos/tv-1.jpg" alt="">
           <div class="testi__play" aria-hidden="true">
             <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
               <path d="M0 0v22l20-11L0 0z"/>
@@ -811,15 +892,17 @@
           </div>
         </div>
         <div class="testi__meta">
-          <p class="testi__name">Brother A</p>
-          <span class="testi__role">Married · 30s</span>
+          <p class="testi__name">Faizan Siddiqui</p>
+          <span class="testi__role">Retreat Attendee</span>
         </div>
-      </a>
+      </button>
 
-      <a class="testi__card" href="#" data-cta="testi-2" aria-label="Play testimonial 2">
+      <button type="button" class="testi__card" data-cta="testi-2"
+              data-embed="https://www.loom.com/embed/3045f9003fd54d658d3ba2de1ed14968"
+              data-name="Abdullah Muhammad"
+              aria-label="Play Abdullah Muhammad's testimonial">
         <div class="testi__video">
-          <span class="testi__placeholder-tag">Video 02</span>
-          <img class="testi__thumb" src="assets/photos/splash/dsc00285.jpg" alt="">
+          <img class="testi__thumb" src="assets/photos/tv-2.jpg" alt="">
           <div class="testi__play" aria-hidden="true">
             <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
               <path d="M0 0v22l20-11L0 0z"/>
@@ -827,15 +910,17 @@
           </div>
         </div>
         <div class="testi__meta">
-          <p class="testi__name">Brother B</p>
-          <span class="testi__role">Single · 20s</span>
+          <p class="testi__name">Abdullah Muhammad</p>
+          <span class="testi__role">Retreat Attendee</span>
         </div>
-      </a>
+      </button>
 
-      <a class="testi__card" href="#" data-cta="testi-3" aria-label="Play testimonial 3">
+      <button type="button" class="testi__card" data-cta="testi-3"
+              data-embed="https://www.loom.com/embed/001f674420f94f6e86826ce25a1df2c5"
+              data-name="Safwan Halabi"
+              aria-label="Play Safwan Halabi's testimonial">
         <div class="testi__video">
-          <span class="testi__placeholder-tag">Video 03</span>
-          <img class="testi__thumb" src="assets/photos/splash/brokenbow2025.jpg" alt="">
+          <img class="testi__thumb" src="assets/photos/tv-3.jpg" alt="">
           <div class="testi__play" aria-hidden="true">
             <svg width="16" height="18" viewBox="0 0 20 22" fill="currentColor">
               <path d="M0 0v22l20-11L0 0z"/>
@@ -843,10 +928,10 @@
           </div>
         </div>
         <div class="testi__meta">
-          <p class="testi__name">Brother C</p>
-          <span class="testi__role">Father · 40s</span>
+          <p class="testi__name">Safwan Halabi</p>
+          <span class="testi__role">Masterman Inner Circle</span>
         </div>
-      </a>
+      </button>
     </div>
   </div>
 </section>
@@ -943,77 +1028,74 @@
     <span class="eyebrow">What you get inside</span>
     <h2 class="section-title">A complete operating system. <em>Not a course.</em></h2>
     <p class="inside__intro">
-      Five things the system gives you. Each one designed to keep you from drifting back.
+      Everything the system gives you. Each piece designed to keep you from drifting back.
     </p>
 
-    <div class="inside__grid">
-      <!-- Card 1: The App / Tracker (span 2) -->
-      <div class="inside__card inside__card--span2">
-        <div class="inside__app" aria-hidden="true">
-          <div class="app-mock">
-            <div class="app-mock__head">
-              <span>Today</span>
-              <span>4 / 5</span>
-            </div>
-            <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Fajr on time</div>
-            <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Qur'an — 10 min</div>
-            <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Training — 45 min</div>
-            <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> No phone after 10pm</div>
-            <div class="app-mock__row"><span class="app-mock__check"></span> Pod check-in</div>
+    <!-- HERO CARD: The Tracker -->
+    <div class="inside__hero">
+      <div class="inside__app" aria-hidden="true">
+        <div class="app-mock">
+          <div class="app-mock__head">
+            <span>Today</span>
+            <span>4 / 5</span>
           </div>
-        </div>
-        <div class="inside__body">
-          <span class="inside__tag">Daily</span>
-          <h3 class="inside__name">The Masterman Tracker</h3>
-          <p class="inside__copy">A simple app. Log your non-negotiables every night. Your pod sees the streak. So does the Shaykh. The standards don't move — and neither does the record of whether you met them.</p>
+          <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Fajr on time</div>
+          <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Qur'an — 10 min</div>
+          <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> Training — 45 min</div>
+          <div class="app-mock__row app-mock__row--done"><span class="app-mock__check">✓</span> No phone after 10pm</div>
+          <div class="app-mock__row"><span class="app-mock__check"></span> Pod check-in</div>
         </div>
       </div>
+      <div class="inside__body">
+        <span class="inside__tag">Daily · The App</span>
+        <h3 class="inside__name">The Masterman Tracker</h3>
+        <p class="inside__copy">Log your non-negotiables every night. Your pod sees the streak. So does the Shaykh. The standards don't move — and neither does the record of whether you met them.</p>
+      </div>
+    </div>
 
-      <!-- Card 2: Shaykh -->
+    <!-- 2x2 GRID: Sessions, Qur'an, Brotherhood, Retreats -->
+    <div class="inside__grid">
       <div class="inside__card">
         <div class="inside__media">
           <img src="assets/photos/splash/shk.jpg" alt="">
         </div>
         <div class="inside__body">
           <span class="inside__tag">Weekly · Live</span>
-          <h3 class="inside__name">Sessions with the Shaykh</h3>
+          <h3 class="inside__name">Sessions with Shaykh Abdullah</h3>
           <p class="inside__copy">Live, every week. Classical scholarship applied to the real life of a working Muslim man. Bring questions. Leave with a path.</p>
         </div>
       </div>
 
-      <!-- Card 3: Pod -->
+      <div class="inside__card">
+        <div class="inside__media">
+          <img src="assets/photos/splash/dsc01005.jpg" alt="">
+        </div>
+        <div class="inside__body">
+          <span class="inside__tag">Weekly · Qur'an</span>
+          <h3 class="inside__name">Qur'an Sessions</h3>
+          <p class="inside__copy">Recitation, tafsir, and reflection — taught with depth, lived with discipline. The Book of Allah, returned to its place at the center of your week.</p>
+        </div>
+      </div>
+
       <div class="inside__card">
         <div class="inside__media">
           <img src="assets/photos/splash/dsc00285.jpg" alt="">
         </div>
         <div class="inside__body">
-          <span class="inside__tag">Weekly · Pod</span>
+          <span class="inside__tag">Pod · Accountability</span>
           <h3 class="inside__name">Your Brotherhood Pod</h3>
-          <p class="inside__copy">Three to five serious men. Weekly check-ins. They know your real life — and they will notice when you slip.</p>
+          <p class="inside__copy">Three to five serious men. Weekly accountability calls. Fitness challenges. Real check-ins on real life — they notice when you slip.</p>
         </div>
       </div>
 
-      <!-- Card 4: Curriculum -->
       <div class="inside__card">
-        <div class="inside__media">
-          <img src="assets/photos/splash/dsc01230.jpg" alt="">
-        </div>
-        <div class="inside__body">
-          <span class="inside__tag">Modules</span>
-          <h3 class="inside__name">Identity. Leadership. Discipline.</h3>
-          <p class="inside__copy">The four modules that build the Four F's. Worked in sequence. Not a library to binge — a curriculum that holds you to standards.</p>
-        </div>
-      </div>
-
-      <!-- Card 5: Retreats (span 2) -->
-      <div class="inside__card inside__card--span2">
         <div class="inside__media">
           <img src="assets/photos/retreat-feature.jpg" alt="">
         </div>
         <div class="inside__body">
-          <span class="inside__tag">In Person</span>
+          <span class="inside__tag">In Person · Retreats</span>
           <h3 class="inside__name">The Retreats</h3>
-          <p class="inside__copy">Where what you've built gets pushed to the limit, alongside the brothers walking the same road. Where men decide to stop drifting — together, in person, off the screen.</p>
+          <p class="inside__copy">Where what you've built gets pushed to the limit, alongside the brothers walking the same road. Off the screen. In person. Together.</p>
         </div>
       </div>
     </div>
@@ -1081,6 +1163,17 @@
   </div>
 </section>
 
+<!-- ============================================================ -->
+<!-- VIDEO MODAL -->
+<!-- ============================================================ -->
+<div class="vmodal" id="vmodal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="vmodal__inner">
+    <button type="button" class="vmodal__close" id="vmodalClose" aria-label="Close video">×</button>
+    <div class="vmodal__iframe-wrap" id="vmodalFrame"></div>
+    <div class="vmodal__caption" id="vmodalCaption"></div>
+  </div>
+</div>
+
 <footer class="vsl-footer">
   © Masterman. Built for the man who refuses to drift.
 </footer>
@@ -1101,12 +1194,46 @@
         }
       });
     }, {
-      // Activate when the row's middle crosses ~60% from top of viewport
       rootMargin: '-30% 0px -40% 0px',
       threshold: 0.01
     });
 
     rows.forEach(function (r) { io.observe(r); });
+  })();
+
+  // Video testimonial modal.
+  (function () {
+    var modal   = document.getElementById('vmodal');
+    var frame   = document.getElementById('vmodalFrame');
+    var caption = document.getElementById('vmodalCaption');
+    var close   = document.getElementById('vmodalClose');
+    if (!modal) return;
+
+    function open(embed, name, role) {
+      frame.innerHTML = '<iframe src="' + embed + '?autoplay=1" title="' + name + '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+      caption.innerHTML = '<strong>' + name + '</strong>' + (role ? role : '');
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function shut() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      frame.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.testi__card[data-embed]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var embed = btn.getAttribute('data-embed');
+        var name  = btn.getAttribute('data-name') || '';
+        var role  = (btn.querySelector('.testi__role') || {}).textContent || '';
+        open(embed, name, role);
+      });
+    });
+    close.addEventListener('click', shut);
+    modal.addEventListener('click', function (e) { if (e.target === modal) shut(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
   })();
 </script>
 
