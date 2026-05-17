@@ -38,7 +38,7 @@ const About = () => (
             <div className="founder__role">Founder &amp; Lead Coach</div>
             <p>Abdullah helps Muslim men move from passive intention to structured action. His coaching combines faith-rooted identity work, practical accountability, and brotherhood.</p>
             <p>He is known for direct guidance, high standards, and building environments where men can do real work — on themselves, for their families, and for their communities.</p>
-            <a href="https://programs.mastermangroup.com/summer-retreat-2026" target="_blank" rel="noopener" className="btn btn--primary">Join the Retreat<span className="btn__arrow">→</span></a>
+            <button type="button" disabled aria-disabled="true" className="btn btn--primary btn--disabled">Retreat Sold Out</button>
           </div>
         </div>
       </div>

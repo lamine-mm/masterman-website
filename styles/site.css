@@ -2528,3 +2528,92 @@ button { font: inherit; }
   text-transform: uppercase;
   color: var(--parchment-500);
 }
+
+/* ============================================================
+   SOLD-OUT / DISABLED STATES
+   ============================================================ */
+.btn--disabled,
+.btn--disabled:hover,
+.btn--disabled:active {
+  background: linear-gradient(180deg, #2a2a26 0%, #1f1f1c 100%);
+  color: var(--parchment-300);
+  border-color: rgba(244, 239, 230, 0.12);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 2px 4px rgba(0, 0, 0, 0.35);
+  cursor: not-allowed;
+  transform: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+}
+
+.nav__cta--disabled,
+.nav__cta--disabled:hover,
+.nav__cta--disabled:active {
+  background: rgba(244, 239, 230, 0.06);
+  color: var(--parchment-300);
+  border-color: rgba(244, 239, 230, 0.14);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  pointer-events: none;
+}
+
+.nav__mobile-cta--disabled,
+.nav__mobile-cta--disabled:hover,
+.nav__mobile-cta--disabled:active {
+  background: rgba(244, 239, 230, 0.06);
+  color: var(--parchment-300);
+  cursor: not-allowed;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  pointer-events: none;
+}
+
+.urgency-bar--soldout,
+.urgency-bar--soldout:hover {
+  cursor: default;
+  pointer-events: none;
+}
+.urgency-bar--soldout .urgency-bar__dot {
+  background: #B5533F;
+  animation: none;
+}
+.urgency-bar--soldout .urgency-bar__spots {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #B5533F;
+  font-weight: 600;
+}
+.urgency-bar--soldout .urgency-bar__cta {
+  color: var(--parchment-300);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.85em;
+}
+
+.hero__retreat-pill--soldout,
+.hero__retreat-pill--soldout:hover {
+  cursor: default;
+  transform: none;
+  border-color: rgba(181, 83, 63, 0.45);
+}
+.hero__retreat-pill--soldout .hero__retreat-pill-dot {
+  background: #B5533F;
+  animation: none;
+}
+.hero__retreat-pill--soldout .hero__retreat-pill-spots {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #B5533F;
+  font-weight: 600;
+}
+
+.retreat__up-capacity--soldout {
+  color: #B5533F;
+  opacity: 1;
+  font-weight: 600;
+}
