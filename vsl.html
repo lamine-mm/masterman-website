@@ -228,6 +228,7 @@
     }
 
     .video__frame {
+      aspect-ratio: 16 / 9;
       width: 100%;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -240,6 +241,84 @@
     .video__cta-row {
       text-align: center;
       margin-top: 36px;
+    }
+
+    /* ---------- VSL PLAYER (click-to-play, locked controls) ---------- */
+    .vsl-player {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      background: var(--ink-900);
+      border: 0; padding: 0; margin: 0;
+      cursor: pointer;
+      display: block;
+      overflow: hidden;
+      font: inherit; color: inherit;
+    }
+    .vsl-player__poster {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.55) saturate(0.85);
+      transition: filter 240ms var(--ease-standard), transform 600ms var(--ease-standard);
+    }
+    .vsl-player:hover .vsl-player__poster {
+      filter: brightness(0.62) saturate(0.95);
+      transform: scale(1.02);
+    }
+    .vsl-player__shade {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+    }
+    .vsl-player__play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 96px; height: 96px;
+      border-radius: 999px;
+      background: rgba(14,14,13,0.78);
+      border: 1px solid var(--accent);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      transition: transform 220ms var(--ease-standard), background 220ms var(--ease-standard), box-shadow 220ms var(--ease-standard);
+      box-shadow: 0 0 0 0 rgba(200,162,75,0.0);
+    }
+    .vsl-player:hover .vsl-player__play {
+      transform: translate(-50%, -50%) scale(1.06);
+      background: rgba(14,14,13,0.88);
+      box-shadow: 0 0 0 10px rgba(200,162,75,0.08);
+    }
+    .vsl-player__play svg { margin-left: 4px; }
+    .vsl-player__hint {
+      position: absolute; bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-text);
+      font-size: 11.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--parchment-100);
+      background: rgba(14,14,13,0.72);
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--gold-hairline);
+      white-space: nowrap;
+    }
+    @media (max-width: 560px) {
+      .vsl-player__play { width: 72px; height: 72px; }
+      .vsl-player__hint { font-size: 10.5px; padding: 7px 12px; bottom: 18px; }
+    }
+
+    .vsl-running { position: absolute; inset: 0; }
+    .vsl-running iframe {
+      width: 100%; height: 100%;
+      border: 0; display: block;
+    }
+    .vsl-running__block {
+      position: absolute; inset: 0;
+      background: transparent;
+      cursor: default;
     }
 
     /* ---------- VIDEO TESTIMONIALS ---------- */
@@ -1234,20 +1313,16 @@
   <section class="video" id="vsl-video">
     <div class="wrap-narrow">
       <div class="video__frame">
-        <div id="vidalytics_embed_Qyz4XGshqyUs9Gn6" style="width:100%;position:relative;padding-top:56.25%;"></div>
-        <script type="text/javascript">
-          (function (v, i, d, a, l, y, t, c, s) {
-            y = '_' + d.toLowerCase(); c = d + 'L'; if (!v[d]) { v[d] = {}; } if (!v[c]) { v[c] = {}; } if (!v[y]) { v[y] = {}; } var vl = 'Loader', vli = v[y][vl], vsl = v[c][vl + 'Script'], vlf = v[c][vl + 'Loaded'], ve = 'Embed';
-            if (!vsl) {
-              vsl = function (u, cb) {
-                if (t) { cb(); return; } s = i.createElement("script"); s.type = "text/javascript"; s.async = 1; s.src = u;
-                if (s.readyState) { s.onreadystatechange = function () { if (s.readyState === "loaded" || s.readyState == "complete") { s.onreadystatechange = null; vlf = 1; cb(); } }; } else { s.onload = function () { vlf = 1; cb(); }; }
-                i.getElementsByTagName("head")[0].appendChild(s);
-              };
-            }
-            vsl(l + 'loader.min.js', function () { if (!vli) { var vlc = v[c][vl]; vli = new vlc(); } vli.loadScript(l + 'player.min.js', function () { var vec = v[d][ve]; t = new vec(); t.run(a); }); });
-          })(window, document, 'Vidalytics', 'vidalytics_embed_Qyz4XGshqyUs9Gn6', 'https://fast.vidalytics.com/embeds/nUowj6wY/Qyz4XGshqyUs9Gn6/');
-        </script>
+        <button type="button" class="vsl-player" id="vslPlayer" aria-label="Play the program walkthrough">
+          <img class="vsl-player__poster" src="https://i.ytimg.com/vi/grIJb2FQvWo/maxresdefault.jpg" alt="">
+          <span class="vsl-player__shade" aria-hidden="true"></span>
+          <span class="vsl-player__play" aria-hidden="true">
+            <svg width="26" height="30" viewBox="0 0 20 22" fill="currentColor">
+              <path d="M0 0v22l20-11L0 0z" />
+            </svg>
+          </span>
+          <span class="vsl-player__hint">Click to play with sound</span>
+        </button>
       </div>
 
       <div class="video__cta-row">
@@ -1609,6 +1684,35 @@
       });
 
       rows.forEach(function (r) { io.observe(r); });
+    })();
+
+    // VSL player — click to play YouTube unlisted with locked controls.
+    (function () {
+      var btn = document.getElementById('vslPlayer');
+      if (!btn) return;
+      var VIDEO_ID = 'grIJb2FQvWo';
+      var SRC = 'https://www.youtube-nocookie.com/embed/' + VIDEO_ID +
+        '?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&fs=0';
+
+      btn.addEventListener('click', function () {
+        var wrap = document.createElement('div');
+        wrap.className = 'vsl-running';
+
+        var iframe = document.createElement('iframe');
+        iframe.src = SRC;
+        iframe.title = 'Masterman walkthrough';
+        iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        // Intentionally no allowfullscreen — we want locked playback.
+
+        var block = document.createElement('div');
+        block.className = 'vsl-running__block';
+        block.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+        wrap.appendChild(iframe);
+        wrap.appendChild(block);
+        btn.replaceWith(wrap);
+      }, { once: true });
     })();
 
     // Video testimonial modal.
