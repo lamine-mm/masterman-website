@@ -1692,7 +1692,7 @@
       if (!btn) return;
       var VIDEO_ID = 'grIJb2FQvWo';
       var SRC = 'https://www.youtube-nocookie.com/embed/' + VIDEO_ID +
-        '?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&fs=0';
+        '?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
 
       btn.addEventListener('click', function () {
         var wrap = document.createElement('div');
@@ -1701,9 +1701,9 @@
         var iframe = document.createElement('iframe');
         iframe.src = SRC;
         iframe.title = 'Masterman walkthrough';
-        iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+        iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
         iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-        // Intentionally no allowfullscreen — we want locked playback.
+        iframe.setAttribute('allowfullscreen', '');
 
         var block = document.createElement('div');
         block.className = 'vsl-running__block';
