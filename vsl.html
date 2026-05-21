@@ -1287,7 +1287,7 @@
         <span class="vsl-nav__brand-word">Masterman</span>
       </a>
       <a class="vsl-nav__cta" data-cta="apply-nav"
-        href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+        href="https://apply.mastermangroup.com/?utm_medium=vsl">
         Apply for a Call
       </a>
     </div>
@@ -1327,7 +1327,7 @@
 
       <div class="video__cta-row">
         <a class="btn btn--gold" data-cta="under-video"
-          href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+          href="https://apply.mastermangroup.com/?utm_medium=vsl">
           I'm Ready to Change
           <span class="btn__arrow">→</span>
         </a>
@@ -1641,7 +1641,7 @@
       <p class="final__sub">We'll read every line before we meet.</p>
 
       <a class="btn btn--gold" data-cta="final-apply"
-        href="https://apply.mastermangroup.com?utm_source=vsl&utm_medium=vsl-page&utm_campaign=vsl-v1">
+        href="https://apply.mastermangroup.com/?utm_medium=vsl">
         I'm Ready to Change
         <span class="btn__arrow">→</span>
       </a>
@@ -1692,7 +1692,7 @@
       if (!btn) return;
       var VIDEO_ID = 'grIJb2FQvWo';
       var SRC = 'https://www.youtube-nocookie.com/embed/' + VIDEO_ID +
-        '?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
+        '?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1';
 
       btn.addEventListener('click', function () {
         var wrap = document.createElement('div');
@@ -1707,7 +1707,20 @@
 
         var block = document.createElement('div');
         block.className = 'vsl-running__block';
+        block.style.cursor = 'pointer';
         block.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+        var playing = true;
+        block.addEventListener('click', function () {
+          var cmd = playing ? 'pauseVideo' : 'playVideo';
+          try {
+            iframe.contentWindow.postMessage(
+              JSON.stringify({ event: 'command', func: cmd, args: [] }),
+              '*'
+            );
+            playing = !playing;
+          } catch (e) {}
+        });
 
         wrap.appendChild(iframe);
         wrap.appendChild(block);
