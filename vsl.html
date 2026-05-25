@@ -378,6 +378,13 @@
       padding: 10px;
       overflow: hidden;
       transition: border-color 220ms var(--ease-standard), transform 220ms var(--ease-standard);
+      position: relative;
+      cursor: zoom-in;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+      width: 100%;
+      display: block;
     }
     .wins__card:hover { border-color: var(--gold-hairline); transform: translateY(-2px); }
     .wins__card img {
@@ -385,6 +392,30 @@
       height: auto;
       display: block;
       border-radius: 3px;
+    }
+    .wins__zoom {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border-radius: 999px;
+      background: rgba(14, 14, 13, 0.72);
+      border: 1px solid var(--gold-hairline);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 220ms var(--ease-standard), transform 220ms var(--ease-standard);
+      pointer-events: none;
+    }
+    .wins__card:hover .wins__zoom,
+    .wins__card:focus-visible .wins__zoom {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (hover: none) {
+      .wins__zoom { opacity: 1; transform: none; }
     }
     .wins__source {
       display: block;
@@ -1350,6 +1381,60 @@
       }
     }
 
+    /* ---------- IMAGE LIGHTBOX (wins screenshots) ---------- */
+    .imgmodal {
+      position: fixed; inset: 0;
+      z-index: 210;
+      background: rgba(8, 8, 7, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms var(--ease-standard);
+      cursor: zoom-out;
+    }
+    .imgmodal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .imgmodal__img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: var(--shadow-lift);
+      transform: scale(0.96);
+      transition: transform 240ms var(--ease-standard);
+    }
+    .imgmodal.is-open .imgmodal__img {
+      transform: scale(1);
+    }
+    .imgmodal__close {
+      position: fixed;
+      top: 20px; right: 20px;
+      width: 40px; height: 40px;
+      border-radius: 999px;
+      background: rgba(14, 14, 13, 0.8);
+      border: 1px solid var(--border-strong);
+      color: var(--parchment-100);
+      font-size: 20px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 180ms var(--ease-standard), color 180ms var(--ease-standard);
+      z-index: 1;
+    }
+    .imgmodal__close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    @media (max-width: 720px) {
+      .imgmodal { padding: 12px; }
+    }
+
     /* ---------- FOOTER ---------- */
     .vsl-footer {
       text-align: center;
@@ -1450,18 +1535,30 @@
       <h2 class="section-title">Real men. Real shifts. <em>In their own words.</em></h2>
 
       <div class="wins__grid">
-        <div class="wins__card">
+        <button type="button" class="wins__card" data-zoom aria-label="Expand: Journey to Hajj post">
           <img src="assets/photos/win-hajj.png" alt="Inner Circle post: Journey to Hajj — life changed, more present at home, son knows salah, wife started praying jamaa'ah">
-        </div>
-        <div class="wins__card">
+          <span class="wins__zoom" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5M5 7h4M7 5v4"/></svg>
+          </span>
+        </button>
+        <button type="button" class="wins__card" data-zoom aria-label="Expand: 5-day streak post">
           <img src="assets/photos/win-streak.png" alt="Inner Circle post: 5 consecutive days of consistent action toward goals">
-        </div>
-        <div class="wins__card">
+          <span class="wins__zoom" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5M5 7h4M7 5v4"/></svg>
+          </span>
+        </button>
+        <button type="button" class="wins__card" data-zoom aria-label="Expand: Screentime win post">
           <img src="assets/photos/win-screentime.png" alt="Inner Circle post: Screentime win — halved after a week, doomscrolling removed">
-        </div>
-        <div class="wins__card">
+          <span class="wins__zoom" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5M5 7h4M7 5v4"/></svg>
+          </span>
+        </button>
+        <button type="button" class="wins__card" data-zoom aria-label="Expand: Memorizing the Quran post">
           <img src="assets/photos/win-quran.png" alt="Inner Circle post: Memorizing the Quran — 1 page of the 30th Juz done, 5 more to go">
-        </div>
+          <span class="wins__zoom" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5M5 7h4M7 5v4"/></svg>
+          </span>
+        </button>
       </div>
       <span class="wins__source"><strong>Posts pulled from</strong> · Skool · Masterman Inner Circle</span>
     </div>
@@ -1790,6 +1887,14 @@
     </div>
   </div>
 
+  <!-- ============================================================ -->
+  <!-- IMAGE LIGHTBOX (wins) -->
+  <!-- ============================================================ -->
+  <div class="imgmodal" id="imgmodal" role="dialog" aria-modal="true" aria-hidden="true">
+    <button type="button" class="imgmodal__close" id="imgmodalClose" aria-label="Close image">×</button>
+    <img class="imgmodal__img" id="imgmodalImg" alt="">
+  </div>
+
   <footer class="vsl-footer">
     © Masterman. Built for the man who refuses to drift.
   </footer>
@@ -1903,6 +2008,43 @@
       });
       close.addEventListener('click', shut);
       modal.addEventListener('click', function (e) { if (e.target === modal) shut(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+    })();
+
+    // Image lightbox — click a wins screenshot to expand it.
+    (function () {
+      var modal = document.getElementById('imgmodal');
+      var img = document.getElementById('imgmodalImg');
+      var close = document.getElementById('imgmodalClose');
+      if (!modal || !img) return;
+
+      function open(src, alt) {
+        img.src = src;
+        img.alt = alt || '';
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function shut() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        // Defer clearing src so the close animation isn't visually blank.
+        setTimeout(function () { if (!modal.classList.contains('is-open')) img.src = ''; }, 240);
+      }
+
+      document.querySelectorAll('.wins__card[data-zoom]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var im = btn.querySelector('img');
+          if (!im) return;
+          open(im.currentSrc || im.src, im.alt);
+        });
+      });
+      close.addEventListener('click', shut);
+      modal.addEventListener('click', function (e) {
+        // Click on backdrop (modal itself) or on the image: close. The close button handles its own click above.
+        if (e.target === modal || e.target === img) shut();
+      });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
     })();
   </script>
