@@ -19,6 +19,7 @@ export default async function handler(req, res) {
 
   const body = req.body || {};
   const email = String(body.email || '').trim().slice(0, 200);
+  const firstName = String(body.firstName || '').trim().slice(0, 80);
   const resource = String(body.resource || 'unspecified').trim().slice(0, 80);
 
   if (!isEmail(email)) {
@@ -27,6 +28,7 @@ export default async function handler(req, res) {
 
   const submission = {
     email,
+    firstName,
     resource,
     submittedAt: new Date().toISOString(),
     sourceIp: req.headers['x-forwarded-for'] || null,
@@ -47,6 +49,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         api_key: apiKey,
         email,
+        first_name: firstName || undefined,
         fields: { resource },
       }),
     });

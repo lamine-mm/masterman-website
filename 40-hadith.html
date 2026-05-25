@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>40 Hadith on Manhood — Masterman</title>
+<meta name="description" content="Forty narrations from the Prophet ﷺ on what it means to be a Muslim man. Free PDF.">
+<link rel="stylesheet" href="styles/colors_and_type.css">
+<link rel="stylesheet" href="styles/site.css">
+<style>
+  .lm-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 24px;
+    background: linear-gradient(180deg, #0F0F0E 0%, #121211 100%);
+  }
+  .lm-card {
+    max-width: 620px;
+    width: 100%;
+    text-align: center;
+  }
+  .lm-card .lead-magnet__form {
+    flex-direction: column;
+    max-width: 420px;
+  }
+  .lm-card .lead-magnet__form input {
+    flex: 1;
+    font-family: var(--font-text);
+    font-size: 16px;
+    color: var(--fg);
+    background: #0B0B0A;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 8px;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 180ms var(--ease-standard);
+    width: 100%;
+  }
+  .lm-card .lead-magnet__form input:focus {
+    border-color: rgba(200,162,75,0.55);
+  }
+  .lm-card .lead-magnet__form button {
+    width: 100%;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+<main class="lm-page">
+  <section class="lm-card">
+    <span class="eyebrow">Free PDF</span>
+    <h1 class="lead-magnet__h2">40 Hadith on Manhood.</h1>
+    <p class="lead-magnet__desc">
+      Forty narrations from the Prophet ﷺ on what it means to be a Muslim man — distilled into a clean, printable PDF you can read in one sitting and return to often. Free.
+    </p>
+    <form id="lmForm" class="lead-magnet__form" novalidate>
+      <input id="lmName" type="text" name="firstName" autocomplete="given-name" placeholder="First name" required>
+      <input id="lmEmail" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+      <button type="submit" id="lmBtn" class="btn btn--primary">
+        <span id="lmBtnLabel">Send me the PDF</span>
+        <span class="btn__arrow">&rarr;</span>
+      </button>
+    </form>
+    <p id="lmMsg" class="lead-magnet__msg" role="status"></p>
+    <p class="lead-magnet__hint">No spam &middot; unsubscribe any time</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById('lmForm');
+  var nameInput = document.getElementById('lmName');
+  var emailInput = document.getElementById('lmEmail');
+  var btn = document.getElementById('lmBtn');
+  var btnLabel = document.getElementById('lmBtnLabel');
+  var msg = document.getElementById('lmMsg');
+
+  function setMsg(kind, text) {
+    msg.textContent = text || '';
+    msg.className = 'lead-magnet__msg' + (kind ? ' lead-magnet__msg--' + kind : '');
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var firstName = (nameInput.value || '').trim();
+    var email = (emailInput.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setMsg('error', 'Please enter a valid email.');
+      return;
+    }
+    btn.disabled = true;
+    btnLabel.textContent = 'Sending…';
+    setMsg(null, '');
+    try {
+      var r = await fetch('/api/lead-magnet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, firstName: firstName, resource: '40-hadith-manhood' }),
+      });
+      var data = {};
+      try { data = await r.json(); } catch (_) {}
+      if (r.ok) {
+        setMsg('success', 'Check your inbox — the guide is on its way.');
+        form.reset();
+      } else {
+        setMsg('error', data.error || 'Error (' + r.status + ')');
+      }
+    } catch (err) {
+      setMsg('error', 'Network error — please try again.');
+    } finally {
+      btn.disabled = false;
+      btnLabel.textContent = 'Send me the PDF';
+    }
+  });
+})();
+</script>
+</body>
+</html>
