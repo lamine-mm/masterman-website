@@ -2049,6 +2049,52 @@
     })();
   </script>
 
+  <script>
+    // Cross-domain UTM forwarding: capture attribution from the landing URL,
+    // persist for the session, and append to every apply.mastermangroup.com CTA
+    // so the apply project can read source/medium/campaign on form submit.
+    (function () {
+      var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
+      var STORAGE_KEY = 'mm_attribution';
+
+      function readStored() {
+        try { return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || {}; }
+        catch (e) { return {}; }
+      }
+
+      function writeStored(obj) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); } catch (e) {}
+      }
+
+      // Merge: URL params win over stored, stored wins over nothing.
+      var url = new URL(window.location.href);
+      var stored = readStored();
+      var attribution = {};
+      KEYS.forEach(function (k) {
+        var v = url.searchParams.get(k);
+        if (v) attribution[k] = v;
+        else if (stored[k]) attribution[k] = stored[k];
+      });
+
+      // Defaults for VSL traffic: if nothing identifies the source, assume ads.
+      if (!attribution.utm_source) attribution.utm_source = 'ads';
+      if (!attribution.utm_medium) attribution.utm_medium = 'vsl';
+
+      writeStored(attribution);
+
+      // Rewrite every CTA pointing at apply.mastermangroup.com to carry attribution.
+      document.querySelectorAll('a[href*="apply.mastermangroup.com"]').forEach(function (a) {
+        try {
+          var target = new URL(a.getAttribute('href'), window.location.href);
+          KEYS.forEach(function (k) {
+            if (attribution[k]) target.searchParams.set(k, attribution[k]);
+          });
+          a.setAttribute('href', target.toString());
+        } catch (e) {}
+      });
+    })();
+  </script>
+
   <script src="https://apply.mastermangroup.com/track.js" data-page="vsl-v1" defer></script>
 </body>
 
