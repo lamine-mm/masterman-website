@@ -36,7 +36,6 @@
     background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/3t852txnfg/swatch');
     display: block; filter: blur(5px); padding-top: 56.25%;
   }
-  wistia-player { display: block; width: 100%; }
 
   /* Gold CTA hover (replaces design style-hover) */
   .mm-cta { transition: background .18s cubic-bezier(.2,.7,.2,1), border-color .18s cubic-bezier(.2,.7,.2,1); }
@@ -93,32 +92,21 @@
     </div>
   </div>
 
-  <!-- ============ HERO ============ -->
-  <header style="position:relative;width:100%;min-height:clamp(560px,86vh,920px);display:flex;align-items:flex-end;overflow:hidden;background:#0B0B0A;">
-    <!-- hero image placeholder (full-bleed) — swap for a Blue Mountains / Canada hero image -->
-    <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#141412 0 22px,#121210 22px 44px);display:flex;align-items:center;justify-content:center;">
-      <span style="font-family:'Oswald',sans-serif;font-size:clamp(11px,2.2vw,14px);letter-spacing:0.28em;text-transform:uppercase;color:#4A453C;border:1px dashed #3A2E1F;padding:10px 18px;border-radius:3px;background:rgba(14,14,13,0.4);">Hero Image · 16:9</span>
-    </div>
-    <!-- protection gradient -->
-    <div style="position:absolute;inset:0;background:linear-gradient(to top,#0E0E0D 4%,rgba(14,14,13,0.86) 32%,rgba(14,14,13,0.30) 70%,rgba(14,14,13,0.55) 100%);"></div>
-    <!-- content -->
-    <div style="position:relative;z-index:2;max-width:1120px;width:100%;margin:0 auto;padding:0 clamp(16px,4vw,40px) clamp(40px,6vw,72px);">
-      <h1 style="font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(2.5rem,6.6vw,5.4rem);line-height:0.98;letter-spacing:-0.005em;text-transform:uppercase;color:#F4EFE6;margin:0;max-width:16ch;">4 Days To Reset Your <em style="font-style:italic;color:#C8A24B;font-weight:700;">Identity</em>, Your <em style="font-style:italic;color:#C8A24B;font-weight:700;">Nafs</em>, And Your <em style="font-style:italic;color:#C8A24B;font-weight:700;">Leadership</em> As A Muslim Man.</h1>
-      <p style="font-family:'Inter',sans-serif;font-size:clamp(1rem,2.4vw,1.3rem);line-height:1.55;color:#CFC8BC;margin:22px 0 0;max-width:46ch;">Join Shaykh Abdullah Oduro and the MasterMan team in the Blue Mountains, north of Toronto.</p>
+  <!-- ============ HERO (short headline + VSL above the fold) ============ -->
+  <header style="background:#0E0E0D;padding:clamp(22px,3.5vw,40px) clamp(16px,4vw,40px) clamp(40px,6vw,64px);text-align:center;">
+    <div style="max-width:880px;margin:0 auto;">
+      <h1 style="font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(2rem,5.2vw,3.4rem);line-height:1.0;letter-spacing:-0.005em;text-transform:uppercase;color:#F4EFE6;margin:0;">MasterMan <em style="font-style:italic;color:#C8A24B;font-weight:700;">Canada</em> Retreat</h1>
+      <p style="font-family:'Inter',sans-serif;font-size:clamp(0.98rem,2vw,1.2rem);line-height:1.55;color:#CFC8BC;margin:16px auto 0;max-width:54ch;">Join Shaykh Abdullah Oduro and the MasterMan team in the Blue Mountains, north of Toronto.</p>
+      <div style="max-width:760px;margin:clamp(26px,4vw,40px) auto 0;">
+        <div style="position:relative;width:100%;border:1px solid #2A261E;border-radius:6px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,0.9);">
+          <wistia-player media-id="3t852txnfg" aspect="1.7777777777777777"></wistia-player>
+        </div>
+        <div style="text-align:center;margin-top:clamp(24px,3.5vw,36px);">
+          <a class="mm-cta" data-cta="reserve-hero" href="https://apply.mastermangroup.com/canada" style="display:inline-flex;align-items:center;gap:10px;background:#C8A24B;color:#0E0E0D;font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(14px,2.2vw,16px);letter-spacing:0.14em;text-transform:uppercase;padding:18px 36px;border-radius:4px;text-decoration:none;border:1px solid #C8A24B;">Reserve Your Spot <span style="font-size:18px;">→</span></a>
+        </div>
+      </div>
     </div>
   </header>
-
-  <!-- ============ HERO VIDEO (VSL) ============ -->
-  <section style="background:#0E0E0D;padding:clamp(40px,6vw,72px) clamp(16px,4vw,40px) clamp(24px,4vw,40px);">
-    <div style="max-width:960px;margin:0 auto;">
-      <div style="position:relative;width:100%;border:1px solid #2A261E;border-radius:6px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,0.9);">
-        <wistia-player media-id="3t852txnfg" aspect="1.7777777777777777"></wistia-player>
-      </div>
-      <div style="text-align:center;margin-top:clamp(28px,4vw,40px);">
-        <a class="mm-cta" data-cta="reserve-hero" href="https://apply.mastermangroup.com/canada" style="display:inline-flex;align-items:center;gap:10px;background:#C8A24B;color:#0E0E0D;font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(14px,2.2vw,16px);letter-spacing:0.14em;text-transform:uppercase;padding:18px 36px;border-radius:4px;text-decoration:none;border:1px solid #C8A24B;">Reserve Your Spot <span style="font-size:18px;">→</span></a>
-      </div>
-    </div>
-  </section>
 
   <!-- ============ TESTIMONIALS ============ -->
   <section style="background:#0E0E0D;padding:clamp(56px,9vw,120px) clamp(16px,4vw,40px);border-top:1px solid #1A1814;">
