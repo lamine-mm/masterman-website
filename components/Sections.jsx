@@ -100,19 +100,16 @@ const UrgencyBar = () => {
     return () => io.disconnect();
   }, []);
   return (
-    <div
-      className={`urgency-bar urgency-bar--soldout ${hidden ? 'is-hidden' : ''}`}
-      role="status"
-      aria-live="polite"
+    <a
+      href="retreats.html"
+      className={`urgency-bar ${hidden ? 'is-hidden' : ''}`}
     >
       <span className="urgency-bar__dot" aria-hidden="true" />
       <span className="urgency-bar__text">
-        <strong>Upcoming Retreat</strong>
-        <span className="urgency-bar__sep">·</span>
-        <span className="urgency-bar__spots">Sold Out</span>
+        <strong>Masterman Retreats</strong>
       </span>
-      <span className="urgency-bar__cta">Currently Sold Out</span>
-    </div>
+      <span className="urgency-bar__cta">Explore Retreats<span className="urgency-bar__arrow" aria-hidden="true">→</span></span>
+    </a>
   );
 };
 
@@ -159,13 +156,18 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
                 <span className="nav__menu-name">Retreats</span>
                 <span className="nav__menu-tag">Immersive weekend</span>
               </a>
+              <a href="umrah.html" className="nav__menu-item" role="menuitem">
+                <span className="nav__menu-name">Umrah</span>
+                <span className="nav__menu-tag">Group Umrah 2026</span>
+              </a>
             </div>
           </div>
           <a href="retreats.html" className="nav__link">Retreats</a>
+          <a href="umrah.html" className="nav__link">Umrah</a>
           <a href="media.html" className="nav__link">Media</a>
           <a href="about.html" className="nav__link">About</a>
         </div>
-        <span className="nav__cta nav__cta--disabled" aria-disabled="true">Sold Out</span>
+        <a href="retreats.html" className="nav__cta">Explore Retreats</a>
         <button
           type="button"
           className="nav__burger"
@@ -181,9 +183,10 @@ const Nav = ({ logoPath = 'assets/logo-mark.png' }) => {
       <div className="nav__mobile" role="dialog" aria-hidden={!menuOpen}>
         <a href="programs.html" className="nav__mobile-link" onClick={closeMenu}>Programs</a>
         <a href="retreats.html" className="nav__mobile-link" onClick={closeMenu}>Retreats</a>
+        <a href="umrah.html" className="nav__mobile-link" onClick={closeMenu}>Umrah</a>
         <a href="media.html" className="nav__mobile-link" onClick={closeMenu}>Media</a>
         <a href="about.html" className="nav__mobile-link" onClick={closeMenu}>About</a>
-        <span className="nav__mobile-cta nav__mobile-cta--disabled" aria-disabled="true">Sold Out</span>
+        <a href="retreats.html" className="nav__mobile-cta" onClick={closeMenu}>Explore Retreats</a>
       </div>
     </nav>
   );
@@ -214,19 +217,14 @@ const Hero = ({ variant = 'A' }) => {
       <div className="hero__grain" />
       <div className="wrap">
         <div className="hero__inner">
-          <div className="hero__retreat-pill hero__retreat-pill--soldout" role="status" aria-live="polite">
-            <span className="hero__retreat-pill-dot" aria-hidden="true" />
-            <span className="hero__retreat-pill-label">Upcoming Retreat</span>
-            <span className="hero__retreat-pill-sep">·</span>
-            <span className="hero__retreat-pill-spots">Sold Out</span>
-          </div>
           <span className="eyebrow">Identity · Discipline · Leadership · Brotherhood</span>
           <h1 className="hero__title">{copy.h1}</h1>
           <p className="hero__deck">{copy.deck}</p>
           <div className="hero__cta-row">
-            <button type="button" disabled aria-disabled="true" className="btn btn--primary btn--disabled">
-              Sold Out
-            </button>
+            <a href="retreats.html" className="btn btn--primary">
+              Explore Retreats
+              <span className="btn__arrow">→</span>
+            </a>
             <a href="#method" className="btn btn--ghost">See How It Works</a>
           </div>
         </div>
@@ -486,12 +484,10 @@ const Retreat = () => (
 
       <div className="retreat__upcoming">
         <div>
-          <div className="retreat__up-label">Upcoming</div>
-          <div className="retreat__up-when">June 2026 · Smoky Mountains, Tennessee</div>
+          <div className="retreat__up-label">Retreats</div>
           <p className="retreat__up-desc">Small-group immersion. Identity, discipline, and brotherhood in a high-accountability setting.</p>
-          <div className="retreat__up-capacity retreat__up-capacity--soldout">Sold Out</div>
         </div>
-        <button type="button" disabled aria-disabled="true" className="btn btn--primary btn--disabled">Sold Out</button>
+        <a href="retreats.html" className="btn btn--primary">Explore Retreats<span className="btn__arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -702,7 +698,7 @@ const FinalCTA = () => (
           <p>If that's not you, the free community is the right door. No offense taken. No pressure to move up.</p>
         </div>
         <div className="finalcta__ctas">
-          <button type="button" disabled aria-disabled="true" className="btn btn--primary btn--disabled">Retreat Sold Out</button>
+          <a href="retreats.html" className="btn btn--primary">Explore Retreats<span className="btn__arrow">→</span></a>
           <a href="https://assessment.mastermangroup.com/" target="_blank" rel="noopener" className="btn btn--ghost">Take Free Assessment</a>
           <a href="https://www.skool.com/mastermannation" target="_blank" rel="noopener" className="btn btn--link">Join Nation — Free →</a>
         </div>
@@ -751,7 +747,7 @@ const OFFERINGS = [
     name: 'Retreats',
     tag: 'Immersive weekend',
     desc: 'Step out of the noise. Spiritual grounding, strategy, and brotherhood that holds.',
-    cta: 'Sold Out · See Retreats',
+    cta: 'See Retreats',
     href: 'retreats.html',
     external: false,
   },

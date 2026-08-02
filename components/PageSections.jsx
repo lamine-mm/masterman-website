@@ -38,7 +38,7 @@ const About = () => (
             <div className="founder__role">Founder &amp; Lead Coach</div>
             <p>Abdullah helps Muslim men move from passive intention to structured action. His coaching combines faith-rooted identity work, practical accountability, and brotherhood.</p>
             <p>He is known for direct guidance, high standards, and building environments where men can do real work — on themselves, for their families, and for their communities.</p>
-            <button type="button" disabled aria-disabled="true" className="btn btn--primary btn--disabled">Retreat Sold Out</button>
+            <a href="retreats.html" className="btn btn--primary">Explore Retreats<span className="btn__arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -63,7 +63,6 @@ const RETREAT_TIMELINE = [
   { title: 'Utah–Idaho Retreat',        when: 'Jun 2025 · Q2 2025', location: 'Utah / Idaho', status: 'Completed', img: 'assets/photos/splash/retreat-2025-utah.jpg' },
   { title: 'MasterMan Umrah Retreat',   when: 'Dec 2025 · Q4 2025', location: 'Makkah / Madinah', status: 'Completed', img: 'assets/photos/splash/umrah2025.jpg' },
   { title: 'Pre-Ramadan Retreat 2026',  when: 'Feb 2026 · Q1 2026', location: 'Broken Bow', status: 'Completed', img: 'assets/photos/splash/brokenbow2026.jpg' },
-  { title: 'Smoky Mountains Retreat',   when: 'Jun 2026 · Q2 2026', location: 'Smoky Mountains, Tennessee', status: 'Upcoming', img: null },
   { title: 'To Be Defined',             when: 'Sep 2026 · Q3 2026', location: 'To Be Defined (TBD)', status: 'Upcoming', img: null },
   { title: 'MasterMan Umrah Retreat',   when: 'Q4 2026', location: 'Madinah / Makkah', status: 'Upcoming', img: null },
 ];
