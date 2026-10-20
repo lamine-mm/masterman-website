@@ -52,6 +52,9 @@
   /* Hero */
   .hero { padding: clamp(28px, 4vw, 56px) clamp(16px, 4vw, 40px) clamp(48px, 7vw, 80px); }
   .hero-copy { max-width: 760px; }
+  .hero-photo { margin: 0 0 clamp(24px, 4vw, 36px); border-radius: 8px; overflow: hidden; border: 1px solid #26221B; aspect-ratio: 16/6; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 62%; }
+  @media (max-width: 640px) { .hero-photo { aspect-ratio: 4/3; } }
   .h1 { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; font-size: clamp(2.1rem, 5.2vw, 3.3rem); line-height: 1.1; letter-spacing: -0.025em; color: #F4EFE6; margin: 16px 0 0; }
   .h1 em { font-style: normal; color: #C8A24B; font-weight: 800; }
   .infobox { margin: 22px 0 0; padding: 14px 18px; border: 1px solid #2A261E; border-left: 3px solid #C8A24B; border-radius: 5px; background: #131211; display: inline-block; }
@@ -114,9 +117,10 @@
   .incl-card { background: #161513; border: 1px solid #26221B; border-radius: 6px; padding: 24px; }
   .incl-card h3 { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 18px; color: #F4EFE6; margin: 0; }
   .incl-card ul { list-style: none; padding: 0; margin: 12px 0 0; }
-  .incl-card li { font-size: 15.5px; line-height: 1.55; color: #B8B1A5; margin-top: 9px; padding-left: 24px; position: relative; }
-  .incl-card.yes li::before { content: '✓'; position: absolute; left: 0; color: #C8A24B; font-weight: 700; }
-  .incl-card.no li::before { content: '–'; position: absolute; left: 2px; color: #6E6862; font-weight: 700; }
+  .incl-card li { font-family: 'Inter', system-ui, sans-serif; font-size: 15.5px; line-height: 1.55; color: #B8B1A5; margin-top: 9px; padding-left: 28px; position: relative; }
+  .incl-card li::before { position: absolute; left: 0; top: 0; width: 18px; text-align: center; font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 700; line-height: 1.55; }
+  .incl-card.yes li::before { content: '✓'; color: #C8A24B; }
+  .incl-card.no li::before { content: '✕'; color: #A24B3A; }
 
   .form-sec { background: #121110; }
 
@@ -152,10 +156,11 @@
   <!-- ============ HERO ============ -->
   <header class="hero">
     <div class="wrap">
+      <div class="hero-photo"><img src="assets/photos/tn1.jpg" alt="Shaykh Abdullah Oduro with the brothers at the MasterMan Tennessee retreat" fetchpriority="high"></div>
       <div class="hero-copy">
         <div class="kicker">MasterMan: The Dallas Experience</div>
         <h1 class="h1">One Day In Dallas. <em>Faith, Fitness &amp; Brotherhood.</em></h1>
-        <p class="lead">A full day with Shaykh Abdullah Oduro and a room of Muslim brothers, from Fajr to Isha.</p>
+        <p class="lead">A full day with Shaykh Abdullah Oduro and a group of Muslim brothers, from Fajr to Isha.</p>
         <div class="infobox">
           <b>Dallas, TX&nbsp;&nbsp;·&nbsp;&nbsp;<span style="color:#C8A24B;">Saturday, November 21, 2026</span></b>
           <small>Fajr to after Isha (around 9:00 PM). Flights and hotel not included.</small>
@@ -217,7 +222,7 @@
           <div class="day-img"><img src="assets/photos/gallery-4.jpg" alt="MasterMan brothers standing together" loading="lazy"></div>
           <div class="day-body">
             <div class="day-label">Brotherhood</div>
-            <h3>A Room Of Brothers</h3>
+            <h3>A Group Of Brothers</h3>
             <ul class="ticks">
               <li>Lunch and dinner together</li>
               <li>Time to reflect and connect</li>
@@ -265,7 +270,7 @@
           <ul>
             <li>Travel to and from Dallas</li>
             <li>Transportation to and from the official pickup and drop-off locations</li>
-            <li>Hotel (we share a group rate, see below)</li>
+            <li>Hotel (we send a list of recommended hotels)</li>
             <li>Breakfast</li>
             <li>Personal expenses and anything outside the official program</li>
           </ul>
@@ -278,9 +283,9 @@
   <!-- ============ HOTEL ============ -->
   <section class="sec" id="hotel">
     <div class="wrap">
-      <div class="kicker">Staying Overnight</div>
-      <h2 class="h2">Hotel</h2>
-      <p class="lead">Coming from outside Dallas? We are arranging a group rate at a partner hotel with a free airport shuttle. The hotel details and booking link will be posted here and sent in your confirmation email.</p>
+      <div class="kicker">Hotels</div>
+      <h2 class="h2">Coming From Outside Dallas?</h2>
+      <p class="lead">Our day will begin and end in the Irving/Coppell area of Dallas. Once you register, your confirmation email will include a list of recommended hotels in the area that offer complimentary shuttle service to and from DFW Airport and are conveniently located near our designated pickup and drop-off location.</p>
     </div>
   </section>
 
@@ -305,11 +310,11 @@
       <h2 class="h2" style="text-align:center;">Before You Register</h2>
       <div class="faq">
         <details><summary>When is it?</summary><p>Saturday, November 21, 2026. We start at Fajr and finish after Isha, around 9:00 PM.</p></details>
-        <details><summary>Where is it?</summary><p>Across Dallas: workout spaces, Islamic institutions and community facilities. We move between them together. The official pickup and drop-off locations are sent after you register.</p></details>
-        <details><summary>I don't live in Dallas. Can I come?</summary><p>Yes. You book your own travel. We share a hotel with a group rate and a free airport shuttle.</p></details>
+        <details><summary>Where is it?</summary><p>Across Dallas: workout spaces, Islamic institutions and community facilities. The day begins and ends in the Irving/Coppell area, and we travel between locations together in our vans. The exact pickup and drop-off location is sent after you register.</p></details>
+        <details><summary>I don't live in Dallas. Can I come?</summary><p>Yes. You book your own travel. Once you register, we send you a list of recommended hotels near our pickup and drop-off location in the Irving/Coppell area, with free shuttles to and from DFW Airport.</p></details>
         <details><summary>How much is it?</summary><p>$349 until Sunday, November 1. Then $399. Lunch, dinner, snacks, transport during the day, tours, sessions and workouts are included.</p></details>
         <details><summary>I'm not very fit. Is that a problem?</summary><p>No. Every level is welcome. Your registration answers help us build balanced teams.</p></details>
-        <details><summary>Is it only for married men?</summary><p>No. Single, married or a father, you're welcome.</p></details>
+        <details><summary>Is it only for married men?</summary><p>Not at all! Whether you're single, married, divorced, or otherwise, all men are welcome to join.</p></details>
         <details><summary>What is the refund policy?</summary><p>50% refund if you cancel within 24 hours of booking. No refunds after 24 hours.</p></details>
       </div>
     </div>
