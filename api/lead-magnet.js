@@ -6,10 +6,18 @@
 //   CONVERTKIT_API_KEY      — your ConvertKit v3 API key
 //   CONVERTKIT_SEQUENCE_ID  — the numeric ID of the sequence to subscribe to
 //
+// Optional per-resource sequences (fall back to CONVERTKIT_SEQUENCE_ID when unset):
+//   CONVERTKIT_SEQUENCE_ID_NIGERIA — /nigeria signups (PDF + Inner Circle follow-up)
+//
 // Without CONVERTKIT_API_KEY the function logs the submission so signups
 // captured during setup aren't lost.
 
 const API_BASE = 'https://api.convertkit.com/v3';
+
+// resource value sent by the page → env var holding its own sequence ID
+const RESOURCE_SEQUENCE_ENV = {
+  'nigeria-talk-2026': 'CONVERTKIT_SEQUENCE_ID_NIGERIA',
+};
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -35,7 +43,8 @@ export default async function handler(req, res) {
   };
 
   const apiKey = process.env.CONVERTKIT_API_KEY;
-  const sequenceId = process.env.CONVERTKIT_SEQUENCE_ID;
+  const sequenceId =
+    process.env[RESOURCE_SEQUENCE_ENV[resource]] || process.env.CONVERTKIT_SEQUENCE_ID;
 
   if (!apiKey || !sequenceId) {
     console.log('[lead-magnet] (ConvertKit not configured) submission:', JSON.stringify(submission));

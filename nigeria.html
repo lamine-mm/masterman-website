@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MasterMan Nigeria | A Gift From Shaykh Abdullah Oduro</title>
+<meta name="description" content="For the brothers in Nigeria: 40 Hadith on Manhood, free from Shaykh Abdullah Oduro and MasterMan.">
+<link rel="icon" href="assets/logo-mark.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MasterMan Nigeria">
+<meta property="og:description" content="For the brothers in Nigeria: 40 Hadith on Manhood, free from Shaykh Abdullah Oduro.">
+<meta property="og:image" content="https://www.mastermangroup.com/assets/photos/gallery-4.jpg">
+<meta property="og:url" content="https://mastermangroup.com/nigeria">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; background: #0E0E0D; }
+  body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-family: 'Inter', system-ui, sans-serif; color: #F4EFE6; overflow-x: hidden; }
+  ::selection { background: #C8A24B; color: #0E0E0D; }
+  img { max-width: 100%; display: block; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  .sec { padding: clamp(52px, 8vw, 104px) clamp(16px, 4vw, 40px); border-top: 1px solid #1A1814; }
+  .kicker { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #C8A24B; }
+  .h2 { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: clamp(1.7rem, 4.4vw, 2.6rem); line-height: 1.14; letter-spacing: -0.02em; color: #F4EFE6; margin: 14px 0 0; }
+  .lead { font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.6; color: #CFC8BC; margin: 16px 0 0; max-width: 62ch; }
+
+  .mm-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #C8A24B; color: #0E0E0D; font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(14px, 2.2vw, 16px); letter-spacing: 0.14em; text-transform: uppercase; padding: 18px 30px; border-radius: 4px; text-decoration: none; border: 1px solid #C8A24B; cursor: pointer; transition: background .18s cubic-bezier(.2,.7,.2,1), border-color .18s cubic-bezier(.2,.7,.2,1); }
+  .mm-cta:hover { background: #B8923A; border-color: #B8923A; }
+  .mm-cta:disabled { opacity: .6; cursor: default; }
+  .mm-cta--sm { font-size: 13px; padding: 12px 18px; white-space: nowrap; }
+
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(16px, 4vw, 40px); background: rgba(12,12,11,0.82); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid rgba(200,162,75,0.22); }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .brand img { height: 30px; width: auto; }
+  .brand span { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 19px; letter-spacing: 0.22em; color: #F4EFE6; line-height: 1; }
+
+  .eyebrow { background: #121211; border-bottom: 1px solid #211E18; text-align: center; padding: 13px 20px; }
+  .eyebrow span { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: clamp(10px, 2.4vw, 12.5px); letter-spacing: 0.16em; text-transform: uppercase; color: #C8A24B; line-height: 1.7; }
+
+  /* Hero: the form sits in the first screen, people arrive from a QR scan on a phone */
+  .hero { padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 40px) clamp(48px, 7vw, 80px); }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(28px, 5vw, 56px); align-items: center; }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero-photo { display: none; } }
+  .h1 { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; font-size: clamp(2rem, 5.2vw, 3.1rem); line-height: 1.1; letter-spacing: -0.025em; color: #F4EFE6; margin: 16px 0 0; }
+  .h1 em { font-style: normal; color: #C8A24B; }
+  .hero-photo { border-radius: 8px; overflow: hidden; border: 1px solid #26221B; aspect-ratio: 4/5; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  .gift { margin-top: 26px; background: #161513; border: 1px solid #4A3E28; border-radius: 8px; padding: clamp(20px, 4vw, 28px); max-width: 480px; }
+  .gift-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 18px; color: #F4EFE6; margin: 0; }
+  .gift-sub { font-size: 14.5px; line-height: 1.55; color: #A9A39A; margin: 6px 0 0; }
+  .gift form { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .gift input { font-family: 'Inter', system-ui, sans-serif; font-size: 16px; color: #F4EFE6; background: #0B0B0A; border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 14px 16px; outline: none; width: 100%; transition: border-color .18s; }
+  .gift input:focus { border-color: rgba(200,162,75,0.6); }
+  .gift .mm-cta { width: 100%; margin-top: 4px; }
+  .msg { font-size: 14.5px; line-height: 1.5; margin: 12px 0 0; min-height: 0; }
+  .msg--success { color: #9FC48A; }
+  .msg--error { color: #E08B76; }
+  .fine { font-size: 12.5px; color: #8A847A; margin: 10px 0 0; letter-spacing: 0.02em; }
+
+  /* Alumni */
+  .alumni { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 2vw, 18px); margin-top: clamp(28px, 4vw, 40px); max-width: 760px; }
+  .alum { margin: 0; border-radius: 6px; overflow: hidden; border: 1px solid #26221B; aspect-ratio: 3/4; }
+  .alum img { width: 100%; height: 100%; object-fit: cover; }
+  .alum-cap { font-family: 'Fraunces', Georgia, serif; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A847A; margin: 14px 0 0; }
+
+  /* Host */
+  .host { display: grid; grid-template-columns: 220px 1fr; gap: clamp(22px, 4vw, 40px); align-items: center; }
+  @media (max-width: 640px) { .host { grid-template-columns: 1fr; } .host-photo { max-width: 180px; } }
+  .host-photo { border-radius: 8px; overflow: hidden; border: 1px solid #26221B; aspect-ratio: 1; }
+  .host-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  footer { background: #0B0B0A; border-top: 1px solid #1A1814; padding: clamp(32px, 5vw, 48px) clamp(16px, 4vw, 40px); }
+  footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+
+  @media (max-width: 420px) {
+    .brand span { font-size: 16px; letter-spacing: 0.18em; }
+    .mm-cta--sm { padding: 10px 14px; font-size: 12px; letter-spacing: 0.1em; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav">
+    <a href="#top" class="brand">
+      <img src="assets/logo-mark.png" alt="MasterMan">
+      <span>MASTERMAN</span>
+    </a>
+    <a class="mm-cta mm-cta--sm" data-cta="gift-nav" href="#gift">Free PDF <span>→</span></a>
+  </nav>
+
+  <div id="top" class="eyebrow">
+    <span>Nigeria&nbsp;&nbsp;·&nbsp;&nbsp;With Shaykh Abdullah Oduro</span>
+  </div>
+
+  <!-- ============ HERO + GIFT ============ -->
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <div class="kicker">Assalamu Alaikum, Nigeria</div>
+        <h1 class="h1">Thank you for being in the room. <em>Here's your next step.</em></h1>
+        <p class="lead">A gift from Shaykh Abdullah to every brother who was there: forty narrations from the Prophet ﷺ on what it means to be a Muslim man.</p>
+
+        <div class="gift" id="gift" style="scroll-margin-top:84px;">
+          <p class="gift-title">40 Hadith on Manhood</p>
+          <p class="gift-sub">Free PDF, sent to your email.</p>
+          <form id="lmForm" novalidate>
+            <input id="lmName" type="text" name="firstName" autocomplete="given-name" placeholder="First name" required>
+            <input id="lmEmail" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+            <button type="submit" id="lmBtn" class="mm-cta" data-cta="gift-submit">
+              <span id="lmBtnLabel">Send Me The PDF</span> <span>→</span>
+            </button>
+          </form>
+          <p id="lmMsg" class="msg" role="status"></p>
+          <p class="fine">Free · No spam · Unsubscribe any time</p>
+        </div>
+      </div>
+      <div class="hero-photo"><img src="assets/photos/gallery-4.jpg" alt="MasterMan brothers standing together at a retreat" fetchpriority="high"></div>
+    </div>
+  </header>
+
+  <!-- ============ NIGERIAN ALUMNI ============ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="kicker">From Sokoto To Tennessee</div>
+      <h2 class="h2">Brothers From Nigeria Have Already Been In The Room</h2>
+      <p class="lead">Abubakar and Walid travelled from Sokoto to the MasterMan Tennessee Retreat in June 2026 to pray, train and build with brothers from around the world.</p>
+      <div class="alumni">
+        <figure class="alum"><img src="assets/photos/nigeria/sokoto-1.webp" alt="MasterMan brother from Sokoto, Nigeria, in traditional dress" loading="lazy" style="object-position:center 15%;"></figure>
+        <figure class="alum"><img src="assets/photos/nigeria/sokoto-2.webp" alt="MasterMan brother from Sokoto, Nigeria, in traditional dress" loading="lazy"></figure>
+      </div>
+      <p class="alum-cap">Tennessee Retreat&nbsp;&nbsp;·&nbsp;&nbsp;June 2026</p>
+    </div>
+  </section>
+
+  <!-- ============ HOST ============ -->
+  <section class="sec">
+    <div class="wrap host">
+      <div class="host-photo"><img src="assets/photos/shk_oduro.webp" alt="Shaykh Abdullah Oduro" loading="lazy"></div>
+      <div>
+        <div class="kicker">About MasterMan</div>
+        <h2 class="h2">Faith, Fitness &amp; Brotherhood</h2>
+        <p class="lead">MasterMan is a brotherhood for Muslim men led by Shaykh Abdullah Oduro. We help men grow closer to Allah, take care of their bodies, and lead their families, with brothers who hold the same standard.</p>
+        <div style="margin-top:26px;">
+          <a class="mm-cta" data-cta="gift-bottom" href="#gift">Get The Free PDF <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <a href="/" class="brand">
+        <img src="assets/logo-mark.png" alt="MasterMan" style="height:26px;">
+        <span style="font-size:17px;">MASTERMAN</span>
+      </a>
+      <span style="font-size:12.5px;letter-spacing:0.04em;color:#6E6862;">© 2026 MasterMan · mastermangroup.com</span>
+    </div>
+  </footer>
+
+<script>
+/* Lead magnet: same endpoint as /40-hadith, tagged so Nigeria signups can be
+   pulled out in Kit later. On success the visitor goes to /nigeria-thanks,
+   which carries the next steps (Nation, then a quiet Inner Circle line). */
+(function () {
+  var form = document.getElementById('lmForm');
+  var nameInput = document.getElementById('lmName');
+  var emailInput = document.getElementById('lmEmail');
+  var btn = document.getElementById('lmBtn');
+  var btnLabel = document.getElementById('lmBtnLabel');
+  var msg = document.getElementById('lmMsg');
+
+  function setMsg(kind, text) {
+    msg.textContent = text || '';
+    msg.className = 'msg' + (kind ? ' msg--' + kind : '');
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var firstName = (nameInput.value || '').trim();
+    var email = (emailInput.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setMsg('error', 'Please enter a valid email.');
+      return;
+    }
+    btn.disabled = true;
+    btnLabel.textContent = 'Sending…';
+    setMsg(null, '');
+    try {
+      var r = await fetch('/api/lead-magnet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, firstName: firstName, resource: 'nigeria-talk-2026' }),
+      });
+      var data = {};
+      try { data = await r.json(); } catch (_) {}
+      if (r.ok) {
+        // Button stays disabled while the browser navigates away.
+        try { sessionStorage.setItem('mm_first_name', firstName); } catch (_) {}
+        window.location.href = '/nigeria-thanks' + window.location.search;
+        return;
+      }
+      setMsg('error', data.error || 'Error (' + r.status + ')');
+    } catch (err) {
+      setMsg('error', 'Network error, please try again.');
+    }
+    btn.disabled = false;
+    btnLabel.textContent = 'Send Me The PDF';
+  });
+})();
+</script>
+
+</body>
+</html>
