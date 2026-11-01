@@ -75,10 +75,8 @@
   .alum img { width: 100%; height: 100%; object-fit: cover; }
   .alum-cap { font-family: 'Fraunces', Georgia, serif; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A847A; margin: 14px 0 0; }
   .vids { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: clamp(24px, 4vw, 36px); }
-  .vid { position: relative; aspect-ratio: 16/9; border: 1px solid #26221B; border-radius: 6px; overflow: hidden; background: #000; }
+  .vid { position: relative; aspect-ratio: 4/3; border: 1px solid #26221B; border-radius: 6px; overflow: hidden; background: #000; }
   .vid iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
-  .vid-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #131211; font-family: 'Fraunces', Georgia, serif; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A847A; }
-  .vid-play { width: 56px; height: 56px; border-radius: 50%; border: 1.5px solid #C8A24B; color: #C8A24B; display: flex; align-items: center; justify-content: center; font-size: 18px; padding-left: 4px; }
 
   /* Host */
   .host { display: grid; grid-template-columns: 220px 1fr; gap: clamp(22px, 4vw, 40px); align-items: center; }
@@ -148,12 +146,9 @@
       </div>
       <p class="alum-cap">Tennessee Retreat&nbsp;&nbsp;·&nbsp;&nbsp;June 2026</p>
 
-      <!-- Video testimonials. To add one, replace the placeholder div with:
-           <iframe src="https://www.loom.com/embed/VIDEO_ID" title="Brother from Sokoto on the Tennessee Retreat" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
-           (YouTube works too: https://www.youtube.com/embed/VIDEO_ID) -->
       <div class="vids">
-        <div class="vid"><div class="vid-ph"><span class="vid-play" aria-hidden="true">▶</span>Video coming soon</div></div>
-        <div class="vid"><div class="vid-ph"><span class="vid-play" aria-hidden="true">▶</span>Video coming soon</div></div>
+        <div class="vid"><iframe src="https://www.loom.com/embed/a81428410dff47bb959651f197d3665f" title="MasterMan retreat testimonial" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+        <div class="vid"><iframe src="https://www.loom.com/embed/0a9680c6d169444fb7ecd10b6744c2f8" title="MasterMan retreat testimonial" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
       </div>
     </div>
   </section>
